@@ -8,13 +8,18 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ResearchPage } from '../pages/research/research';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
 import { ReportProvider } from '../providers/report/report';
+
+import { MyTabsPage } from '../pages/my-tabs/my-tabs';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    MyTabsPage,
+    ResearchPage,
     ReportDetailsPage
   ],
   imports: [
@@ -26,6 +31,8 @@ import { ReportProvider } from '../providers/report/report';
   entryComponents: [
     ReportDetailsPage,
     MyApp,
+    MyTabsPage,
+    ResearchPage,
     HomePage
   ],
   providers: [
