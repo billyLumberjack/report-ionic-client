@@ -6,19 +6,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list *ngIf="reportList">
+<ion-content no-padding>
 
-<!--
-    <ion-item  text-wrap *ngFor="let key of JSObject.keys(displayReport)">
-      <p>{{key}}</p>
-      <h2>{{displayReport[key]}}</h2>    
-    </ion-item >  
--->
+    <ion-card *ngFor="let report of reportList" (click)="itemSelected(report)">
+      <img src="http://lorempixel.com/400/200/sports/" />
+      <ion-card-content>
 
-    <button ion-item text-wrap *ngFor="let report of reportList" (click)="itemSelected(report)">
-    <h2>{{ report.TripName }}</h2>
-    <p>{{report.ReadableDate}}</p>
-    </button>  
-  </ion-list>
+        <ion-row>
+          <ion-card-title>
+            <h2>{{ report.TripName }}</h2>
+          </ion-card-title>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col no-padding text-left>{{report.Region}}</ion-col>
+          <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
+          <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
+          <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>

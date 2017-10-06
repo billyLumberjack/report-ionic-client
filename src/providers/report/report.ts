@@ -19,7 +19,8 @@ url;
   }
 
   getReportsBetweenDates(init, end){
-  	//https://th6xzuilxk.execute-api.eu-central-1.amazonaws.com/dev/report?fromDate=1490095805000&toDate=1506940205000
+    //https://th6xzuilxk.execute-api.eu-central-1.amazonaws.com/dev/report?fromDate=1490095805000&toDate=1506940205000
+    this.url = "https://th6xzuilxk.execute-api.eu-central-1.amazonaws.com/dev/report";
   	this.url += ( "?fromDate=" + init + "&toDate=" + end );
   	return this.http.get(this.url).map(res => res.json());
   }

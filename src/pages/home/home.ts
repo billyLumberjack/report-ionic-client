@@ -9,34 +9,55 @@ import { ReportDetailsPage } from '../../pages/report-details/report-details';
 })
 export class HomePage {
 
-  reportList:any;
+  reportList: any = [];
+  from: number;
+  to: number;
 
-  constructor(public navCtrl: NavController, private reportProvider:ReportProvider) {
-    
+  eightWeeksMilliseconds: number = 4838400000;
+
+  constructor(public navCtrl: NavController, private reportProvider: ReportProvider) {
+    this.to = new Date().getTime();
+    this.from = this.to - this.eightWeeksMilliseconds;
   }
 
-  ionViewWillEnter(){
-    
-    this.reportProvider.getReportsBetweenDates(1490095805000,1506940205000).subscribe(data =>{
+  ionViewWillEnter() {
+    this.populateList(null);
+  }
 
-      this.reportList = data;
+  doInfinite(infiniteScroll) {
+    this.to = this.from;
+    this.from = this.to - this.eightWeeksMilliseconds;
+    this.populateList(infiniteScroll);
+  }
 
-      this.reportList.sort(function(a, b){
-        return b.Date-a.Date
-      });
+  populateList(is) {
+    this.reportProvider.getReportsBetweenDates(this.from, this.to).subscribe(data => {
 
-      console.log(this.reportList[0].TripName);
+      if (data.length != 0) {
 
-      this.reportList.forEach(function(item, index){
-        item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
-      });
+        data.sort(function (a, b) {
+          return b.Date - a.Date
+        });
+
+        data.forEach(function (item, index) {
+          item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
+        });
+
+        this.reportList = this.reportList.concat(data);
+
+        if (is != null)
+          is.complete();
+      }
+      else if (is != null) {
+        is.complete();
+        is.enable(false);
+      }
 
 
     });
-
   }
 
-  itemSelected(obj){
+  itemSelected(obj) {
     this.navCtrl.push(ReportDetailsPage, {
       report: obj
     });
