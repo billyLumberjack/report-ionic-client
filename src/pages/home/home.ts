@@ -10,52 +10,51 @@ import { ReportDetailsPage } from '../../pages/report-details/report-details';
 export class HomePage {
 
   reportList: any = [];
-  from: number;
-  to: number;
-
-  eightWeeksMilliseconds: number = 4838400000;
+  lastKey = {};
 
   constructor(public navCtrl: NavController, private reportProvider: ReportProvider) {
-    this.to = new Date().getTime();
-    this.from = this.to - this.eightWeeksMilliseconds;
   }
 
   ionViewWillEnter() {
-    this.populateList(null);
+    this.populateList(null,null);
   }
 
   doInfinite(infiniteScroll) {
-    this.to = this.from;
-    this.from = this.to - this.eightWeeksMilliseconds;
-    this.populateList(infiniteScroll);
+    this.populateList(this.lastKey,infiniteScroll);
   }
 
-  populateList(is) {
-    this.reportProvider.getReportsBetweenDates(this.from, this.to).subscribe(data => {
+  populateList(lk, is) {
 
-      if (data.length != 0) {
 
-        data.sort(function (a, b) {
-          return b.Date - a.Date
-        });
+    return this.reportProvider.getLastReports(20,lk).subscribe(data => {
+      
+      var arr = data.Items;
+      
+      console.log("LAST KEY", JSON.stringify(data.LastEvaluatedKey));
+      
+      if(data.LastEvaluatedKey == undefined){
+        console.log("IS DISABLED");
+        is.complete();
+        is.enable(false);
+      }else{
+        this.lastKey = data.LastEvaluatedKey;
+      }
 
-        data.forEach(function (item, index) {
+      arr.forEach(function (item, index) {
           item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
         });
 
-        this.reportList = this.reportList.concat(data);
+        for(var item in arr){
+          if(this.reportList.includes(item))
+            console.log("AAAAAAAAAAAAAAAAAAAA");
+        }
+
+        this.reportList = this.reportList.concat(arr);
 
         if (is != null)
           is.complete();
-      }
-      else if (is != null) {
-        is.complete();
-        is.enable(false);
-      }
-
-
-    });
-  }
+  });
+}
 
   itemSelected(obj) {
     this.navCtrl.push(ReportDetailsPage, {

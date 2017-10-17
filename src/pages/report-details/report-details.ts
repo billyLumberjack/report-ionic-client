@@ -17,7 +17,7 @@ export class ReportDetailsPage {
 
 	report = null;
   displayReport = {};
-  hiddenFields = ["Date", "OnsiteId", "SearchTripName", "Type", "Id", "TripName"];
+  hiddenFields = ["Date", "OnsiteId", "SearchTripName", "Type", "Id", "TripName", "ImagesUrl"];
 	private JSObject = Object;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

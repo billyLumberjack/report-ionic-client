@@ -9,7 +9,14 @@
 <ion-content no-padding>
 
     <ion-card *ngFor="let report of reportList" (click)="itemSelected(report)">
-      <img src="http://lorempixel.com/400/200/nature/" />
+
+      <ion-slides> <!--[options]="mySlideOptions"> -->
+        <ion-slide *ngFor="let url of report.Images">
+          <img [src]="url">
+        </ion-slide>
+      </ion-slides>
+
+      <!--<img src="http://lorempixel.com/400/200/nature/" />-->
       <ion-card-content>
 
         <ion-row>
