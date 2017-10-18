@@ -5,24 +5,33 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>
-    {{report.TripName}}
-  </ion-title>
-  
+      {{report.TripName}}
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
 
-  <ion-list *ngIf="displayReport">
-  	<ion-item  text-wrap *ngFor="let key of JSObject.keys(displayReport)">
-      <p>{{key}}</p>
-      <h2>{{displayReport[key]}}</h2>    
-  	</ion-item >
+  <ion-list *ngIf="report">
+    <div *ngFor="let key of fieldsToShow">
+      <ion-item text-wrap *ngIf="report[key]">
+        <p>{{key}}</p>
+        <h2>{{report[key]}}</h2>
+      </ion-item>
+    </div>
+
+    <div *ngIf="report.Images">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of report.Images">
+              <img class="image-container" [src]="image" imageViewer/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </div>
   </ion-list>
 
 </ion-content>

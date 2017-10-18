@@ -43,12 +43,12 @@ export class HomePage {
       arr.forEach(function (item, index) {
           item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
         });
-
+/*
         for(var item in arr){
           if(this.reportList.includes(item))
             console.log("AAAAAAAAAAAAAAAAAAAA");
         }
-
+*/
         this.reportList = this.reportList.concat(arr);
 
         if (is != null)
