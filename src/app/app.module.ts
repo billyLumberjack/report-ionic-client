@@ -5,19 +5,21 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HttpModule, Http } from '@angular/http';
-
+//pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ResearchPage } from '../pages/research/research';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
+//providers
 import { ReportProvider } from '../providers/report/report';
 
 // Multilanguage
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { MyTabsPage } from '../pages/my-tabs/my-tabs';
+
+import { Topos_slides } from '../pages/topos_slides/topos_slides';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,12 +32,14 @@ export function createTranslateLoader(http: Http) {
     HomePage,
     MyTabsPage,
     ResearchPage,
-    ReportDetailsPage
+    ReportDetailsPage,
+    Topos_slides
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    IonicImageViewerModule,
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages: true,
+    }),
     HttpModule,
     TranslateModule.forRoot({
       loader: {
@@ -51,7 +55,8 @@ export function createTranslateLoader(http: Http) {
     MyApp,
     MyTabsPage,
     ResearchPage,
-    HomePage
+    HomePage,
+    Topos_slides
   ],
   providers: [
     StatusBar,

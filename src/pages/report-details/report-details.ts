@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Topos_slides} from '../topos_slides/topos_slides';
 
 /**
  * Generated class for the ReportDetailsPage page.
@@ -64,6 +65,14 @@ export class ReportDetailsPage {
   }
 
   ionViewDidLoad() {}
+
+  gotoSlide(i){
+    console.log("click",i);
+    this.navCtrl.push(Topos_slides,{
+      index:i,
+      images:this.report.Images
+    }); 
+  }
 
 
 }

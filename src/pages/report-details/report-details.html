@@ -26,8 +26,8 @@
     <div *ngIf="report.Images">
         <ion-grid>
           <ion-row>
-            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of report.Images">
-              <img class="image-container" [src]="image" imageViewer/>
+            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of report.Images; let idx = index">
+              <img class="image-container" (click)="gotoSlide(idx)" [src]="image" /><!--imageViewer/>-->
             </ion-col>
           </ion-row>
         </ion-grid>
