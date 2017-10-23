@@ -15,7 +15,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, private reportProvider: ReportProvider) {
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.populateList(null,null);
   }
 
