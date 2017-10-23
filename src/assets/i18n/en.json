@@ -1,4 +1,32 @@
 {
-    "HELLO": "hi",
-    "MANNA":"manna"
+    "TAB-BAR":{
+        "LIST":"List",
+        "SEARCH":"Search"
+    },
+    "HOME":{
+        "TITLE":"Last Reports"
+    },
+    "DETAILS":{
+        "Region":"Region",
+        "StartingFrom":"Starting place",
+        "StartingValley":"Starting valley",
+        "StartingAltitude":"Elevation min",
+        "Grade":"Difficulty",
+        "ElevationGain":"Height difference",
+        "EndAltitude":"Elevation max",
+        "UphillSide":"Uphill Orientation",
+        "DownhillSide":"Downhill Orientation",
+        "SnowRate":"Snow Rate",
+        "MainSnowType":"Main Snow Type",
+        "OtherSnowType":"Other Snow Type",
+        "AvalancheRisk":"Avalanche Risk",
+        "SnowComment":"Snow Comment",
+        "SnowDescription":"Snow Description",
+        "TripRate":"Trip Rate",
+        "TripComment":"Trip Comment",
+        "TripDescription":"Trip Description",
+        "LinkedTrip":"Linked Trip",
+        "Site":"Source",
+        "User":"User"
+    }
 }
