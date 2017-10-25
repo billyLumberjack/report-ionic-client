@@ -4,7 +4,8 @@
         "SEARCH":"Search"
     },
     "HOME":{
-        "TITLE":"Last Reports"
+        "TITLE":"Last Reports",
+        "SEARCH-PLACEHOLDER":"Search"
     },
     "DETAILS":{
         "Region":"Region",

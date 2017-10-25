@@ -4,7 +4,8 @@
         "SEARCH":"Cerca"
     },
     "HOME":{
-        "TITLE":"Ultimi Report"
+        "TITLE":"Ultimi Report",
+        "SEARCH-PLACEHOLDER":"Cerca"
     },
     "DETAILS":{
         "Region":"Regione",

@@ -1,39 +1,72 @@
 <ion-header>
+  
   <ion-navbar>
-      <ion-title>{{ 'HOME.TITLE' | translate }}</ion-title>
+
+      <ion-title [class.hidden]="!hideToolbar">{{ 'HOME.TITLE' | translate }}</ion-title>
+
+      <ion-buttons right [class.hidden]="!hideToolbar">
+        <button ion-button icon-only (click)="searchBtnClick();">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons>
+
+      <ion-toolbar [class.hidden]="hideToolbar">
+        
+              <ion-searchbar 
+              (ionBlur)="onSearchbarCancel($event)"
+              [animated]="false"
+              [showCancelButton]="false"
+              [placeholder]=" 'HOME.SEARCH-PLACEHOLDER' | translate "
+              [(ngModel)]="searchbarInput"
+              (ionInput)="onSearchbarInput($event)"
+              (ionCancel)="onSearchbarCancel($event)"
+              #searchbarElement
+              >
+              </ion-searchbar>
+              
+              <ion-buttons right >
+                  <button ion-button icon-only (click)="gotoAdvancedSearch()">
+                      <ion-icon name="more"></ion-icon>            
+                    </button>
+                </ion-buttons>
+              
+              
+          </ion-toolbar>
+      
   </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
 
-    <ion-card *ngFor="let report of reportList" (click)="itemSelected(report)">
+  <ion-card *ngFor="let report of reportList" (click)="itemSelected(report)">
 
-      <ion-slides> <!--[options]="mySlideOptions"> -->
-        <ion-slide *ngFor="let url of report.Images">
-          <img [src]="url">
-        </ion-slide>
-      </ion-slides>
+    <ion-slides>
+      <!--[options]="mySlideOptions"> -->
+      <ion-slide *ngFor="let url of report.Images">
+        <img [src]="url">
+      </ion-slide>
+    </ion-slides>
 
-      <!--<img src="http://lorempixel.com/400/200/nature/" />-->
-      <ion-card-content>
+    <!--<img src="http://lorempixel.com/400/200/nature/" />-->
+    <ion-card-content>
 
-        <ion-row>
-          <ion-card-title>
-            <h2>{{ report.TripName }}</h2>
-          </ion-card-title>
-        </ion-row>
-        
-        <ion-row>
-          <ion-col no-padding text-left>{{report.Region}}</ion-col>
-          <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
-          <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
-          <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
-        </ion-row>
+      <ion-row>
+        <ion-card-title>
+          <h2>{{ report.TripName }}</h2>
+        </ion-card-title>
+      </ion-row>
 
-      </ion-card-content>
-    </ion-card>
+      <ion-row>
+        <ion-col no-padding text-left>{{report.Region}}</ion-col>
+        <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
+        <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
+        <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
+      </ion-row>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hideToolbar">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
