@@ -1,7 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
-import { NavController, Keyboard} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Keyboard } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
+import { ResearchPage } from '../../pages/research/research';
 
 @Component({
   selector: 'page-home',
@@ -17,46 +18,42 @@ export class HomePage {
 
   ionViewDidLoad() {
     //window.addEventListener('native.keyboardhide', this.keyboardHideHandler);
-
-    this.populateList(null,null);
+    this.navCtrl.push(ResearchPage);
+    this.populateList(null, null);
   }
 
   doInfinite(infiniteScroll) {
-    this.populateList(this.lastKey,infiniteScroll);
+    this.populateList(this.lastKey, infiniteScroll);
   }
 
   populateList(lk, is) {
 
 
-    return this.reportProvider.getLastReports(20,lk).subscribe(data => {
-      
+    return this.reportProvider.getLastReports(20, lk).subscribe(data => {
+
       var arr = data.Items;
-      
+
       console.log("LAST KEY", JSON.stringify(data.LastEvaluatedKey));
-      
-      if(data.LastEvaluatedKey == undefined){
+
+      if (data.LastEvaluatedKey == undefined) {
         console.log("IS DISABLED");
         is.complete();
         is.enable(false);
-      }else{
+      } else {
         this.lastKey = data.LastEvaluatedKey;
       }
 
       arr.forEach(function (item, index) {
-          item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
-        });
-/*
-        for(var item in arr){
-          if(this.reportList.includes(item))
-            console.log("AAAAAAAAAAAAAAAAAAAA");
-        }
-*/
-        this.reportList = this.reportList.concat(arr);
+        item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
+      });
+      
+      this.reportList = this.reportList.concat(arr);
+      this.oldReportList = this.reportList;
 
-        if (is != null)
-          is.complete();
-  });
-}
+      if (is != null)
+        is.complete();
+    });
+  }
 
   itemSelected(obj) {
     this.navCtrl.push(ReportDetailsPage, {
@@ -65,38 +62,37 @@ export class HomePage {
   }
 
   // search section
-  searchbarInput:string;
+  searchbarInput: string;
   hideToolbar: boolean = true;
-  oldReportList:Array<any>;
-  
-   @ViewChild('searchbarElement') mySearchbar;
+  oldReportList: Array<any>;
 
-  searchBtnClick(){
-    this.oldReportList = this.reportList;
+  @ViewChild('searchbarElement') mySearchbar;
+
+  searchBtnClick() {
     this.hideToolbar = false;
 
-    setInterval(() => {
-      this.mySearchbar.setFocus();
-
-
-    },200);
+    //setInterval(() => {
+    //  this.mySearchbar.setFocus();
+    //}, 200);
   }
 
-  
+  gotoAdvancedSearch() {
+    this.navCtrl.push(ResearchPage);
+  }
 
-  onSearchbarCancel(){
+  onSearchbarCancel() {
     this.hideToolbar = true;
   }
 
-  onSearchbarInput(ev){
+  onSearchbarInput(ev) {
     this.reportList = this.oldReportList
 
     let val = ev.target.value;
-    console.log("VAL",val);
+    console.log("VAL", val);
 
     if (val && val.trim() !== '') {
-      this.reportList = this.reportList.filter(function(item) {
-        if(item.SearchTripName != undefined && item.SearchTripName.includes(val.toLowerCase())){
+      this.reportList = this.reportList.filter(function (item) {
+        if (item.SearchTripName != undefined && item.SearchTripName.includes(val.toLowerCase())) {
           return item;
         }
       });

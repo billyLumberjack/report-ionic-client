@@ -15,6 +15,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ResearchPage {
 
+  structure: any = {lower: 33, upper: 60};
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

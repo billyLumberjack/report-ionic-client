@@ -7,6 +7,17 @@
         "TITLE":"Ultimi Report",
         "SEARCH-PLACEHOLDER":"Cerca"
     },
+    "SEARCH":{
+        "TITLE":"Ricerca Avanzata",
+        "REGION":"Regione",
+        "STARTING-FROM":"Punto di Partenza",
+        "STARTING-FROM-ALTITUDE":"Quota di Partenza",
+        "END-ALTITUDE":"Quota di Arrivo",
+        "GRADE":"Difficoltà",
+        "SIDE":"Versante",
+        "UPHILL":"Salita",
+        "DOWNHILL":"Discesa"
+    },
     "DETAILS":{
         "Region":"Regione",
         "StartingFrom":"Partendo da",
