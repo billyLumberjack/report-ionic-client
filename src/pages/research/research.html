@@ -14,56 +14,71 @@
 
 
 
-<ion-content>
-  <ion-list>
+<ion-content >
+  <ion-list *ngIf="vocabulary">
+
+
+      <ion-item>
+          <ion-label stacked>{{ 'SEARCH.TRIP-NAME' | translate }}</ion-label>
+          <ion-input type="text" [(ngModel)]="trip_name"></ion-input>
+        </ion-item>    
 
     <ion-item>
       <ion-label stacked>{{ 'SEARCH.REGION' | translate }}</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="region"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>{{ 'SEARCH.STARTING-FROM' | translate }}</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="text" [(ngModel)]="starting_from"></ion-input>
     </ion-item>
+
+    <ion-row>
+        <ion-col col-12>
+          <ion-label stacked>{{ 'SEARCH.DATE' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>{{ 'SEARCH.FROM' | translate }}</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY" min="1990-02" max="2010-10" [(ngModel)]="webkitReleased"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>{{ 'SEARCH.TO' | translate }}</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY" min="1990-02" max="2010-10" [(ngModel)]="webkitReleased"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>      
 
     <ion-list-header>
       <ion-label stacked>{{ 'SEARCH.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
-      <ion-badge item-end color="">{{structure.lower}}</ion-badge>
-      <ion-badge item-end color="">{{structure.upper}}</ion-badge>
+
+      <ion-badge item-end class="badge-class">{{starting_from_altitude.lower}}</ion-badge>
+      <ion-badge item-end class="badge-class">-</ion-badge>
+      <ion-badge item-end class="badge-class">{{starting_from_altitude.upper}}</ion-badge>
+
     </ion-list-header>
     <ion-item>
-      <ion-range dualKnobs="true" pin="true" [(ngModel)]="structure" (ionChange)="onChange()" color="">
-        <ion-label range-left>0</ion-label>
-        <ion-label range-right>100</ion-label>
+      <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" dualKnobs="true" pin="true" [(ngModel)]="starting_from_altitude" color="">
       </ion-range>
     </ion-item>
 
     <ion-list-header>
         <ion-label stacked>{{ 'SEARCH.END-ALTITUDE' | translate }}</ion-label>
-        <ion-badge item-end color="dark">{{structure.lower}}</ion-badge>
-        <ion-badge item-end color="dark">{{structure.upper}}</ion-badge>
+        <ion-badge item-end class="badge-class">{{end_altitude.lower}}</ion-badge>
+        <ion-badge item-end class="badge-class">-</ion-badge>
+        <ion-badge item-end class="badge-class">{{end_altitude.upper}}</ion-badge>
       </ion-list-header>
       <ion-item>
-        <ion-range dualKnobs="true" pin="true" [(ngModel)]="structure" (ionChange)="onChange()" color="">
-          <ion-label range-left>0</ion-label>
-          <ion-label range-right>100</ion-label>
+        <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" dualKnobs="true" pin="true" [(ngModel)]="end_altitude" color="">
         </ion-range>
       </ion-item>    
 
     <ion-item>
       <ion-label stacked>{{ 'SEARCH.GRADE' | translate }}</ion-label>
-      <ion-select [(ngModel)]="toppings" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
-        <ion-option value="bacon" selected="true">Bacon</ion-option>
-        <ion-option value="olives">Black Olives</ion-option>
-        <ion-option value="xcheese" selected="true">Extra Cheese</ion-option>
-        <ion-option value="peppers">Green Peppers</ion-option>
-        <ion-option value="mushrooms">Mushrooms</ion-option>
-        <ion-option value="onions">Onions</ion-option>
-        <ion-option value="pepperoni">Pepperoni</ion-option>
-        <ion-option value="pineapple">Pineapple</ion-option>
-        <ion-option value="sausage">Sausage</ion-option>
-        <ion-option value="Spinach">Spinach</ion-option>
+      <ion-select [(ngModel)]="difficulty" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+        <ion-option value="{{str}}" *ngFor="let str of vocabulary.grades">{{str}}</ion-option>
       </ion-select>
     </ion-item>
 
@@ -74,36 +89,53 @@
       <ion-col col-6>
         <ion-item>
           <ion-label stacked>{{ 'SEARCH.UPHILL' | translate }}</ion-label>
-          <ion-select [(ngModel)]="gaming" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
-            <ion-option value="nes">NES</ion-option>
-            <ion-option value="n64">Nintendo64</ion-option>
-            <ion-option value="ps">PlayStation</ion-option>
-            <ion-option value="genesis">Sega Genesis</ion-option>
-            <ion-option value="saturn">Sega Saturn</ion-option>
-            <ion-option value="snes">SNES</ion-option>
+          <ion-select [(ngModel)]="uphill_side" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+            <ion-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
       <ion-col col-6>
         <ion-item>
           <ion-label stacked>{{ 'SEARCH.DOWNHILL' | translate }}</ion-label>
-          <ion-select [(ngModel)]="month" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
-            <ion-option value="01">January</ion-option>
-            <ion-option value="02">February</ion-option>
-            <ion-option value="03">March</ion-option>
-            <ion-option value="04">April</ion-option>
-            <ion-option value="05">May</ion-option>
-            <ion-option value="06">June</ion-option>
-            <ion-option value="07">July</ion-option>
-            <ion-option value="08">August</ion-option>
-            <ion-option value="09">September</ion-option>
-            <ion-option value="10">October</ion-option>
-            <ion-option value="11">November</ion-option>
-            <ion-option value="12" checked="true">December</ion-option>
+          <ion-select [(ngModel)]="downhill_side" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+            <ion-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
 
+    <ion-item>
+        <ion-label stacked>{{ 'SEARCH.SNOW-RATE' | translate }}</ion-label>
+        <ion-select [(ngModel)]="snow_rate" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+          <ion-option value="{{str}}" *ngFor="let str of vocabulary.snow_rates">{{str}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label stacked>{{ 'SEARCH.TRIP-RATE' | translate }}</ion-label>
+          <ion-select [(ngModel)]="trip_rate" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+            <ion-option value="{{str}}" *ngFor="let str of vocabulary.trip_rates">{{str}}</ion-option>
+          </ion-select>
+        </ion-item>     
+        
+        <ion-item>
+            <ion-label stacked>{{ 'SEARCH.TARGET' | translate }}</ion-label>
+            <ion-select [(ngModel)]="target" multiple="true" cancelText="{{ 'SEARCH.CANCEL' | translate }}" okText="{{ 'SEARCH.OK' | translate }}">
+              <ion-option value="{{str}}" *ngFor="let str of vocabulary.targets">{{str}}</ion-option>
+            </ion-select>
+          </ion-item>    
+          
+          <ion-item>
+              <ion-label stacked>{{ 'SEARCH.USER' | translate }}</ion-label>
+              <ion-input type="text" [(ngModel)]="user"></ion-input>
+            </ion-item>
+
+                        
+
   </ion-list>
 </ion-content>
+<ion-footer no-shadow no-border>
+    <ion-toolbar position="bottom">
+      <button ion-button full (click)="submit()">{{ 'SEARCH.SUBMIT' | translate }}</button>
+    </ion-toolbar>
+  </ion-footer>

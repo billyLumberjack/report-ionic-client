@@ -18,7 +18,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     //window.addEventListener('native.keyboardhide', this.keyboardHideHandler);
-    this.navCtrl.push(ResearchPage);
+    //this.navCtrl.push(ResearchPage);
     this.populateList(null, null);
   }
 

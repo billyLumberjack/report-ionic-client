@@ -16,7 +16,17 @@
         "GRADE":"Difficoltà",
         "SIDE":"Versante",
         "UPHILL":"Salita",
-        "DOWNHILL":"Discesa"
+        "DOWNHILL":"Discesa",
+        "SNOW-RATE":"Manto nevoso",
+        "TRIP-RATE":"Gita",
+        "TARGET":"Sorgente",
+        "USER":"Utente",
+        "SUBMIT":"Cerca",
+        "TRIP-NAME":"Nome Gita",
+        "OK":"Conferma",
+        "CANCEL":"Cancella",
+        "FROM":"Da",
+        "TO":"a"
     },
     "DETAILS":{
         "Region":"Regione",
