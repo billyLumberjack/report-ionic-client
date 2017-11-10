@@ -97,6 +97,6 @@
     "targets":["on-ice","thetop"],
     "height":{
         "min":0,
-        "max":8848
+        "max":5000
     }
 }

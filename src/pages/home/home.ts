@@ -66,7 +66,7 @@ export class HomePage {
   hideToolbar: boolean = true;
   oldReportList: Array<any>;
 
-  @ViewChild('searchbarElement') mySearchbar;
+  //@ViewChild('searchbarElement') mySearchbar;
 
   searchBtnClick() {
     this.hideToolbar = false;

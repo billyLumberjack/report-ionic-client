@@ -26,7 +26,9 @@
         "OK":"Conferma",
         "CANCEL":"Cancella",
         "FROM":"Da",
-        "TO":"a"
+        "TO":"a",
+        "CLEAN":"Pulisci Campi",
+        "DATE":"Data"
     },
     "DETAILS":{
         "Region":"Regione",
