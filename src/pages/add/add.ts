@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ReportProvider } from '../../providers/report/report'
+import {ReportDetailsPage} from '../report-details/report-details'
 
 /**
  * Generated class for the AddPage page.
@@ -76,8 +77,7 @@ export class AddPage {
       var images_array = values.map(item => item.url);
 
       var report = {
-        CreatedAt: new Date().getTime,
-
+        CreatedAt: new Date().getTime(),
         Region: this.region,
         StartingFrom: this.starting_from,
         ElevationGain:this.elevation_gain,
@@ -85,7 +85,7 @@ export class AddPage {
         UphillSide: this.uphill_side,
         DownhillSide: this.downhill_side,
         MainSnowType:this.main_snow_type,
-        Date: this.date,
+        Date: new Date(this.date).getTime(),
         TripRate: this.trip_rate,
         TripDescription: this.trip_description,
         SnowRate: this.snow_rate,
@@ -95,13 +95,18 @@ export class AddPage {
         EndAltitude: this.end_altitude,
         LinkedTrip:this.linked_trip,
         OtherSnowType:this.other_snow_type,
-        AvalancheRisk:this.avalanche_risk,
+        AvalancheRisk:parseInt(this.avalanche_risk),
         Images: images_array,
         User:this.user
       };
 
-      this.postReport(report).then(()=>{
+      console.log("POSTING REPORT", report);
+
+      this.postReport(report).then((data)=>{
         this.show_loader = false;
+        this.navCtrl.push(ReportDetailsPage, {
+          report: data
+        });
       });
     });
     
