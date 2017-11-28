@@ -7,8 +7,7 @@
         "TITLE":"Ultimi Report",
         "SEARCH-PLACEHOLDER":"Cerca"
     },
-    "SEARCH":{
-        "TITLE":"Ricerca Avanzata",
+    "FORM":{
         "REGION":"Regione",
         "STARTING-FROM":"Punto di Partenza",
         "STARTING-FROM-ALTITUDE":"Quota di Partenza",
@@ -18,17 +17,33 @@
         "UPHILL":"Salita",
         "DOWNHILL":"Discesa",
         "SNOW-RATE":"Valutazione manto nevoso",
+        "SNOW-DESCRIPTION":"Descrizione manto nevoso",
         "TRIP-RATE":"Valutazione gita",
         "TARGET":"Sorgente",
-        "USER":"Utente",
-        "SUBMIT":"Cerca",
+        "USER":"Utente",       
         "TRIP-NAME":"Nome Gita",
         "OK":"Conferma",
         "CANCEL":"Cancella",
         "FROM":"Da",
         "TO":"a",
         "CLEAN":"Pulisci Campi",
-        "DATE":"Data"
+        "DATE":"Data",
+        "IMAGES":"Immagini",
+        "STARTING-VALLEY":"Valle di Partenza",
+        "ELEVATION-GAIN":"Dislivello",
+        "MAIN-SNOW-TYPE":"Tipo di neve prevalente",
+        "OTHER-SNOW-TYPE":"Altri tipi di neve",
+        "AVALANCHE-RISK":"Rischio valanghe",
+        "TRIP-DESCRIPTION":"Descrizione della gita",
+        "LINKED-TRIP":"Itinerari collegati"
+    },
+    "SEARCH":{
+        "TITLE":"Ricerca Avanzata",
+        "SUBMIT":"Cerca"
+    },
+    "ADD":{
+        "TITLE":"Nuovo Report",
+        "SUBMIT":"Invia"
     },
     "DETAILS":{
         "Region":"Regione",

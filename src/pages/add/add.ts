@@ -32,6 +32,7 @@ export class AddPage {
 
   user: string = "";
   starting_from: string = "";
+  starting_valley: string = "";
   trip_name: string = "";
   date: string = "";
   main_snow_type: string = "";
@@ -77,9 +78,10 @@ export class AddPage {
       var images_array = values.map(item => item.url);
 
       var report = {
+        TripName:camelize(this.trip_name),
         CreatedAt: new Date().getTime(),
         Region: this.region,
-        StartingFrom: this.starting_from,
+        StartingFrom: camelize(this.starting_from),
         ElevationGain:this.elevation_gain,
         Grade: this.difficulty,
         UphillSide: this.uphill_side,
@@ -91,9 +93,9 @@ export class AddPage {
         SnowRate: this.snow_rate,
         StartingAltitude: this.starting_from_altitude,
         SnowDescription:this.snow_description,
-        //StartingValley:this.starting_valley,
+        StartingValley:camelize(this.starting_valley),
         EndAltitude: this.end_altitude,
-        LinkedTrip:this.linked_trip,
+        LinkedTrip:camelize(this.linked_trip),
         OtherSnowType:this.other_snow_type,
         AvalancheRisk:parseInt(this.avalanche_risk),
         Images: images_array,
@@ -145,4 +147,14 @@ export class AddPage {
     });
   }
 
+}
+
+function camelize(sentenceCase) {
+  var out = "";
+  sentenceCase.split(" ").forEach(function (el, idx) {
+      var add = el.toLowerCase();
+      out += add[0].toUpperCase() + add.slice(1);
+      out += " ";
+  });
+  return out;
 }

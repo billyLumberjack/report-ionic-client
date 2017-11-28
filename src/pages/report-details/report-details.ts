@@ -55,7 +55,10 @@ export class ReportDetailsPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-	  this.report = this.navParams.get("report");
+    this.report = this.navParams.get("report");
+    if(this.report.ReadableDate == undefined){
+      this.report.ReadableDate = new Date(this.report.Date).toLocaleDateString();
+    }
 
     //for(var key in this.report){
     //  //se *NON* presente tra i campi da nascondere lo inserisco nell'oggetto da visualizzare
