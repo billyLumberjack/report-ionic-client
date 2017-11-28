@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ReportProvider } from '../../providers/report/report'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ResearchPage page.
@@ -39,7 +39,7 @@ export class ResearchPage {
   end_altitude: any = { lower: 0, upper: 0 };
   starting_from_altitude: any = { lower: 0, upper: 0 };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, private reportProvider: ReportProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
     this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
       response => {
         this.vocabulary = response;
@@ -100,19 +100,15 @@ export class ResearchPage {
   submit() {
 
     var queryParameters = this.prepareQueryParams();
-
+    
     if (queryParameters != null) {
-      this.reportProvider.getReports(queryParameters).subscribe(data => {
-        var arr = data.Items;
-
-        arr.forEach(function (item, index) {
-          item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
-        });
-
-        this.reportList = arr;
-      });
-    } else {
-      this.reportList = [];
+      this.navCtrl.push(
+        HomePage,
+        {params:queryParameters}
+      );
+    }
+    else {
+      alert("nothing in the form");
     }
 
 

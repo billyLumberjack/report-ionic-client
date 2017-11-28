@@ -7,24 +7,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{report.TripName}}
+      {{report.TripName}} - {{report.ReadableDate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-
-    <div *ngIf="report.Images">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6 *ngFor="let image of report.Images; let idx = index">
-              <img class="image-container" (click)="gotoSlide(idx)" [src]="image" /><!--imageViewer/>-->
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-    </div>  
-
+  
   <ion-list *ngIf="report">
     <div *ngFor="let key of fieldsToShow">
       <ion-item text-wrap *ngIf="report[key]">
@@ -33,5 +23,16 @@
       </ion-item>
     </div>
   </ion-list>
+
+  <div *ngIf="report.Images">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 *ngFor="let image of report.Images; let idx = index">
+          <img class="image-container" (click)="gotoSlide(idx)" [src]="image" />
+          <!--imageViewer/>-->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>

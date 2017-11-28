@@ -1,0 +1,26 @@
+<ion-card  (click)="itemSelected(report)">
+    <!--
+        <ion-slides>
+          <ion-slide *ngFor="let url of report.Images">
+            <img [src]="url">
+          </ion-slide>
+        </ion-slides>
+      -->
+        
+        <ion-card-content>
+    
+          <ion-row>
+            <ion-card-title>
+              <h2>{{ report.TripName }}</h2>
+            </ion-card-title>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col no-padding text-left>{{report.Region}}</ion-col>
+            <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
+            <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
+            <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
+          </ion-row>
+    
+        </ion-card-content>
+      </ion-card>

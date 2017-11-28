@@ -9,9 +9,15 @@ import { HttpModule, Http } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ResearchPage } from '../pages/research/research';
+import { AddPage } from '../pages/add/add';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
 //providers
 import { ReportProvider } from '../providers/report/report';
+// components
+import { ReportComponent } from '../components/report/report';
+//directives
+import { Autosize} from '../directives/autosize/autosize';
+
 
 // Multilanguage
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -33,7 +39,10 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     ReportDetailsPage,
-    Topos_slides
+    Topos_slides,
+    ReportComponent,
+    AddPage,
+    Autosize
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,8 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     HomePage,
-    Topos_slides
+    Topos_slides,
+    AddPage,
   ],
   providers: [
     StatusBar,
