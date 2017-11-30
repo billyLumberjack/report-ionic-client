@@ -77,30 +77,55 @@ export class AddPage {
     Promise.all(prom_array).then(values=>{
       var images_array = values.map(item => item.url);
 
-      var report = {
-        TripName:camelize(this.trip_name),
-        CreatedAt: new Date().getTime(),
-        Region: this.region,
-        StartingFrom: camelize(this.starting_from),
-        ElevationGain:this.elevation_gain,
-        Grade: this.difficulty,
-        UphillSide: this.uphill_side,
-        DownhillSide: this.downhill_side,
-        MainSnowType:this.main_snow_type,
-        Date: new Date(this.date).getTime(),
-        TripRate: this.trip_rate,
-        TripDescription: this.trip_description,
-        SnowRate: this.snow_rate,
-        StartingAltitude: this.starting_from_altitude,
-        SnowDescription:this.snow_description,
-        StartingValley:camelize(this.starting_valley),
-        EndAltitude: this.end_altitude,
-        LinkedTrip:camelize(this.linked_trip),
-        OtherSnowType:this.other_snow_type,
-        AvalancheRisk:parseInt(this.avalanche_risk),
-        Images: images_array,
-        User:this.user
-      };
+      var report = {};
+
+      (this.trip_name) ? report["TripName"] = camelize(this.trip_name) :"";
+      report["CreatedAt"] =  new Date().getTime();
+      report["Region"] =  this.region;
+      (this.starting_from) ? report["StartingFrom"] = camelize(this.starting_from) :"";
+      report["ElevationGain"] = this.elevation_gain;
+      report["Grade"] =  this.difficulty;
+      report["UphillSide"] =  this.uphill_side;
+      report["DownhillSide"] =  this.downhill_side;
+      report["MainSnowType"] = this.main_snow_type;
+      report["Date"] =  new Date(this.date).getTime();
+      report["TripRate"] =  this.trip_rate;
+      report["TripDescription"] =  this.trip_description;
+      report["SnowRate"] =  this.snow_rate;
+      report["StartingAltitude"] =  this.starting_from_altitude;
+      report["SnowDescription"] = this.snow_description;
+      (this.starting_valley) ? report["StartingValley"] = camelize(this.starting_valley) :"";
+      report["EndAltitude"] =  this.end_altitude;
+      (this.linked_trip) ? report["LinkedTrip"] = camelize(this.linked_trip) :"";
+      report["OtherSnowType"] = this.other_snow_type;
+      (this.avalanche_risk) ? report["AvalancheRisk"] = parseInt(this.avalanche_risk) :"";
+      report["Images"] =  images_array;
+      report["User"] = this.user;
+
+      //var report = {
+      //  TripName:camelize(this.trip_name),
+      //  CreatedAt: new Date().getTime(),
+      //  Region: this.region,
+      //  StartingFrom: camelize(this.starting_from),
+      //  ElevationGain:this.elevation_gain,
+      //  Grade: this.difficulty,
+      //  UphillSide: this.uphill_side,
+      //  DownhillSide: this.downhill_side,
+      //  MainSnowType:this.main_snow_type,
+      //  Date: new Date(this.date).getTime(),
+      //  TripRate: this.trip_rate,
+      //  TripDescription: this.trip_description,
+      //  SnowRate: this.snow_rate,
+      //  StartingAltitude: this.starting_from_altitude,
+      //  SnowDescription:this.snow_description,
+      //  StartingValley:camelize(this.starting_valley),
+      //  EndAltitude: this.end_altitude,
+      //  LinkedTrip:camelize(this.linked_trip),
+      //  OtherSnowType:this.other_snow_type,
+      //  AvalancheRisk:parseInt(this.avalanche_risk),
+      //  Images: images_array,
+      //  User:this.user
+      //};
 
       console.log("POSTING REPORT", report);
 
