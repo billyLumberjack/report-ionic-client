@@ -55,10 +55,11 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-ionic": {
                 "APP_ID": "1907d883",
-                "CHANNEL_NAME": "Master",
+                "CHANNEL_NAME": "Production",
                 "UPDATE_METHOD": "auto",
                 "UPDATE_API": "https://api.ionicjs.com",
-                "MAX_STORE": "2"
+                "MAX_STORE": "1",
+                "MAX_VERSIONS": "1"
             }
         },
         "platforms": [

@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
-import { ReportProvider } from '../../providers/report/report'
+import { ReportProvider } from '../../providers/report/report';
 
 @Component({
   selector: 'page-home',
@@ -8,24 +8,23 @@ import { ReportProvider } from '../../providers/report/report'
 })
 export class HomePage {
 
-  params:any = {
+  params = {
     limit:20
   };
-  reportList: any = [];
+  reportList = [];
   
   // search section
   searchbarInput: string;
-  hideToolbar: boolean = true;
-  oldReportList: Array<any>;
+  hideToolbar = true;
+  oldReportList=[];
 
   constructor(public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
-    if(navParams.get("params") != undefined){
+    if(navParams.get("params") !== undefined){
       this.params = {...this.params, ...navParams.get("params")};
     }
   }
 
   ionViewDidLoad() {
-    
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data,true);
     });  
@@ -33,7 +32,7 @@ export class HomePage {
 
   doRefresh(loader) {
     
-    var p = {
+    const p = {
       fromDate:this.reportList[0].Date + 1
     };
 
@@ -47,7 +46,7 @@ export class HomePage {
 
   doInfinite(infiniteScroll) {
 
-    this.params.skip = this.reportList.length;
+    this.params["skip"] = this.reportList.length;
 
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data,true);
@@ -73,28 +72,28 @@ export class HomePage {
   }
 
   onSearchbarInput(ev) {
-    this.reportList = this.oldReportList
+    this.reportList = this.oldReportList;
 
-    let val = ev.target.value;
+    const val = ev.target.value;
     console.log("VAL", val);
 
     if (val && val.trim() !== '') {
-      this.reportList = this.reportList.filter(function (item) {
-        if (item.SearchTripName != undefined && item.SearchTripName.includes(val.toLowerCase())) {
+      this.reportList = this.reportList.filter((item) => {
+        if (item.SearchTripName !== undefined && item.SearchTripName.includes(val.toLowerCase())) {
           return item;
         }
       });
     }
   }
 
-  appendReports(data: Array<any>, appendOnBottom: boolean) {
+  appendReports(data:Array<{}>, appendOnBottom: boolean) {
 
     console.log("retrieved", data.length, "objs");
 
     if (data.length > 0) {
 
-      data.forEach(function (item, index) {
-        item["ReadableDate"] = new Date(item.Date).toLocaleDateString();
+      data.forEach((item, index) => {
+        item["ReadableDate"] = new Date(item["Date"]).toLocaleDateString();
       });
 
 
