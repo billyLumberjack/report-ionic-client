@@ -11,7 +11,7 @@ import { HomePage } from '../home/home';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-research',
   templateUrl: 'research.html',

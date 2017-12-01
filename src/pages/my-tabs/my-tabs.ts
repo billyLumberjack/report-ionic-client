@@ -12,7 +12,7 @@ import { AddPage } from '../add/add';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-my-tabs',
   templateUrl: 'my-tabs.html'

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { ReportProvider } from '../../providers/report/report'
-import {ReportDetailsPage} from '../report-details/report-details'
+import { ReportProvider } from '../../providers/report/report';
+import {ReportDetailsPage} from '../report-details/report-details';
 
 /**
  * Generated class for the AddPage page.
@@ -11,7 +11,7 @@ import {ReportDetailsPage} from '../report-details/report-details'
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-add',
   templateUrl: 'add.html',

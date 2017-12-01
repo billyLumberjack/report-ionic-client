@@ -9,7 +9,7 @@ import { Topos_slides} from '../topos_slides/topos_slides';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-report-details',
   templateUrl: 'report-details.html',
