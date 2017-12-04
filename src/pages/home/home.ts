@@ -13,6 +13,8 @@ export class HomePage {
   };
   reportList = [];
   
+  highestCreatedAt=0;
+
   // search section
   searchbarInput: string;
   hideToolbar = true;
@@ -33,7 +35,7 @@ export class HomePage {
   doRefresh(loader) {
     
     const p = {
-      fromDate:this.reportList[0].Date + 1
+      fromCreatedAt:this.highestCreatedAt + 1
     };
 
     console.log("refresh", p);
@@ -93,6 +95,9 @@ export class HomePage {
     if (data.length > 0) {
 
       data.forEach((item, index) => {
+        if(item["CreatedAt"] > this.highestCreatedAt){
+          this.highestCreatedAt = item["CreatedAt"];
+        }
         item["ReadableDate"] = new Date(item["Date"]).toLocaleDateString();
       });
 
