@@ -84,19 +84,17 @@
     <allow-navigation href="http://192.168.1.106:8101" />
     <allow-navigation href="http://10.196.182.199:8100" />
     <allow-navigation href="http://10.196.189.197:8100" />
-    <engine name="android" spec="6.2.3" />
+    <engine name="android" spec="6.4.0" />
+    <engine name="ios" spec="4.5.0" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-ionic" spec="2.0.3">
         <variable name="APP_ID" value="1907d883" />
         <variable name="CHANNEL_NAME" value="Production" />
         <variable name="UPDATE_METHOD" value="auto" />
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
-        <variable name="MAX_STORE" value="2" />
-        <variable name="MAX_VERSIONS" value="2" />
     </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="2.2.1" />
-    <engine name="ios" spec="~4.5.0" />
 </widget>
