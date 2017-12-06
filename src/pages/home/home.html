@@ -3,7 +3,7 @@
   <ion-navbar>
 
     <ion-title [class.hidden]="!hideToolbar">{{ 'HOME.TITLE' | translate }}</ion-title>
-
+<!--
     <ion-buttons right [class.hidden]="!hideToolbar">
       <button ion-button icon-only (click)="searchBtnClick();">
         <ion-icon name="search"></ion-icon>
@@ -16,15 +16,16 @@
         [(ngModel)]="searchbarInput" (ionInput)="onSearchbarInput($event)" (ionCancel)="onSearchbarCancel($event)" #searchbarElement>
       </ion-searchbar>
 
-      <!--
+      
         <ion-buttons right>
         <button ion-button icon-only (click)="gotoAdvancedSearch();">
           <ion-icon name="more"></ion-icon>
         </button>
       </ion-buttons>
-    -->
+    
 
     </ion-toolbar>
+    -->
 
   </ion-navbar>
 </ion-header>

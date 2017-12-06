@@ -1,6 +1,8 @@
-import { Component} from '@angular/core';
-import { NavController, NavParams} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-home',
@@ -9,41 +11,47 @@ import { ReportProvider } from '../../providers/report/report';
 export class HomePage {
 
   params = {
-    limit:20
+    limit: 20
   };
   reportList = [];
-  
-  highestCreatedAt=0;
+
+  highestCreatedAt = 0;
 
   // search section
   searchbarInput: string;
   hideToolbar = true;
-  oldReportList=[];
+  oldReportList = [];
 
-  constructor(public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
-    if(navParams.get("params") !== undefined){
-      this.params = {...this.params, ...navParams.get("params")};
+  constructor(private storage: Storage, public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
+    if (navParams.get("params") !== undefined) {
+      this.params = { ...this.params, ...navParams.get("params") };
     }
+  }
+
+  ionViewDidEnter() {
+    this.markAlreadyVisitedReports();
   }
 
   ionViewDidLoad() {
     this.reportProvider.getReports(this.params).subscribe(data => {
-      this.appendReports(data,true);
-    });  
+      this.appendReports(data, true);
+      this.markAlreadyVisitedReports();
+    });
   }
 
   doRefresh(loader) {
-    
+
     const p = {
-      fromCreatedAt:this.highestCreatedAt + 1
+      fromCreatedAt: this.highestCreatedAt + 1
     };
 
     console.log("refresh", p);
-    
+
     this.reportProvider.getReports(p).subscribe(data => {
-      this.appendReports(data,false);
+      this.appendReports(data, false);
+      this.markAlreadyVisitedReports();
       loader.complete();
-    });  
+    });
   }
 
   doInfinite(infiniteScroll) {
@@ -51,14 +59,15 @@ export class HomePage {
     this.params["skip"] = this.reportList.length;
 
     this.reportProvider.getReports(this.params).subscribe(data => {
-      this.appendReports(data,true);
+      this.appendReports(data, true);
+      this.markAlreadyVisitedReports();
       infiniteScroll.complete();
 
-      if (data.length === 0){
+      if (data.length === 0) {
         console.log("IS disabilitato");
         infiniteScroll.enable(false);
       }
-    });  
+    });
   }
 
   searchBtnClick() {
@@ -88,14 +97,17 @@ export class HomePage {
     }
   }
 
-  appendReports(data:Array<{}>, appendOnBottom: boolean) {
+  appendReports(data: Array<{}>, appendOnBottom: boolean) {
 
     console.log("retrieved", data.length, "objs");
 
     if (data.length > 0) {
 
       data.forEach((item, index) => {
-        if(item["CreatedAt"] > this.highestCreatedAt){
+
+
+
+        if (item["CreatedAt"] > this.highestCreatedAt) {
           this.highestCreatedAt = item["CreatedAt"];
         }
         item["ReadableDate"] = new Date(item["Date"]).toLocaleDateString();
@@ -117,6 +129,18 @@ export class HomePage {
 
     }
     console.log("ITEMS IN PAGE", this.reportList.length);
+  }
+
+  markAlreadyVisitedReports() {
+    this.storage.get('visited_report').then((visited_report_array) => {
+
+      for (let item of this.reportList) {
+        if (visited_report_array.indexOf(item["_id"]) > -1) {
+          item["Visited"] = true;
+        }
+      }
+
+    });
   }
 
 }

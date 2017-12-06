@@ -27,6 +27,9 @@ import { MyTabsPage } from '../pages/my-tabs/my-tabs';
 
 import { Topos_slides } from '../pages/topos_slides/topos_slides';
 
+import { IonicStorageModule } from '@ionic/storage';
+
+
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -56,7 +59,8 @@ export function createTranslateLoader(http: Http) {
         useFactory: (createTranslateLoader),
         deps: [Http]
       }
-    })
+    }),
+    IonicStorageModule.forRoot()    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

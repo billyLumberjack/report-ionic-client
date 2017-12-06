@@ -7,15 +7,22 @@ import { MyTabsPage } from '../pages/my-tabs/my-tabs';
 
 import { TranslateService } from '@ngx-translate/core';
 
+//declare var TestFairy: any; // at the top of the file
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = MyTabsPage;
+  
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private translate: TranslateService) {
     platform.ready().then(() => {
+      
+      
+      //TestFairy.begin("abe27609f8ed4b248d398c6fd90b26b21e222ad6");
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 

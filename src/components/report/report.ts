@@ -1,6 +1,8 @@
 import { Component, Input} from '@angular/core';
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
 import { NavController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 
 
 /**
@@ -17,12 +19,33 @@ export class ReportComponent {
 
   @Input() report;
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, private storage: Storage) {
+
+
+
+  }
 
   itemSelected(obj) {
-    this.navCtrl.push(ReportDetailsPage, {
-      report: obj
+    
+    // set a key/value
+    
+
+    this.storage.get('visited_report').then((visited_report_array) => {
+      
+      console.log(visited_report_array);
+      
+      if(visited_report_array == undefined){
+        this.storage.set('visited_report', [obj._id]);
+      }
+      else{
+        this.storage.set('visited_report', visited_report_array.concat([obj._id]));
+      }
+      this.navCtrl.push(ReportDetailsPage, {
+        report: obj
+      });
     });
+
+
   }
 
 }
