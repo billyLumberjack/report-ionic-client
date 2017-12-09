@@ -1,0 +1,13 @@
+page-about {
+    #about-content{
+        width: 100%;
+        height: 100%;
+        display: table;
+    }
+
+    #about-content > span{
+        text-align: center;
+        vertical-align:middle;
+        display: table-cell;
+    }
+}

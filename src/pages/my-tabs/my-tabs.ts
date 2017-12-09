@@ -4,6 +4,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ResearchPage } from '../research/research';
 import { AddPage } from '../add/add';
+import { AboutPage } from '../about/about';
 
 /**
  * Generated class for the MyTabsPage tabs.
@@ -22,6 +23,7 @@ export class MyTabsPage {
   homeRoot = HomePage
   researchRoot = ResearchPage
   addRoot = AddPage
+  aboutRoot = AboutPage;
 
 
   constructor(public navCtrl: NavController) {}

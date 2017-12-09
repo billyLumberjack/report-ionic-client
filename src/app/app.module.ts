@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ResearchPage } from '../pages/research/research';
 import { AddPage } from '../pages/add/add';
+import { AboutPage } from '../pages/about/about';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
 //providers
 import { ReportProvider } from '../providers/report/report';
@@ -45,6 +46,7 @@ export function createTranslateLoader(http: Http) {
     Topos_slides,
     ReportComponent,
     AddPage,
+    AboutPage,
     Autosize
   ],
   imports: [
@@ -69,6 +71,7 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     HomePage,
+    AboutPage,
     Topos_slides,
     AddPage,
   ],
