@@ -9,4 +9,20 @@ page-add {
         text-align: center;
         vertical-align: center;
     }
+
+    #add-image-icon{
+        font-size:30pt;
+        line-height: 10rem;
+        width: 100%;
+        height:10rem;
+        vertical-align: middle;
+        text-align: center;
+        border: 3px dashed #ccc;
+    }
+
+    .thumb{
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }

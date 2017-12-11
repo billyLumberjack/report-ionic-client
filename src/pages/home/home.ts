@@ -134,9 +134,12 @@ export class HomePage {
   markAlreadyVisitedReports() {
     this.storage.get('visited_report').then((visited_report_array) => {
 
-      for (let item of this.reportList) {
-        if (visited_report_array.indexOf(item["_id"]) > -1) {
-          item["Visited"] = true;
+      if (visited_report_array) {
+
+        for (let item of this.reportList) {
+          if (visited_report_array.indexOf(item["_id"]) > -1) {
+            item["Visited"] = true;
+          }
         }
       }
 

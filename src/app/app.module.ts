@@ -29,6 +29,8 @@ import { MyTabsPage } from '../pages/my-tabs/my-tabs';
 import { Topos_slides } from '../pages/topos_slides/topos_slides';
 
 import { IonicStorageModule } from '@ionic/storage';
+//
+import { Camera } from '@ionic-native/camera';
 
 
 export function createTranslateLoader(http: Http) {
@@ -79,7 +81,8 @@ export function createTranslateLoader(http: Http) {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ReportProvider
+    ReportProvider,
+    Camera
   ]
 })
 

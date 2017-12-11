@@ -20,6 +20,7 @@
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
+    "@ionic-native/camera": "^4.5.0",
     "@ionic-native/core": "4.3.2",
     "@ionic-native/splash-screen": "4.3.2",
     "@ionic-native/status-bar": "4.3.2",
@@ -29,6 +30,7 @@
     "cordova-android": "^6.4.0",
     "cordova-ios": "~4.5.4",
     "cordova-plugin-add-swift-support": "1.7.0",
+    "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "1.1.4",
     "cordova-plugin-ionic": "2.0.3",
     "cordova-plugin-splashscreen": "4.0.3",
@@ -60,7 +62,8 @@
         "UPDATE_METHOD": "auto",
         "UPDATE_API": "https://api.ionicjs.com"
       },
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android",

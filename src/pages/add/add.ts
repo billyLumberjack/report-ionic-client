@@ -4,6 +4,10 @@ import { Http } from '@angular/http';
 import { ReportProvider } from '../../providers/report/report';
 import {ReportDetailsPage} from '../report-details/report-details';
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
+
+
 /**
  * Generated class for the AddPage page.
  *
@@ -44,9 +48,12 @@ export class AddPage {
   starting_from_altitude = 0;
   elevation_gain = 0;
 
-  files:Array<File> = [];
+  files:Array<string> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
+  myImgValue:any;
+  imageFileName:any;
+
+  constructor(public navCtrl: NavController, private camera: Camera,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
     this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
       response => {
         this.vocabulary = response;
@@ -57,12 +64,24 @@ export class AddPage {
       });
   }
 
-  
-
-  changeListener($e): void {
-    for(var c=0; c<$e.target.files.length; c++){
-      this.files.push($e.target.files[c]);
+  getImage() {
+    const options: CameraOptions = {
+      quality: 30,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY      
     }
+  
+    this.camera.getPicture(options).then((imageData) => {
+      this.files = ["data:image/jpeg;base64," + imageData].concat(this.files);
+    }, (err) => {
+      console.log(err);
+      alert("error uploading image, please retry");
+    });
+  }
+
+  deleteSlide(index_to_delete){
+    this.files.splice(index_to_delete,1);
   }
 
   submit() {
@@ -102,31 +121,6 @@ export class AddPage {
       report["Images"] =  images_array;
       report["User"] = this.user;
 
-      //var report = {
-      //  TripName:camelize(this.trip_name),
-      //  CreatedAt: new Date().getTime(),
-      //  Region: this.region,
-      //  StartingFrom: camelize(this.starting_from),
-      //  ElevationGain:this.elevation_gain,
-      //  Grade: this.difficulty,
-      //  UphillSide: this.uphill_side,
-      //  DownhillSide: this.downhill_side,
-      //  MainSnowType:this.main_snow_type,
-      //  Date: new Date(this.date).getTime(),
-      //  TripRate: this.trip_rate,
-      //  TripDescription: this.trip_description,
-      //  SnowRate: this.snow_rate,
-      //  StartingAltitude: this.starting_from_altitude,
-      //  SnowDescription:this.snow_description,
-      //  StartingValley:camelize(this.starting_valley),
-      //  EndAltitude: this.end_altitude,
-      //  LinkedTrip:camelize(this.linked_trip),
-      //  OtherSnowType:this.other_snow_type,
-      //  AvalancheRisk:parseInt(this.avalanche_risk),
-      //  Images: images_array,
-      //  User:this.user
-      //};
-
       console.log("POSTING REPORT", report);
 
       this.postReport(report).then((data)=>{
@@ -151,24 +145,14 @@ export class AddPage {
     });
   }
 
-  postFile(f:File){
+  postFile(base64imageString:string){
     
     return new Promise((resolve,reject) => {
       
-      
+      this.reportProvider.postImage(base64imageString).subscribe(data => {
+        resolve(data);
+      });
 
-      var reader = new FileReader();
-      reader.readAsDataURL(f);
-      reader.onload = () => {
-        //console.log("base 64 string\n", reader.result);
-        this.reportProvider.postImage(reader.result).subscribe(data => {
-          resolve(data);
-          
-        });
-      };
-      reader.onerror = function (error) {
-        reject('Error: ' + error);
-      };
     });
   }
 

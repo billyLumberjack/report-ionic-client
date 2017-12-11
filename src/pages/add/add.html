@@ -109,13 +109,13 @@
         <ion-option value="{{str}}" *ngFor="let str of vocabulary.snow_types">{{str}}</ion-option>
       </ion-select>
     </ion-item>
-    
+
     <ion-item>
-        <ion-label stacked>{{ 'FORM.OTHER-SNOW-TYPE' | translate }}</ion-label>
-        <ion-select [(ngModel)]="other_snow_type" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-          <ion-option value="{{str}}" *ngFor="let str of vocabulary.snow_types">{{str}}</ion-option>
-        </ion-select>
-      </ion-item>    
+      <ion-label stacked>{{ 'FORM.OTHER-SNOW-TYPE' | translate }}</ion-label>
+      <ion-select [(ngModel)]="other_snow_type" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
+        <ion-option value="{{str}}" *ngFor="let str of vocabulary.snow_types">{{str}}</ion-option>
+      </ion-select>
+    </ion-item>
 
     <ion-item>
       <ion-label stacked>{{ 'FORM.SNOW-RATE' | translate }}</ion-label>
@@ -130,11 +130,11 @@
     </ion-item>
 
     <ion-item>
-        <ion-label stacked>{{ 'FORM.AVALANCHE-RISK' | translate }}</ion-label>
-        <ion-select [(ngModel)]="avalanche_risk" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-          <ion-option value="{{str}}" *ngFor="let str of vocabulary.avalanche_risk">{{str}}</ion-option>
-        </ion-select>
-      </ion-item>        
+      <ion-label stacked>{{ 'FORM.AVALANCHE-RISK' | translate }}</ion-label>
+      <ion-select [(ngModel)]="avalanche_risk" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
+        <ion-option value="{{str}}" *ngFor="let str of vocabulary.avalanche_risk">{{str}}</ion-option>
+      </ion-select>
+    </ion-item>
 
     <ion-item>
       <ion-label stacked>{{ 'FORM.TRIP-RATE' | translate }}</ion-label>
@@ -153,11 +153,22 @@
       <ion-input type="text" [(ngModel)]="linked_trip"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label stacked>{{ 'FORM.IMAGES' | translate }}</ion-label>
-      <!-- -->
-      <ion-input type="file" accept="image/*" (change)="changeListener($event)" multiple></ion-input>
-    </ion-item>
+    <ion-row>
+      <ion-col col-12>
+        <ion-label stacked>{{ 'FORM.IMAGES' | translate }}</ion-label>
+      </ion-col>
+
+      <ion-col col-2 >
+        <ion-icon name="add-circle" (click)="getImage()" id="add-image-icon"></ion-icon>
+      </ion-col>
+      <ion-col col-10>
+        <ion-slides slidesPerView="3" spaceBetween="1" initialSlide="{{slide_index}}">
+          <ion-slide *ngFor="let f of files; let i = index" class="thumb" (click)="deleteSlide(i)" [ngStyle]="{'background-image':'url('+f+')'}"></ion-slide>
+        </ion-slides>
+      </ion-col>
+
+    </ion-row>
+
 
     <ion-item>
       <ion-label stacked>{{ 'FORM.USER' | translate }}</ion-label>
@@ -170,7 +181,7 @@
 <ion-footer no-shadow no-border>
   <ion-toolbar position="bottom">
     <ion-row>
-        <button ion-button full (click)="submit()">{{ 'ADD.SUBMIT' | translate }}</button>
+      <button ion-button full (click)="submit()">{{ 'ADD.SUBMIT' | translate }}</button>
     </ion-row>
   </ion-toolbar>
 </ion-footer>
