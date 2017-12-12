@@ -1,11 +1,8 @@
 <ion-card  (click)="itemSelected(report)">
-    <!--
         <ion-slides>
-          <ion-slide *ngFor="let url of report.Images">
-            <img [src]="url">
+          <ion-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
           </ion-slide>
         </ion-slides>
-      -->
         
         <ion-card-content>
     
