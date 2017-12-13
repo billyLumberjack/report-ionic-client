@@ -23,6 +23,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+    <preference name="windows-target-version" value="10.0" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -82,6 +83,8 @@
     </platform>
     <allow-navigation href="http://192.168.1.147:8100" />
     <engine name="android" spec="^6.4.0" />
+    <engine name="windows" spec="~5.0.0" />
+    <engine name="osx" spec="~4.0.1" />
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="4.0.3" />
