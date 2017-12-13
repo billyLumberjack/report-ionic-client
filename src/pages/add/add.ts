@@ -66,7 +66,7 @@ export class AddPage {
 
   getImage() {
     const options: CameraOptions = {
-      //quality: 30,
+      correctOrientation:true,
       targetWidth:1080,
       targetHeight:1080,
       destinationType: this.camera.DestinationType.DATA_URL,
