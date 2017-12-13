@@ -36,6 +36,7 @@ export class HomePage {
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data, true);
       this.markAlreadyVisitedReports();
+
     });
   }
 
@@ -105,7 +106,9 @@ export class HomePage {
 
       data.forEach((item, index) => {
 
-
+        if (item["Images"] == undefined) {
+          this.insertImages(item);
+        }
 
         if (item["CreatedAt"] > this.highestCreatedAt) {
           this.highestCreatedAt = item["CreatedAt"];
@@ -144,6 +147,16 @@ export class HomePage {
       }
 
     });
+  }
+
+  insertImages(reportObj) {
+    reportObj["Images"] = [];
+    this.reportProvider.getImagesBySearchQuery(reportObj["TripName"] + " scialpinismo").subscribe(response => {
+      for (let image_obj of response.data.result.items) {
+        reportObj["Images"].push(image_obj["media"]);
+      }
+    });
+
   }
 
 }

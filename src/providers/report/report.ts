@@ -31,4 +31,18 @@ export class ReportProvider {
     return this.http.get(url, {params:parameters}).map(res => res.json());
   }
 
+  getImagesBySearchQuery(queryString) {
+    var url = "http://api.qwant.com/api/search/images";
+
+    var parameters = {
+      count: 3,
+      q: queryString,
+      t: "images",
+      safesearch: 1,
+      locale: "it_IT"
+    }
+
+    return this.http.get(url,{params:parameters}).map(res => res.json());
+  }
+
 }
