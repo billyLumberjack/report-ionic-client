@@ -16,6 +16,7 @@ import { ReportDetailsPage } from '../pages/report-details/report-details';
 import { ReportProvider } from '../providers/report/report';
 // components
 import { ReportComponent } from '../components/report/report';
+import { PageLoaderComponent } from '../components/page-loader/page-loader';
 //directives
 import { Autosize} from '../directives/autosize/autosize';
 
@@ -47,6 +48,7 @@ export function createTranslateLoader(http: Http) {
     ReportDetailsPage,
     Topos_slides,
     ReportComponent,
+    PageLoaderComponent,
     AddPage,
     AboutPage,
     Autosize

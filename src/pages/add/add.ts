@@ -23,7 +23,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class AddPage {
 
   vocabulary: any;
-  show_loader = false;
+  show_page_loader = false;
 
   region: string = "";
   trip_rate: string = "";
@@ -66,7 +66,9 @@ export class AddPage {
 
   getImage() {
     const options: CameraOptions = {
-      quality: 30,
+      //quality: 30,
+      targetWidth:1080,
+      targetHeight:1080,
       destinationType: this.camera.DestinationType.DATA_URL,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY      
@@ -85,12 +87,12 @@ export class AddPage {
   }
 
   submit() {
-    this.show_loader = true;
+    this.show_page_loader = true;
 
     var prom_array = [];
 
     for (let entry of this.files) {
-      prom_array.push(this.postFile(entry));
+      prom_array.push(this.reportProvider.postImage(entry));
     }
 
     Promise.all(prom_array).then(values=>{
@@ -123,8 +125,8 @@ export class AddPage {
 
       console.log("POSTING REPORT", report);
 
-      this.postReport(report).then((data)=>{
-        this.show_loader = false;
+      this.reportProvider.postReport(report).then((data)=>{
+        this.show_page_loader = false;
         this.navCtrl.push(ReportDetailsPage, {
           report: data
         });
@@ -135,25 +137,6 @@ export class AddPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPage');
-  }
-
-  postReport(obj){
-    return new Promise((resolve,reject)=>{
-      this.reportProvider.postReport(obj).subscribe(data => {
-        resolve(data);
-      });
-    });
-  }
-
-  postFile(base64imageString:string){
-    
-    return new Promise((resolve,reject) => {
-      
-      this.reportProvider.postImage(base64imageString).subscribe(data => {
-        resolve(data);
-      });
-
-    });
   }
 
 }

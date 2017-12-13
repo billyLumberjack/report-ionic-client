@@ -14,6 +14,7 @@ export class HomePage {
     limit: 20
   };
   reportList = [];
+  
 
   highestCreatedAt = 0;
 
@@ -21,6 +22,7 @@ export class HomePage {
   searchbarInput: string;
   hideToolbar = true;
   oldReportList = [];
+  show_page_loader = true;
 
   constructor(private storage: Storage, public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
     if (navParams.get("params") !== undefined) {
@@ -79,24 +81,24 @@ export class HomePage {
   //  this.navCtrl.push(ResearchPage);
   //}
 
-  onSearchbarCancel() {
-    this.hideToolbar = true;
-  }
-
-  onSearchbarInput(ev) {
-    this.reportList = this.oldReportList;
-
-    const val = ev.target.value;
-    console.log("VAL", val);
-
-    if (val && val.trim() !== '') {
-      this.reportList = this.reportList.filter((item) => {
-        if (item.SearchTripName !== undefined && item.SearchTripName.includes(val.toLowerCase())) {
-          return item;
-        }
-      });
-    }
-  }
+//  onSearchbarCancel() {
+//    this.hideToolbar = true;
+//  }
+//
+//  onSearchbarInput(ev) {
+//    this.reportList = this.oldReportList;
+//
+//    const val = ev.target.value;
+//    console.log("VAL", val);
+//
+//    if (val && val.trim() !== '') {
+//      this.reportList = this.reportList.filter((item) => {
+//        if (item.SearchTripName !== undefined && item.SearchTripName.includes(val.toLowerCase())) {
+//          return item;
+//        }
+//      });
+//    }
+//  }
 
   appendReports(data: Array<{}>, appendOnBottom: boolean) {
 
@@ -104,10 +106,12 @@ export class HomePage {
 
     if (data.length > 0) {
 
+      let promises_array: Array<Promise<void>> = [];
+
       data.forEach((item, index) => {
 
         if (item["Images"] == undefined) {
-          this.insertImages(item);
+          promises_array.push(this.insertImages(item));
         }
 
         if (item["CreatedAt"] > this.highestCreatedAt) {
@@ -116,7 +120,12 @@ export class HomePage {
         item["ReadableDate"] = new Date(item["Date"]).toLocaleDateString();
       });
 
-
+      Promise.all(promises_array).then(() => {
+        this.show_page_loader = false;
+      }).catch(err => {
+        console.error("ERROR RETRIEVING IMAGES", err);
+        this.show_page_loader = false;
+      });
 
       if (appendOnBottom) {
         this.reportList = this.reportList.concat(data);
@@ -124,12 +133,7 @@ export class HomePage {
       else {
         this.reportList = data.concat(this.reportList);
       }
-
-
-
       this.oldReportList = this.reportList;
-
-
     }
     console.log("ITEMS IN PAGE", this.reportList.length);
   }
@@ -150,8 +154,9 @@ export class HomePage {
   }
 
   insertImages(reportObj) {
+
     reportObj["Images"] = [];
-    this.reportProvider.getImagesBySearchQuery(reportObj["TripName"] + " scialpinismo").subscribe(response => {
+    return this.reportProvider.getImagesBySearchQuery(reportObj["TripName"] + " scialpinismo").then(response => {
       for (let image_obj of response.data.result.items) {
         reportObj["Images"].push(image_obj["media"]);
       }

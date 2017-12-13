@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
@@ -14,12 +15,14 @@ export class ReportProvider {
 
   postImage(body) {
     var url = this.host + "/images";
-    return this.http.post(url,body).map(res => res.json());
+    return this.http.post(url,body).map(res => res.json()).toPromise().catch(err=>{
+      console.error("ERROR UPLOADING IMAGE",err);
+    });
   }
 
   postReport(report_obj) {
     var url = this.host + "/report";
-    return this.http.post(url,report_obj).map(res => res.json());
+    return this.http.post(url,report_obj).map(res => res.json()).toPromise();
   }
 
 
@@ -42,7 +45,7 @@ export class ReportProvider {
       locale: "it_IT"
     }
 
-    return this.http.get(url,{params:parameters}).map(res => res.json());
+    return this.http.get(url,{params:parameters}).map(res => res.json()).toPromise();
   }
 
 }
