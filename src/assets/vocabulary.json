@@ -25,14 +25,14 @@
         "OSA+"
     ],
     "snow_types":[
-        "Crostosa",
         "Farinosa",
+        "Pesante",
+        "Ventata",
+        "Crostosa",
         "Ghiacciata",
         "Marcia",
-        "Pesante",
         "Trasformata",
-        "Variabile",
-        "Ventata"
+        "Variabile"
     ],
     "regions":[
         "Abruzzo",
@@ -77,19 +77,19 @@
         "Altro"
     ],
     "snow_rates":[
-        "Accettabili",
-        "Buone",
-        "Discrete",
-        "Eccellenti",
+        "Pessime",
         "Mediocri",
+        "Accettabili",
+        "Discrete",
+        "Buone",
         "Ottime",
-        "Pessime"
+        "Eccellenti"
     ],
     "trip_rates":[
         "Pessimo",
         "Mediocre",
-        "Buono",
         "Discreto",
+        "Buono",
         "Ottimo",
         "Eccezionale"
     ],
