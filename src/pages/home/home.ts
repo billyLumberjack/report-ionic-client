@@ -135,6 +135,11 @@ export class HomePage {
       }
       this.oldReportList = this.reportList;
     }
+    else{
+      this.show_page_loader = false;
+      alert("No results found");
+    }
+    
     console.log("ITEMS IN PAGE", this.reportList.length);
   }
 
