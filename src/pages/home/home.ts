@@ -113,7 +113,8 @@ export class HomePage {
       data.forEach((item, index) => {
 
         if (item["Images"] == undefined) {
-          promises_array.push(this.insertImages(item));
+          item["Images"] = ["assets/no-image-available.jpg"];
+          //promises_array.push(this.insertImages(item));
         }
 
         if (item["CreatedAt"] > this.highestCreatedAt) {
@@ -122,12 +123,14 @@ export class HomePage {
         item["ReadableDate"] = new Date(item["Date"]).toLocaleDateString();
       });
 
-      Promise.all(promises_array).then(() => {
-        this.show_page_loader = false;
-      }).catch(err => {
-        console.error("ERROR RETRIEVING IMAGES", err);
-        this.show_page_loader = false;
-      });
+      this.show_page_loader = false;
+
+      //Promise.all(promises_array).then(() => {
+      //  this.show_page_loader = false;
+      //}).catch(err => {
+      //  console.error("ERROR RETRIEVING IMAGES", err);
+      //  this.show_page_loader = false;
+      //});
 
       if (appendOnBottom) {
         this.reportList = this.reportList.concat(data);
