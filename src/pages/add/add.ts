@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ReportProvider } from '../../providers/report/report';
 import {ReportDetailsPage} from '../report-details/report-details';
-
+import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
@@ -53,7 +53,7 @@ export class AddPage {
   myImgValue:any;
   imageFileName:any;
 
-  constructor(public navCtrl: NavController, private camera: Camera,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, private camera: Camera,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
     this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
       response => {
         this.vocabulary = response;
@@ -127,10 +127,24 @@ export class AddPage {
       console.log("POSTING REPORT", report);
 
       this.reportProvider.postReport(report).then((data)=>{
-        this.show_page_loader = false;
-        this.navCtrl.push(ReportDetailsPage, {
-          report: data
+
+        let alert = this.alertCtrl.create({
+          title: 'Success !',
+          subTitle: "You're report has been uploaded succesfully",
+          buttons: [{
+            text: 'OK',
+            //role: 'cancel',
+            handler: () => {
+              this.show_page_loader = false;
+              this.navCtrl.push(ReportDetailsPage, {
+                report: data
+              });
+            }
+          }]
         });
+        alert.present();
+
+        
       });
     });
     

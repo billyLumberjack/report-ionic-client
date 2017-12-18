@@ -101,4 +101,5 @@
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
+    <allow-navigation href="http://192.168.1.106:8100" />
 </widget>

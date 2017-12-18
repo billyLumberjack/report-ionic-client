@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
+
 
 
 @Component({
@@ -24,7 +26,7 @@ export class HomePage {
   oldReportList = [];
   show_page_loader = true;
 
-  constructor(private storage: Storage, public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
     if (navParams.get("params") !== undefined) {
       this.params = { ...this.params, ...navParams.get("params") };
     }
@@ -135,9 +137,22 @@ export class HomePage {
       }
       this.oldReportList = this.reportList;
     }
-    else{
-      this.show_page_loader = false;
-      alert("No results found");
+    else if(this.reportList.length == 0){
+      
+      
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        subTitle: 'No results found',
+        buttons: [{
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+            this.show_page_loader = false;
+            this.navCtrl.pop();
+          }
+        }]
+      });
+      alert.present();
     }
     
     console.log("ITEMS IN PAGE", this.reportList.length);
