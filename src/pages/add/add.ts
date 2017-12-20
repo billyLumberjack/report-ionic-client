@@ -66,7 +66,6 @@ export class AddPage {
 
   getImage() {
     const options: CameraOptions = {
-      allowEdit:true,
       correctOrientation:true,
       targetWidth:1080,
       targetHeight:1080,
