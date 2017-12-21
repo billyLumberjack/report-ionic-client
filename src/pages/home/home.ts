@@ -112,10 +112,10 @@ export class HomePage {
 
       data.forEach((item, index) => {
 
-        if (item["Images"] == undefined) {
-          item["Images"] = ["assets/no-image-available.jpg"];
-          //promises_array.push(this.insertImages(item));
-        }
+        //if (item["Images"] == undefined) {
+        //  item["Images"] = ["assets/no-image-available.jpg"];
+        //  //promises_array.push(this.insertImages(item));
+        //}
 
         if (item["CreatedAt"] > this.highestCreatedAt) {
           this.highestCreatedAt = item["CreatedAt"];
