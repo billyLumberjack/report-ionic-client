@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
+import {SharedProvider} from '../../providers/shared/shared'
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
-
+import { MapPage } from '../map/map';
 
 
 @Component({
@@ -11,6 +12,9 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  
+  
 
   params = {
     limit: 20
@@ -26,7 +30,15 @@ export class HomePage {
   oldReportList = [];
   show_page_loader = true;
 
-  constructor(private alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController, private reportProvider: ReportProvider, private navParams: NavParams) {
+  constructor(
+    private alertCtrl: AlertController,
+    private storage: Storage,
+    public navCtrl: NavController,
+    private reportProvider: ReportProvider,
+    private navParams: NavParams,
+    private shared: SharedProvider
+  ) {
+
     if (navParams.get("params") !== undefined) {
       this.params = { ...this.params, ...navParams.get("params") };
     }
@@ -40,12 +52,10 @@ export class HomePage {
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data, true);
       this.markAlreadyVisitedReports();
-
     });
   }
 
   doRefresh(loader) {
-
     const p = {
       fromCreatedAt: this.highestCreatedAt + 1
     };
@@ -102,6 +112,8 @@ export class HomePage {
 //    }
 //  }
 
+
+
   appendReports(data: Array<{}>, appendOnBottom: boolean) {
 
     console.log("retrieved", data.length, "objs");
@@ -157,7 +169,7 @@ export class HomePage {
       });
       alert.present();
     }
-    
+    this.shared.data = this.reportList;
     console.log("ITEMS IN PAGE", this.reportList.length);
   }
 

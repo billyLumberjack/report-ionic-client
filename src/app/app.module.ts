@@ -8,12 +8,14 @@ import { HttpModule, Http } from '@angular/http';
 //pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { MapPage } from '../pages/map/map';
 import { ResearchPage } from '../pages/research/research';
 import { AddPage } from '../pages/add/add';
 import { AboutPage } from '../pages/about/about';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
 //providers
 import { ReportProvider } from '../providers/report/report';
+import { SharedProvider } from '../providers/shared/shared';
 // components
 import { ReportComponent } from '../components/report/report';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
@@ -43,6 +45,7 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     MyApp,
     HomePage,
+    MapPage,
     MyTabsPage,
     ResearchPage,
     ReportDetailsPage,
@@ -75,6 +78,7 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     HomePage,
+    MapPage,
     AboutPage,
     Topos_slides,
     AddPage,
@@ -84,7 +88,8 @@ export function createTranslateLoader(http: Http) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ReportProvider,
-    Camera
+    Camera,
+    SharedProvider
   ]
 })
 

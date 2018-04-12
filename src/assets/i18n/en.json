@@ -5,7 +5,8 @@
     },
     "HOME":{
         "TITLE":"Last Reports",
-        "SEARCH-PLACEHOLDER":"Search"
+        "SEARCH-PLACEHOLDER":"Search",
+        "MAP":"Map"
     },
     "FORM":{
         "REGION":"Region",

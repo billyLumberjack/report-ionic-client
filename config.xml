@@ -3,7 +3,7 @@
     <name>SkiApp Report</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="samuele.malavasi@gmail.com" href="mailto:samuele.malavasi@gmail.com">SkiApp Report Developer</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.147:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -86,6 +86,11 @@
     </platform>
     <allow-navigation href="http://192.168.1.147:8100" />
     <allow-navigation href="http://192.168.0.192:8100" />
+    <allow-navigation href="http://192.168.1.106:8100" />
+    <allow-navigation href="http://10.196.160.122:8100" />
+    <allow-navigation href="http://192.168.1.106:8101" />
+    <allow-navigation href="http://192.168.30.114:8100" />
+    <allow-navigation href="http://192.168.30.122:8100" />
     <engine name="android" spec="^6.4.0" />
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
@@ -101,6 +106,4 @@
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
-    <allow-navigation href="http://192.168.1.106:8100" />
-    <allow-navigation href="http://10.196.160.122:8100" />
 </widget>

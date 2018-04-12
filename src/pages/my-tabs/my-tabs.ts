@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
+import { MapPage } from '../map/map';
 import { ResearchPage } from '../research/research';
 import { AddPage } from '../add/add';
 import { AboutPage } from '../about/about';
@@ -21,10 +22,10 @@ import { AboutPage } from '../about/about';
 export class MyTabsPage {
 
   homeRoot = HomePage
+  mapRoot = MapPage
   researchRoot = ResearchPage
   addRoot = AddPage
   aboutRoot = AboutPage;
-
 
   constructor(public navCtrl: NavController) {}
 

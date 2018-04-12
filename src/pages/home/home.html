@@ -4,7 +4,7 @@
   <ion-navbar>
 
     <ion-title [class.hidden]="!hideToolbar">{{ 'HOME.TITLE' | translate }}</ion-title>
-<!--
+    <!--
     <ion-buttons right [class.hidden]="!hideToolbar">
       <button ion-button icon-only (click)="searchBtnClick();">
         <ion-icon name="search"></ion-icon>
@@ -33,14 +33,14 @@
 
 <ion-content no-padding>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-  <report *ngFor="let report of reportList" [report]="report"></report>
+    <report *ngFor="let report of reportList" [report]="report"></report>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hideToolbar">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hideToolbar">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
 </ion-content>

@@ -1,29 +1,29 @@
-<ion-card  (click)="itemSelected(report)">
-        <ion-slides *ngIf="report.Images">
-          <ion-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
-              <img [src]="url" style="display:none;"/>
-          </ion-slide>
-        </ion-slides>
+<ion-card (click)="itemSelected(report)">
+  <ion-slides *ngIf="report.Images">
+    <ion-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
+      <img [src]="url" style="display:none;" />
+    </ion-slide>
+  </ion-slides>
 
-        <div class="default-image-bg" *ngIf="!report.Images"></div>
-        
-        <ion-card-content>
-    
-          <ion-row>
-              <ion-col no-padding text-left>
-                  <h2>{{ report.TripName }}</h2> 
-              </ion-col>
-              <ion-col no-padding text-right *ngIf="report.Visited">
-                <ion-icon name="eye" class="eye-icon"></ion-icon>
-              </ion-col>
-          </ion-row>
-    
-          <ion-row>
-            <ion-col no-padding text-left>{{report.Region}}</ion-col>
-            <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
-            <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
-            <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
-          </ion-row>
-    
-        </ion-card-content>
-      </ion-card>
+  <div class="default-image-bg" *ngIf="!report.Images"></div>
+
+  <ion-card-content>
+
+    <ion-row>
+      <ion-col no-padding text-left>
+        <h2>{{ report.TripName }}</h2>
+      </ion-col>
+      <ion-col no-padding text-right *ngIf="report.Visited">
+        <ion-icon name="eye" class="eye-icon"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col no-padding text-left>{{report.Region}}</ion-col>
+      <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
+      <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
+      <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
+    </ion-row>
+
+  </ion-card-content>
+</ion-card>
