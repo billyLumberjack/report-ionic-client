@@ -6,15 +6,11 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { MapPage } from '../map/map';
 
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  
-  
 
   params = {
     limit: 20

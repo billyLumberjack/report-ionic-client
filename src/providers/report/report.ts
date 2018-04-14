@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { ENV } from '@app/env';
+
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -7,27 +10,25 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ReportProvider {
 
-  host = "https://3dq6jt7fd0.execute-api.eu-central-1.amazonaws.com/dev";
-
   constructor(public http: Http) {
     console.log('Hello ReportProvider Provider');
   }
 
   postImage(body) {
-    var url = this.host + "/images";
+    var url = ENV.api_endpoint + "/images";
     return this.http.post(url,body).map(res => res.json()).toPromise().catch(err=>{
       console.error("ERROR UPLOADING IMAGE",err);
     });
   }
 
   postReport(report_obj) {
-    var url = this.host + "/report";
+    var url = ENV.api_endpoint + "/report";
     return this.http.post(url,report_obj).map(res => res.json()).toPromise();
   }
 
 
   getReports(parameters) {
-    var url = this.host + "/report";
+    var url = ENV.api_endpoint + "/report";
 
     console.log("PARAMETERS FROM PROVIDER\n",JSON.stringify(parameters,null,2));
 

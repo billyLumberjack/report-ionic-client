@@ -34,10 +34,23 @@ export class MapPage {
     }).addTo(this.map);
 
     let markerGroup = leaflet.featureGroup();
+
+console.log(JSON.stringify(this.shared.data[0],null,2));
+
+    /*
+    for (let report of this.shared.data) {
+      leaflet.marker([
+        report.Location.lat,
+        report.Location.lng
+      ])
+    }
+    *7
+    /*
     let marker: any = leaflet.marker([45.1894610, 10.7899293]).on('click', () => {
         alert('Marker clicked');
       });
-      markerGroup.addLayer(marker);
+      */
+      markerGroup.addLayer();
       this.map.addLayer(markerGroup);
 
   }
