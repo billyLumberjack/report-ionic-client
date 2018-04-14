@@ -5,6 +5,8 @@ import {SharedProvider} from '../../providers/shared/shared'
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { MapPage } from '../map/map';
+import { ENV } from '@app/env';
+
 
 @Component({
   selector: 'page-home',
@@ -45,6 +47,8 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    alert(JSON.stringify(ENV,null,2));
+
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data, true);
       this.markAlreadyVisitedReports();

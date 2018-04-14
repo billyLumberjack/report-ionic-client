@@ -15,7 +15,6 @@ export class ReportProvider {
   }
 
   postImage(body) {
-    alert(JSON.stringify(ENV,null,2));
     var url = ENV.api_endpoint + "/images";
     return this.http.post(url,body).map(res => res.json()).toPromise().catch(err=>{
       console.error("ERROR UPLOADING IMAGE",err);
