@@ -47,7 +47,6 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    alert(JSON.stringify(ENV,null,2));
 
     this.reportProvider.getReports(this.params).subscribe(data => {
       this.appendReports(data, true);
