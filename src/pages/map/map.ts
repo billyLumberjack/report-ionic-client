@@ -1,10 +1,11 @@
 import { Component, ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {SharedProvider} from '../../providers/shared/shared'
+import { ReportDetailsPage } from '../../pages/report-details/report-details';
+
 
 
 import leaflet from 'leaflet';
-
 
 @Component({
   selector: 'page-map',
@@ -16,42 +17,65 @@ export class MapPage {
   refresherExists = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private shared: SharedProvider) {
-    console.log('Passed params _ 1', JSON.stringify(shared.data.length));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
+    this.buildFakeCoordinates();
     this.loadmap();
+  }
 
-
+  buildFakeCoordinates(){
+    /*
+    "geometry": {
+      "type": "Point",
+      "coordinates": [125.6, 10.1]
+    }
+     */
+    for (let report of this.shared.data) {
+      if(report.geometry == undefined){
+        report["geometry"] = {
+          type:"Point",
+          coordinates:[
+            (Math.random() * (36.32475 - 47.18290) + 47.18290),
+            (Math.random() * (18.56574 - 6.54670) + 6.54670)
+          ]
+        };
+      }
+    }
   }
 
   loadmap(){
     this.map = leaflet.map("map").fitWorld();
     
-    leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18
+    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
+      maxZoom: 18,
+      subdomains:["1","2","3"],
+      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     }).addTo(this.map);
 
-    let markerGroup = leaflet.featureGroup();
+    let markerArray = [];
+    this.shared.data.forEach((report_obj, index) => {
 
-console.log(JSON.stringify(this.shared.data[0],null,2));
+      markerArray.push(
+        new leaflet.Marker(report_obj.geometry.coordinates)
+        .bindPopup('<a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);">'+report_obj.TripName+'</a>')
+      );
+        
+    });
 
-    /*
-    for (let report of this.shared.data) {
-      leaflet.marker([
-        report.Location.lat,
-        report.Location.lng
-      ])
-    }
-    *7
-    /*
-    let marker: any = leaflet.marker([45.1894610, 10.7899293]).on('click', () => {
-        alert('Marker clicked');
+    document.addEventListener('build', (event) => {
+        //console.log(JSON.stringify(event.detail,null,2));
+        
+        this.navCtrl.push(ReportDetailsPage, {
+          report: this.shared.data[event["detail"]]
+        });
+      
       });
-      */
-      markerGroup.addLayer();
-      this.map.addLayer(markerGroup);
+
+    let markerGroup = leaflet.featureGroup(markerArray)
+    markerGroup.addTo(this.map);
+    this.map.fitBounds(markerGroup.getBounds());
 
   }
 
@@ -60,3 +84,5 @@ console.log(JSON.stringify(this.shared.data[0],null,2));
   }
 
 }
+
+
