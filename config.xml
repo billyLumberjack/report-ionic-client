@@ -92,6 +92,8 @@
     <allow-navigation href="http://192.168.30.114:8100" />
     <allow-navigation href="http://192.168.30.122:8100" />
     <allow-navigation href="http://192.168.30.99:8100" />
+    <engine name="android" spec="^6.4.0" />
+    <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.2" />
@@ -105,6 +107,4 @@
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
-    <engine name="android" spec="^6.4.0" />
-    <engine name="ios" spec="~4.5.4" />
 </widget>

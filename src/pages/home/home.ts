@@ -181,6 +181,17 @@ export class HomePage {
           if (visited_report_array.indexOf(item["_id"]) > -1) {
             item["Visited"] = true;
           }
+          /*DA ELIMINARE ASAP*/
+          if(item.geometry == undefined){
+            item["geometry"] = {
+              type:"Point",
+              coordinates:[
+                (Math.random() * (36.32475 - 47.18290) + 47.18290),
+                (Math.random() * (18.56574 - 6.54670) + 6.54670)
+              ]
+            };
+          }
+          /*DA ELIMINARE ASAP*/
         }
       }
 

@@ -15,6 +15,8 @@
 
 <ion-content>
   
+  <div (dblclick)="zoomIn();" id="map"></div>
+  
   <ion-list *ngIf="report">
     <div *ngFor="let key of fieldsToShow">
       <ion-item text-wrap *ngIf="report[key]">

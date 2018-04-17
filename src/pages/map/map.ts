@@ -2,6 +2,8 @@ import { Component, ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {SharedProvider} from '../../providers/shared/shared'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
+import { TranslateService } from '@ngx-translate/core';
+
 
 
 
@@ -16,7 +18,7 @@ export class MapPage {
   map:any;
   refresherExists = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private shared: SharedProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private shared: SharedProvider, private translate: TranslateService) {
   }
 
   ionViewDidLoad() {
@@ -31,7 +33,7 @@ export class MapPage {
       "type": "Point",
       "coordinates": [125.6, 10.1]
     }
-     */
+     
     for (let report of this.shared.data) {
       if(report.geometry == undefined){
         report["geometry"] = {
@@ -43,6 +45,7 @@ export class MapPage {
         };
       }
     }
+    */
   }
 
   loadmap(){
@@ -55,11 +58,31 @@ export class MapPage {
     }).addTo(this.map);
 
     let markerArray = [];
+
     this.shared.data.forEach((report_obj, index) => {
+
+      let popup_string = '<table>'+
+        '<tr>'+
+        '<th colspan="2"><a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);"><b>'+
+        report_obj.TripName+
+        '</b></a><th>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.ElevationGain")+'</td>'+
+        '<td class="popup-value">'+report_obj.ElevationGain +'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.Grade")+'</td>'+
+        '<td class="popup-value">'+report_obj.Grade +'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.TripRate")+'</td>'+
+        '<td class="popup-value">'+report_obj.TripRate +'</td>'+
+        '</tr></table>';
 
       markerArray.push(
         new leaflet.Marker(report_obj.geometry.coordinates)
-        .bindPopup('<a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);">'+report_obj.TripName+'</a>')
+        .bindPopup(popup_string)
       );
         
     });

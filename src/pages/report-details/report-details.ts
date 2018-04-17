@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Topos_slides} from '../topos_slides/topos_slides';
+import { TranslateService } from '@ngx-translate/core';
+
+import leaflet from 'leaflet';
+
 
 /**
  * Generated class for the ReportDetailsPage page.
@@ -15,7 +19,12 @@ import { Topos_slides} from '../topos_slides/topos_slides';
 })
 export class ReportDetailsPage {
 
-	report = null;
+  @ViewChild('map') mapContainer: ElementRef;
+  
+  map:any;
+
+  report = null;
+  isMapFullscreen = false;
 
   fieldsToShow = [
     "Region",
@@ -53,7 +62,7 @@ export class ReportDetailsPage {
     //"Images",    
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private translate: TranslateService) {
     this.report = this.navParams.get("report");
     if(this.report.ReadableDate == undefined){
       this.report.ReadableDate = new Date(this.report.Date).toLocaleDateString();
@@ -66,7 +75,53 @@ export class ReportDetailsPage {
     //}    	
   }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    
+    this.map = leaflet.map("map");
+    
+    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
+      maxZoom: 16,
+      subdomains:["1","2","3"],
+      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    }).addTo(this.map);
+
+    let popup_string = '<table>'+
+        '<tr>'+
+        '<th colspan="2"><b>'+
+        this.report.TripName+
+        '</b><th>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.ElevationGain")+'</td>'+
+        '<td class="popup-value">'+this.report.ElevationGain +'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.Grade")+'</td>'+
+        '<td class="popup-value">'+this.report.Grade +'</td>'+
+        '</tr>'+
+        '<tr>'+
+        '<td>'+this.translate.instant("DETAILS.TripRate")+'</td>'+
+        '<td class="popup-value">'+this.report.TripRate +'</td>'+
+        '</tr></table>';
+
+        let marker = new leaflet.Marker(this.report.geometry.coordinates)
+          .bindPopup(popup_string);
+
+        marker.addTo(this.map);
+        this.map.setView(marker.getLatLng(),12);
+
+        this.map.addControl(new leaflet.Control.Fullscreen());
+
+        /*
+        this.map.on('fullscreenchange', () => {
+          if (this.map.isFullscreen()) {
+            this.headerContainer.nativeElement.remove();
+          } else {
+            this.isMapFullscreen = false;
+          }
+        });
+        */
+      }
 
   gotoSlide(i){
     console.log("click",i);
@@ -74,6 +129,10 @@ export class ReportDetailsPage {
       index:i,
       images:this.report.Images
     }); 
+  }
+
+  zoomIn(){    
+    this.map.setZoom(this.map.getZoom() + 1);
   }
 
 
