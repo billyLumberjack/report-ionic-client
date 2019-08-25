@@ -1,5 +1,5 @@
 <!--
-  Generated template for the TopographyPage page.
+  Generated template for the MapPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>topography</ion-title>
+    <ion-title>map</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
-  <map #manna></map>
+<ion-content no-padding>
+    <div (dblclick)="zoomIn();" id="map"></div>
 </ion-content>

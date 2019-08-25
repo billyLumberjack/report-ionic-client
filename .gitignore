@@ -35,7 +35,3 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 resources/my-release-key.jks
-
-# Environment Variables
-#**/environment.*
-#!**/environment.model.ts 

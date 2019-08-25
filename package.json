@@ -57,14 +57,14 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
       "ionic-plugin-keyboard": {},
-      "cordova-sqlite-storage": {},
-      "cordova-plugin-camera": {},
       "cordova-plugin-ionic": {
         "APP_ID": "1907d883",
         "CHANNEL_NAME": "Production",
         "UPDATE_METHOD": "auto",
         "UPDATE_API": "https://api.ionicjs.com"
-      }
+      },
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android",

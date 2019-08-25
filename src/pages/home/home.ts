@@ -4,6 +4,7 @@ import { ReportProvider } from '../../providers/report/report';
 import {SharedProvider} from '../../providers/shared/shared'
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import { MapPage } from '../map/map';
 import { ENV } from '@app/env';
 
 
@@ -180,6 +181,17 @@ export class HomePage {
           if (visited_report_array.indexOf(item["_id"]) > -1) {
             item["Visited"] = true;
           }
+          /*DA ELIMINARE ASAP*/
+          if(item.geometry == undefined){
+            item["geometry"] = {
+              type:"Point",
+              coordinates:[
+                (Math.random() * (36.32475 - 47.18290) + 47.18290),
+                (Math.random() * (18.56574 - 6.54670) + 6.54670)
+              ]
+            };
+          }
+          /*DA ELIMINARE ASAP*/
         }
       }
 
