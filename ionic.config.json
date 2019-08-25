@@ -1,8 +1,8 @@
 {
-  "name": "iweather",
-  "app_id": "1907d883",
-  "type": "ionic-angular",
+  "name": "skiApp",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "1907d883"
 }

@@ -15,9 +15,9 @@
 
 <ion-content>
   
-  <div (dblclick)="zoomIn();" id="map"></div>
+  <map id="manna" #manna></map>
   
-  <ion-list *ngIf="report">
+  <ion-list *ngIf="report" id="details-list">
     <div *ngFor="let key of fieldsToShow">
       <ion-item text-wrap *ngIf="report[key]">
         <p>{{ 'DETAILS.'+key | translate }}</p>

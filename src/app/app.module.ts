@@ -8,7 +8,7 @@ import { HttpModule, Http } from '@angular/http';
 //pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { MapPage } from '../pages/map/map';
+import { TopographyPage } from '../pages/topography/topography';
 import { ResearchPage } from '../pages/research/research';
 import { AddPage } from '../pages/add/add';
 import { AboutPage } from '../pages/about/about';
@@ -19,6 +19,7 @@ import { SharedProvider } from '../providers/shared/shared';
 // components
 import { ReportComponent } from '../components/report/report';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
+import { MapComponent } from '../components/map/map';
 //directives
 import { Autosize} from '../directives/autosize/autosize';
 
@@ -45,12 +46,13 @@ export function createTranslateLoader(http: Http) {
   declarations: [
     MyApp,
     HomePage,
-    MapPage,
+    TopographyPage,
     MyTabsPage,
     ResearchPage,
     ReportDetailsPage,
     Topos_slides,
     ReportComponent,
+    MapComponent,
     PageLoaderComponent,
     AddPage,
     AboutPage,
@@ -78,7 +80,7 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     HomePage,
-    MapPage,
+    TopographyPage,
     AboutPage,
     Topos_slides,
     AddPage,

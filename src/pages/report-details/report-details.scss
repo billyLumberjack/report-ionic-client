@@ -1,7 +1,12 @@
 page-report-details {
-    #map{
+    #manna{
+        position: absolute;
         width: 100%;
-        height: 20rem;
+        height: 25rem;
+    }
+
+    #details-list{
+        margin-top: 25rem;
     }
 
     .popup-value{

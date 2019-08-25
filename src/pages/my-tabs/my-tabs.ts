@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
-import { MapPage } from '../map/map';
+import { TopographyPage } from '../topography/topography';
 import { ResearchPage } from '../research/research';
 import { AddPage } from '../add/add';
 import { AboutPage } from '../about/about';
@@ -22,7 +22,7 @@ import { AboutPage } from '../about/about';
 export class MyTabsPage {
 
   homeRoot = HomePage
-  mapRoot = MapPage
+  topoRoot = TopographyPage
   researchRoot = ResearchPage
   addRoot = AddPage
   aboutRoot = AboutPage;
