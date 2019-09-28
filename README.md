@@ -1,3 +1,15 @@
+# Useful commands
+start local emulator
+```bash
+$ ionic cordova emulate <platform name>
+```
+deploy on physical device
+```bash
+$ ionic cordova run android --device
+```
+
+
+# OLD md content
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
 ## How to use this template

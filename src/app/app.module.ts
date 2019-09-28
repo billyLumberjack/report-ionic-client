@@ -16,6 +16,7 @@ import { ReportDetailsPage } from '../pages/report-details/report-details';
 //providers
 import { ReportProvider } from '../providers/report/report';
 import { SharedProvider } from '../providers/shared/shared';
+import { MapProvider } from '../providers/map.provider';
 // components
 import { ReportComponent } from '../components/report/report';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
@@ -89,7 +90,8 @@ export function createTranslateLoader(http: Http) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ReportProvider,
     Camera,
-    SharedProvider
+    SharedProvider,
+    MapProvider
   ]
 })
 

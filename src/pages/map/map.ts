@@ -4,8 +4,7 @@ import {SharedProvider} from '../../providers/shared/shared'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
 import { TranslateService } from '@ngx-translate/core';
 
-
-
+import {MapProvider} from '../../providers/map.provider'
 
 import leaflet from 'leaflet';
 
@@ -15,14 +14,24 @@ import leaflet from 'leaflet';
 })
 export class MapPage {
   @ViewChild('map') mapContainer: ElementRef;
-  map:any;
+  
   refresherExists = true;
+  map:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private shared: SharedProvider, private translate: TranslateService) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private shared: SharedProvider,
+    private mapProvider:MapProvider,
+    private translate: TranslateService
+    ) {
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
+
+    this.map = this.mapProvider.getMap("map1");
+
     this.buildFakeCoordinates();
     this.loadmap();
   }
@@ -49,13 +58,6 @@ export class MapPage {
   }
 
   loadmap(){
-    this.map = leaflet.map("map").fitWorld();
-    
-    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
-      maxZoom: 18,
-      subdomains:["1","2","3"],
-      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    }).addTo(this.map);
 
     let markerArray = [];
 

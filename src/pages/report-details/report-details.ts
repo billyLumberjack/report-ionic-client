@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Topos_slides} from '../topos_slides/topos_slides';
 import { TranslateService } from '@ngx-translate/core';
 
+import {MapProvider} from '../../providers/map.provider'
+
 import leaflet from 'leaflet';
 
 
@@ -20,11 +22,11 @@ import leaflet from 'leaflet';
 export class ReportDetailsPage {
 
   @ViewChild('map') mapContainer: ElementRef;
-  
-  map:any;
 
   report = null;
   isMapFullscreen = false;
+
+  map:any;
 
   fieldsToShow = [
     "Region",
@@ -62,7 +64,7 @@ export class ReportDetailsPage {
     //"Images",    
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private translate: TranslateService) {
+  constructor(public mapProvider: MapProvider, public navCtrl: NavController, public navParams: NavParams, private translate: TranslateService) {
     this.report = this.navParams.get("report");
     if(this.report.ReadableDate == undefined){
       this.report.ReadableDate = new Date(this.report.Date).toLocaleDateString();
@@ -76,15 +78,19 @@ export class ReportDetailsPage {
   }
 
   ionViewDidLoad() {
-    
-    this.map = leaflet.map("map");
-    
-    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
-      maxZoom: 16,
-      subdomains:["1","2","3"],
-      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    }).addTo(this.map);
 
+    this.map = this.mapProvider.getMap("map2").invalidateSize();
+
+
+    
+//    this.map = leaflet.map("map2");
+//    
+//    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
+//      maxZoom: 16,
+//      subdomains:["1","2","3"],
+//      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//    }).addTo(this.map);
+//
     let popup_string = '<table>'+
         '<tr>'+
         '<th colspan="2"><b>'+
