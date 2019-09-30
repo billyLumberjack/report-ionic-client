@@ -1,11 +1,21 @@
 # Useful commands
-start local emulator
+## List emulators
 ```bash
-$ ionic cordova emulate <platform name>
+ionic cordova emulate --list --no-native-run                            # List any OS
+cordova run --list --no-native-run                                      # List any OS
+cordova run <platform> --list --no-native-run                           # List specific OS
 ```
-deploy on physical device
+## Start local emulator
 ```bash
-$ ionic cordova run android --device
+ionic cordova emulate ios --target="iPhone-SE" --prod --no-native-run   #runs with PROD config 
+ionic cordova emulate ios --target="iPhone-SE" --no-native-run          #runs with DEV config
+
+ionic cordova emulate android --target=e78ab88d --prod --no-native-run  #runs with PROD config   
+ionic cordova emulate android --target=e78ab88d --no-native-run         #runs with DEV config   
+```
+## Deploy on physical device
+```bash
+ionic cordova run android --device
 ```
 
 
