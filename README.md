@@ -18,6 +18,15 @@ ionic cordova emulate android --target=e78ab88d --no-native-run         #runs wi
 ionic cordova run android --device
 ```
 
+## Build for browser
+```bash
+ionic cordova build browser
+```
+
+## Run in browser
+```bash
+ionic cordova run browser
+```
 
 # OLD md content
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.

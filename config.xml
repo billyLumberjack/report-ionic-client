@@ -3,7 +3,7 @@
     <name>SkiApp Report</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="samuele.malavasi@gmail.com" href="mailto:samuele.malavasi@gmail.com">SkiApp Report Developer</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -93,9 +93,10 @@
     <allow-navigation href="http://192.168.30.114:8100" />
     <allow-navigation href="http://192.168.30.122:8100" />
     <allow-navigation href="http://192.168.30.99:8100" />
-    <allow-navigation href="http://localhost:8100" sessionid="93c70ff1" />
+    <allow-navigation href="http://localhost:8100" sessionid="23970250" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="browser" spec="^5.0.4" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.3" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />

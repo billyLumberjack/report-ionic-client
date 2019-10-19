@@ -59,9 +59,13 @@ export class MapPage {
 
   loadmap(){
 
+    console.log("loadmap triggered with " + this.shared.data.length + " reports");
+
     let markerArray = [];
 
     this.shared.data.forEach((report_obj, index) => {
+
+      if(report_obj.geometry.type){
 
       let popup_string = '<table>'+
         '<tr>'+
@@ -86,6 +90,7 @@ export class MapPage {
         new leaflet.Marker(report_obj.geometry.coordinates)
         .bindPopup(popup_string)
       );
+      }
         
     });
 
