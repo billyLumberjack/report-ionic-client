@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ReportProvider } from '../../providers/report/report';
 import {ReportDetailsPage} from '../report-details/report-details';
 import { AlertController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-
 
 
 /**
@@ -53,7 +51,9 @@ export class AddPage {
   myImgValue:any;
   imageFileName:any;
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, private camera: Camera,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
+  @ViewChild('inputTypeFile') inputTypeFileElement: ElementRef;
+
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
     this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
       response => {
         this.vocabulary = response;
@@ -63,23 +63,20 @@ export class AddPage {
         console.log("Oops!");
       });
   }
-
-  getImage() {
-    const options: CameraOptions = {
-      correctOrientation:true,
-      targetWidth:1080,
-      targetHeight:1080,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY      
-    }
+  callClickEventOnInputTypeFile(){
+    this.inputTypeFileElement.nativeElement.click();
+  }
   
-    this.camera.getPicture(options).then((imageData) => {
-      this.files = ["data:image/jpeg;base64," + imageData].concat(this.files);
-    }, (err) => {
-      console.log(err);
-      alert("error uploading image, please retry");
-    });
+
+  processFile(event) {
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      this.files.push(reader.result.toString());
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
   }
 
   deleteSlide(index_to_delete){

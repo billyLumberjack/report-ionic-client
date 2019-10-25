@@ -153,8 +153,10 @@
       </ion-col>
 
       <ion-col col-2 >
-        <ion-icon name="add-circle" (click)="getImage()" id="add-image-icon"></ion-icon>
+        <ion-icon name="add-circle" (click)="callClickEventOnInputTypeFile()" id="add-image-icon"></ion-icon>
+        <input #inputTypeFile style="display: none" accept="image/*" type="file" value="" (change)="processFile($event)" > 
       </ion-col>
+
       <ion-col col-10>
         <ion-slides slidesPerView="3" spaceBetween="1" initialSlide="{{slide_index}}">
           <ion-slide *ngFor="let f of files; let i = index" class="thumb" (click)="deleteSlide(i)" [ngStyle]="{'background-image':'url('+f+')'}"></ion-slide>
