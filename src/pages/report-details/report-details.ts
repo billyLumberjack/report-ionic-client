@@ -54,14 +54,14 @@ export class ReportDetailsPage {
 
     "Site",
     "User"
-    
+
     //"Id",
     //"Date",
     //"OnsiteId",
     //"SearchTripName",
     //"TripName",
     //"Type",
-    //"Images",    
+    //"Images",
   ];
 
   constructor(public mapProvider: MapProvider, public navCtrl: NavController, public navParams: NavParams, private translate: TranslateService) {
@@ -69,28 +69,12 @@ export class ReportDetailsPage {
     if(this.report.ReadableDate == undefined){
       this.report.ReadableDate = new Date(this.report.Date).toLocaleDateString();
     }
-
-    //for(var key in this.report){
-    //  //se *NON* presente tra i campi da nascondere lo inserisco nell'oggetto da visualizzare
-    //  if(this.hiddenFields.indexOf(key) == -1)
-    //    this.displayReport[key] = this.report[key];        
-    //}    	
   }
 
   ionViewDidLoad() {
 
     this.map = this.mapProvider.getMap("map2").invalidateSize();
 
-
-    
-//    this.map = leaflet.map("map2");
-//    
-//    leaflet.tileLayer('http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}', {
-//      maxZoom: 16,
-//      subdomains:["1","2","3"],
-//      errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//    }).addTo(this.map);
-//
     let popup_string = '<table>'+
         '<tr>'+
         '<th colspan="2"><b>'+
@@ -134,10 +118,10 @@ export class ReportDetailsPage {
     this.navCtrl.push(Topos_slides,{
       index:i,
       images:this.report.Images
-    }); 
+    });
   }
 
-  zoomIn(){    
+  zoomIn(){
     this.map.setZoom(this.map.getZoom() + 1);
   }
 
