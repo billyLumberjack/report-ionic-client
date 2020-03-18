@@ -14,7 +14,7 @@ import leaflet from 'leaflet';
 })
 export class MapPage {
   @ViewChild('map') mapContainer: ElementRef;
-  
+
   refresherExists = true;
   map:any;
 
@@ -24,37 +24,14 @@ export class MapPage {
     private shared: SharedProvider,
     private mapProvider:MapProvider,
     private translate: TranslateService
-    ) {
-    }
+  ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
 
     this.map = this.mapProvider.getMap("map1");
 
-    this.buildFakeCoordinates();
     this.loadmap();
-  }
-
-  buildFakeCoordinates(){
-    /*
-    "geometry": {
-      "type": "Point",
-      "coordinates": [125.6, 10.1]
-    }
-     
-    for (let report of this.shared.data) {
-      if(report.geometry == undefined){
-        report["geometry"] = {
-          type:"Point",
-          coordinates:[
-            (Math.random() * (36.32475 - 47.18290) + 47.18290),
-            (Math.random() * (18.56574 - 6.54670) + 6.54670)
-          ]
-        };
-      }
-    }
-    */
   }
 
   loadmap(){
@@ -91,16 +68,16 @@ export class MapPage {
         .bindPopup(popup_string)
       );
       }
-        
+
     });
 
     document.addEventListener('build', (event) => {
         //console.log(JSON.stringify(event.detail,null,2));
-        
+
         this.navCtrl.push(ReportDetailsPage, {
           report: this.shared.data[event["detail"]]
         });
-      
+
       });
 
     let markerGroup = leaflet.featureGroup(markerArray)
@@ -109,7 +86,7 @@ export class MapPage {
 
   }
 
-  zoomIn(){    
+  zoomIn(){
     this.map.setZoom(this.map.getZoom() + 1);
   }
 
