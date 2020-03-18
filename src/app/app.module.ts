@@ -22,6 +22,7 @@ import { ReportComponent } from '../components/report/report';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
 //directives
 import { Autosize} from '../directives/autosize/autosize';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 // Multilanguage
@@ -62,6 +63,7 @@ export function createTranslateLoader(http: Http) {
     IonicModule.forRoot(MyApp,{
       tabsHideOnSubPages: true,
     }),
+    DirectivesModule,
     HttpModule,
     TranslateModule.forRoot({
       loader: {
@@ -70,7 +72,7 @@ export function createTranslateLoader(http: Http) {
         deps: [Http]
       }
     }),
-    IonicStorageModule.forRoot()    
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
