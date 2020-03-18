@@ -18,7 +18,7 @@ export class HomePage {
     limit: 20
   };
   reportList = [];
-  
+
 
   highestCreatedAt = 0;
 
@@ -88,31 +88,6 @@ export class HomePage {
     this.hideToolbar = false;
   }
 
-  //gotoAdvancedSearch() {
-  //  this.navCtrl.push(ResearchPage);
-  //}
-
-//  onSearchbarCancel() {
-//    this.hideToolbar = true;
-//  }
-//
-//  onSearchbarInput(ev) {
-//    this.reportList = this.oldReportList;
-//
-//    const val = ev.target.value;
-//    console.log("VAL", val);
-//
-//    if (val && val.trim() !== '') {
-//      this.reportList = this.reportList.filter((item) => {
-//        if (item.SearchTripName !== undefined && item.SearchTripName.includes(val.toLowerCase())) {
-//          return item;
-//        }
-//      });
-//    }
-//  }
-
-
-
   appendReports(data: Array<{}>, appendOnBottom: boolean) {
 
     console.log("retrieved", data.length, "objs");
@@ -123,11 +98,6 @@ export class HomePage {
 
       data.forEach((item, index) => {
 
-        //if (item["Images"] == undefined) {
-        //  item["Images"] = ["assets/no-image-available.jpg"];
-        //  //promises_array.push(this.insertImages(item));
-        //}
-
         if (item["CreatedAt"] > this.highestCreatedAt) {
           this.highestCreatedAt = item["CreatedAt"];
         }
@@ -135,13 +105,6 @@ export class HomePage {
       });
 
       this.show_page_loader = false;
-
-      //Promise.all(promises_array).then(() => {
-      //  this.show_page_loader = false;
-      //}).catch(err => {
-      //  console.error("ERROR RETRIEVING IMAGES", err);
-      //  this.show_page_loader = false;
-      //});
 
       if (appendOnBottom) {
         this.reportList = this.reportList.concat(data);
@@ -152,8 +115,8 @@ export class HomePage {
       this.oldReportList = this.reportList;
     }
     else if(this.reportList.length == 0){
-      
-      
+
+
       let alert = this.alertCtrl.create({
         title: 'Error',
         subTitle: 'No results found',
@@ -181,17 +144,17 @@ export class HomePage {
           if (visited_report_array.indexOf(item["_id"]) > -1) {
             item["Visited"] = true;
           }
-          /*DA ELIMINARE ASAP*/
-          if(item.geometry == undefined){
-            item["geometry"] = {
-              type:"Point",
-              coordinates:[
-                (Math.random() * (36.32475 - 47.18290) + 47.18290),
-                (Math.random() * (18.56574 - 6.54670) + 6.54670)
-              ]
-            };
-          }
-          /*DA ELIMINARE ASAP*/
+          ///*DA ELIMINARE ASAP*/
+          //if(item.geometry == undefined){
+          //  item["geometry"] = {
+          //    type:"Point",
+          //    coordinates:[
+          //      (Math.random() * (36.32475 - 47.18290) + 47.18290),
+          //      (Math.random() * (18.56574 - 6.54670) + 6.54670)
+          //    ]
+          //  };
+          //}
+          ///*DA ELIMINARE ASAP*/
         }
       }
 
