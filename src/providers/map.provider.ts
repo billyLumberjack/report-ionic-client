@@ -14,11 +14,12 @@ export class MapProvider {
 
   public getMap(divId:String){
     var result = leaflet.map(divId).fitWorld();
-    
-    leaflet.tileLayer('http://ec{s}.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={x}&TileY={y}&ZoomLevel={z}',
+
+    leaflet.tileLayer(
+    "https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=225e7f1800604f6fb0906dcd15a5bd46",
     {
       maxZoom: 18,
-      subdomains:["1","2","3"],
+      subdomains:["a","b","c"],
       errorTileUrl:"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     }).addTo(result);
 
