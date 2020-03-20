@@ -102,7 +102,7 @@ export class ReportDetailsPage {
 
         this.map.addControl(new leaflet.Control.Fullscreen());
 
-        /*
+
         this.map.on('fullscreenchange', () => {
           if (this.map.isFullscreen()) {
             this.headerContainer.nativeElement.remove();
@@ -110,7 +110,7 @@ export class ReportDetailsPage {
             this.isMapFullscreen = false;
           }
         });
-        */
+
       }
 
   gotoSlide(i){
