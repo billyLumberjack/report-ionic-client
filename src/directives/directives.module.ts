@@ -4,3 +4,4 @@ import { NgModule } from '@angular/core';
 	imports: [],
 	exports: []
 })
+export class DirectivesModule {}
