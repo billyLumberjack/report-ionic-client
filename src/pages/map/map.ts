@@ -28,49 +28,55 @@ export class MapPage {
 
   ionViewDidLoad() {
     this.map = this.mapProvider.getMap("map1");
-    this.loadmap();
+
+    this.handleNavigationToReportPages();
+    this.setupMapAndMarkers();
   }
 
-  loadmap(){
+  handleNavigationToReportPages(){
+    let navigateToReportByEvent = (event) => {
+      this.navCtrl.push(ReportDetailsPage, {
+        report: this.shared.data[event["detail"]]
+      });
+    }
+
+    document.addEventListener('build', navigateToReportByEvent );
+  }
+
+  setupMapAndMarkers(){
 
     console.log("loadmap triggered with " + this.shared.data.length + " reports");
-    let markerArray = [];
 
-    this.shared.data.forEach((report_obj, index) => {
-      if(report_obj.geometry.type){
-        let popup_string = '<table>'+
-          '<tr>'+
-          '<th colspan="2"><a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);"><b>'+
-          report_obj.TripName+
-          '</b></a><th>'+
-          '</tr>'+
-          '<tr>'+
-          '<td>'+this.translate.instant("DETAILS.ElevationGain")+'</td>'+
-          '<td class="popup-value">'+report_obj.ElevationGain +'</td>'+
-          '</tr>'+
-          '<tr>'+
-          '<td>'+this.translate.instant("DETAILS.Grade")+'</td>'+
-          '<td class="popup-value">'+report_obj.Grade +'</td>'+
-          '</tr>'+
-          '<tr>'+
-          '<td>'+this.translate.instant("DETAILS.TripRate")+'</td>'+
-          '<td class="popup-value">'+report_obj.TripRate +'</td>'+
-          '</tr></table>';
+    var buildPopupStringByReportAndId = (report_obj, index) => {
+      let res = '<table>'+
+      '<tr>'+
+      '<th colspan="2"><a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);"><b>'+
+      report_obj.TripName+
+      '</b></a><th>'+
+      '</tr>'+
+      '<tr>'+
+      '<td>'+this.translate.instant("DETAILS.ElevationGain")+'</td>'+
+      '<td class="popup-value">'+report_obj.ElevationGain +'</td>'+
+      '</tr>'+
+      '<tr>'+
+      '<td>'+this.translate.instant("DETAILS.Grade")+'</td>'+
+      '<td class="popup-value">'+report_obj.Grade +'</td>'+
+      '</tr>'+
+      '<tr>'+
+      '<td>'+this.translate.instant("DETAILS.TripRate")+'</td>'+
+      '<td class="popup-value">'+report_obj.TripRate +'</td>'+
+      '</tr></table>'
 
-        markerArray.push(
-          new leaflet.Marker(report_obj.geometry.coordinates)
-            .bindPopup(popup_string)
-        );
-      }
+      return res;
+    }
+
+    let markerArray = this.shared.data
+      .filter(report_obj => report_obj.geometry.type)
+      .map((report_obj, index) => {
+          let popup_string = buildPopupStringByReportAndId(report_obj, index);
+          let leafletMarker = new leaflet.Marker(report_obj.geometry.coordinates).bindPopup(popup_string)
+          return leafletMarker;
     });
-
-    document.addEventListener('build', (event) => {
-
-        this.navCtrl.push(ReportDetailsPage, {
-          report: this.shared.data[event["detail"]]
-        });
-
-      });
 
     let markerGroup = leaflet.featureGroup(markerArray)
     markerGroup.addTo(this.map);

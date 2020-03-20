@@ -19,21 +19,14 @@ export class ReportComponent {
 
   @Input() report;
 
-  constructor(public navCtrl: NavController, private storage: Storage) {
-
-
-
-  }
+  constructor(public navCtrl: NavController, private storage: Storage) {}
 
   itemSelected(obj) {
-    
-    // set a key/value
-    
 
     this.storage.get('visited_report').then((visited_report_array) => {
-      
+
       console.log(visited_report_array);
-      
+
       if(visited_report_array == undefined){
         this.storage.set('visited_report', [obj._id]);
       }
@@ -44,7 +37,6 @@ export class ReportComponent {
         report: obj
       });
     });
-
 
   }
 
