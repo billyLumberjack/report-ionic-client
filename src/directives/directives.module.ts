@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { DoubletapDirective } from './doubletap/doubletap';
 @NgModule({
-	declarations: [DoubletapDirective],
+	declarations: [],
 	imports: [],
-	exports: [DoubletapDirective]
+	exports: []
 })
-export class DirectivesModule {}
