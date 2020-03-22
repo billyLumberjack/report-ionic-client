@@ -94,24 +94,19 @@ export class ReportDetailsPage {
         '<td class="popup-value">'+this.report.TripRate +'</td>'+
         '</tr></table>';
 
-        let marker = new leaflet.Marker(this.report.geometry.coordinates)
-          .bindPopup(popup_string);
+      let marker = new leaflet.Marker(this.report.geometry.coordinates)
+        .bindPopup(popup_string);
 
-        marker.addTo(this.map);
-        this.map.setView(marker.getLatLng(),12);
+      marker.addTo(this.map);
+      this.map.setView(marker.getLatLng(),12);
 
-        this.map.addControl(new leaflet.Control.Fullscreen());
+      this.map.addControl(new leaflet.Control.Fullscreen());
 
+      this.map.on('fullscreenchange', () => {
+        this.map.invalidateSize();
+      });
 
-        this.map.on('fullscreenchange', () => {
-          if (this.map.isFullscreen()) {
-            this.headerContainer.nativeElement.remove();
-          } else {
-            this.isMapFullscreen = false;
-          }
-        });
-
-      }
+    }
 
   gotoSlide(i){
     console.log("click",i);
