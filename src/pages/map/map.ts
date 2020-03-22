@@ -13,7 +13,6 @@ import leaflet from 'leaflet';
   templateUrl: 'map.html',
 })
 export class MapPage {
-  @ViewChild('map') mapContainer: ElementRef;
 
   refresherExists = true;
   map:any;
@@ -70,8 +69,9 @@ export class MapPage {
       return res;
     }
 
+
     let markerArray = this.shared.data
-      .filter(report_obj => report_obj.geometry.type)
+      .filter(report_obj => report_obj.geometry && report_obj.geometry.type)
       .map((report_obj, index) => {
           let popup_string = buildPopupStringByReportAndId(report_obj, index);
           let leafletMarker = new leaflet.Marker(report_obj.geometry.coordinates).bindPopup(popup_string)
