@@ -29,7 +29,12 @@ export class MapPage {
     this.map = this.mapProvider.getMap("map1");
 
     this.handleNavigationToReportPages();
-    this.setupMapAndMarkers();
+  }
+
+  ionViewDidEnter(){
+      this.setupMapAndMarkers();
+            this.map.invalidateSize();
+
   }
 
   handleNavigationToReportPages(){
@@ -71,12 +76,17 @@ export class MapPage {
 
 
     let markerArray = this.shared.data
-      .filter(report_obj => report_obj.geometry && report_obj.geometry.type)
       .map((report_obj, index) => {
+        if(report_obj.geometry && report_obj.geometry.coordinates ){
           let popup_string = buildPopupStringByReportAndId(report_obj, index);
           let leafletMarker = new leaflet.Marker(report_obj.geometry.coordinates).bindPopup(popup_string)
           return leafletMarker;
-    });
+        }
+        else{
+          return undefined;
+        }
+      })
+      .filter(marker => marker != undefined);
 
     let markerGroup = leaflet.featureGroup(markerArray)
     markerGroup.addTo(this.map);
