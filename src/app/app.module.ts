@@ -37,6 +37,7 @@ import { Topos_slides } from '../pages/topos_slides/topos_slides';
 import { IonicStorageModule } from '@ionic/storage';
 //
 import { Camera } from '@ionic-native/camera';
+import { ReportHandlerProvider } from '../providers/report-handler/report-handler';
 
 
 export function createTranslateLoader(http: Http) {
@@ -96,7 +97,8 @@ export function createTranslateLoader(http: Http) {
     ReportProvider,
     Camera,
     SharedProvider,
-    MapProvider
+    MapProvider,
+    ReportHandlerProvider
   ]
 })
 
