@@ -1,0 +1,29 @@
+<!--
+  Generated template for the SearchResultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>search-result</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>
+
+
+<page-loader *ngIf="show_page_loader"></page-loader>
+<ion-header>
+  <ion-navbar>
+    <ion-title [class.hidden]="!hideToolbar">{{ 'HOME.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+
+  <report-list></report-list>
+
+</ion-content>

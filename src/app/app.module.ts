@@ -13,6 +13,7 @@ import { ResearchPage } from '../pages/research/research';
 import { AddPage } from '../pages/add/add';
 import { AboutPage } from '../pages/about/about';
 import { ReportDetailsPage } from '../pages/report-details/report-details';
+import { SearchResultPage } from '../pages/search-result/search-result';
 //providers
 import { ReportProvider } from '../providers/report/report';
 import { SharedProvider } from '../providers/shared/shared';
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: Http) {
     MyTabsPage,
     ResearchPage,
     ReportDetailsPage,
+    SearchResultPage,
     Topos_slides,
     ReportComponent,
     PageLoaderComponent,
@@ -80,6 +82,7 @@ export function createTranslateLoader(http: Http) {
     MyApp,
     MyTabsPage,
     ResearchPage,
+    SearchResultPage,
     HomePage,
     MapPage,
     AboutPage,

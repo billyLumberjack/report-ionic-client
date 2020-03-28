@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
-import { HomePage } from '../home/home';
+import { SearchResultPage } from '../search-result/search-result'
 
 /**
  * Generated class for the ResearchPage page.
@@ -103,12 +103,12 @@ export class ResearchPage {
     
     if (queryParameters != null) {
       this.navCtrl.push(
-        HomePage,
+        SearchResultPage,
         {params:queryParameters}
       );
     }
     else {
-      alert("nothing in the form");
+      alert("Please fill search form");
     }
 
 
