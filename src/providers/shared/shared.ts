@@ -6,5 +6,5 @@ export class SharedProvider {
 
   constructor() {}
 
-  public data:any;
+  public data = [];
 }

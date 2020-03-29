@@ -3,7 +3,7 @@
     <name>SkiApp Report</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="samuele.malavasi@gmail.com" href="mailto:samuele.malavasi@gmail.com">SkiApp Report Developer</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />

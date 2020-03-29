@@ -9,7 +9,6 @@ import { ReportProvider } from '../../providers/report/report';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-search-result',
   templateUrl: 'search-result.html',
