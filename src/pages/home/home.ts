@@ -45,12 +45,7 @@ export class HomePage {
     private reportHandler: ReportHandlerProvider,
     private navParams: NavParams,
     private shared: SharedProvider
-  ) {
-
-    if (navParams.get("params") !== undefined) {
-      this.params = { ...this.params, ...navParams.get("params") };
-    }
-  }
+  ) {}
 
   ionViewDidLoad() {
 
@@ -100,10 +95,6 @@ export class HomePage {
       infiniteScroll.complete();
 
     });
-  }
-
-  searchBtnClick() {
-    //    this.hideToolbar = false;
   }
 
   insertImages(reportObj) {

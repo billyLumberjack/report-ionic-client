@@ -21,6 +21,10 @@ export class ReportHandlerProvider {
 
   ) {}
 
+  emptyReportsList(){
+    this.shared.data = [];
+  }
+
   markAlreadyVisitedReports() {
 
     var enhanceArray = function(localReportArray, visited_report_array){
