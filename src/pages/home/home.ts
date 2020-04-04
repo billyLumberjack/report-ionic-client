@@ -85,7 +85,7 @@ export class HomePage {
       if(data.length === 0){
         infiniteScroll.enable(false);
 
-        console.log("Infinite Scroll disabilitato");
+        console.info("Infinite Scroll disabled");
       }
 
       this.reportHandler.appendReports(data, true);

@@ -25,8 +25,6 @@ export class ReportComponent {
 
     this.storage.get('visited_report').then((visited_report_array) => {
 
-      console.log(visited_report_array);
-
       if(visited_report_array == undefined){
         this.storage.set('visited_report', [obj._id]);
       }

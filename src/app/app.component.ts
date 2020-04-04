@@ -31,7 +31,7 @@ export class MyApp {
       
       var lingua = navigator.language;// || navigator.userLanguage;
       lingua = lingua.substr(0, 2);
-      console.log("LANGUAGE SET", lingua);
+      console.info("LANGUAGE SET", lingua);
       this.translate.use(lingua);
 
       statusBar.styleDefault();

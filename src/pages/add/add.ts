@@ -60,7 +60,7 @@ export class AddPage {
 
       },
       err => {
-        console.log("Oops!");
+        console.error("Oops!");
       });
   }
   callClickEventOnInputTypeFile(){
@@ -75,7 +75,7 @@ export class AddPage {
       this.files.push(reader.result.toString());
     };
     reader.onerror = (error) => {
-      console.log('Error: ', error);
+      console.error('Error: ', error);
     };
   }
 
@@ -120,7 +120,6 @@ export class AddPage {
       report["Images"] =  images_array;
       report["User"] = this.user;
 
-      console.log("POSTING REPORT", report);
 
       this.reportProvider.postReport(report).then((data)=>{
 
@@ -147,7 +146,6 @@ export class AddPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddPage');
   }
 
 }

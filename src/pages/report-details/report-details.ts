@@ -109,7 +109,6 @@ export class ReportDetailsPage {
     }
 
   gotoSlide(i){
-    console.log("click",i);
     this.navCtrl.push(Topos_slides,{
       index:i,
       images:this.report.Images

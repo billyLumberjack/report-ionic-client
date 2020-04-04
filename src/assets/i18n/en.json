@@ -3,6 +3,12 @@
         "LIST":"List",
         "SEARCH":"Search"
     },
+    "SEARCH_RESULT":{
+        "TITLE":"Results map"
+    },
+    "MAP":{
+        "TITLE":"Map"
+    },
     "HOME":{
         "TITLE":"Last Reports",
         "SEARCH-PLACEHOLDER":"Search",

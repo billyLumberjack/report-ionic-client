@@ -52,12 +52,11 @@ export class ResearchPage {
 
       },
       err => {
-        console.log("Oops!");
+        console.error("Oops!");
       });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ResearchPage');
   }
 
   itemSelected(obj) {
@@ -149,7 +148,6 @@ export class ResearchPage {
       params["startingFrom"] = this.starting_from;
 
     if (this.fromDate != "") {
-      console.log(this.fromDate);
       params["fromDate"] = new Date(this.fromDate).getTime();
     }
     if (this.toDate != "")

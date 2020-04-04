@@ -48,9 +48,6 @@ export class MapPage {
   }
 
   setupMapAndMarkers(){
-
-    console.log("loadmap triggered with " + this.shared.data.length + " reports");
-
     var buildPopupStringByReportAndId = (report_obj, index) => {
       let res = '<table>'+
       '<tr>'+

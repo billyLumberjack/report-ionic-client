@@ -3,6 +3,12 @@
         "LIST":"Lista",
         "SEARCH":"Cerca"
     },
+    "SEARCH_RESULT":{
+        "TITLE":"Risultati della ricerca"
+    },
+    "MAP":{
+        "TITLE":"Mappa"
+    },
     "HOME":{
         "TITLE":"Ultimi Report",
         "SEARCH-PLACEHOLDER":"Cerca"

@@ -98,7 +98,7 @@ export class SearchResultPage {
       if(data.length === 0){
         infiniteScroll.enable(false);
 
-        console.log("Infinite Scroll disabilitato");
+        console.info("Infinite Scroll disabilitato");
       }
 
       this.reportHandler.appendReports(data, true);

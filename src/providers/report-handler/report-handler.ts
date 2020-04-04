@@ -54,9 +54,6 @@ export class ReportHandlerProvider {
   }
 
   appendReports(data: Array<{}>, appendOnBottom: boolean) {
-
-    console.log("retrieved", data.length, "objs");
-
     if (data.length > 0) {
       if (appendOnBottom) {
         this.shared.data = this.shared.data.concat(data);

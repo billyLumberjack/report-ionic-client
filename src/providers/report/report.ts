@@ -11,7 +11,6 @@ import 'rxjs/add/operator/toPromise';
 export class ReportProvider {
 
   constructor(public http: Http) {
-    console.log('Hello ReportProvider Provider');
   }
 
   postImage(body) {
@@ -29,9 +28,6 @@ export class ReportProvider {
 
   getReports(parameters) {
     var url = ENV.api_endpoint + "/report";
-
-    console.log("PARAMETERS FROM PROVIDER\n",JSON.stringify(parameters,null,2));
-
     return this.http.get(url, {params:parameters}).map(res => res.json());
   }
 
