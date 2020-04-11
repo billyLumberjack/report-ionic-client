@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class SharedProvider {
+export class SharedReportsProvider {
 
   constructor() {}
 
-  public data = [];
+  public reportsFeed = [];
+  public reportsSearchResults = [];
+
 }

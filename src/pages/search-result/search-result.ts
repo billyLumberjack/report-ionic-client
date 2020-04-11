@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
 import { ReportHandlerProvider } from '../../providers/report-handler/report-handler';
 
-import { SharedProvider } from '../../providers/shared/shared'
+import { SharedReportsProvider } from '../../providers/shared/shared'
 
 import { AlertController } from 'ionic-angular';
 import {MapPage} from '../map/map';
@@ -47,7 +47,7 @@ export class SearchResultPage {
     private reportProvider: ReportProvider,
     private reportHandler: ReportHandlerProvider,
     private navParams: NavParams,
-    private shared: SharedProvider
+    private shared: SharedReportsProvider
   ) {
 
     if (navParams.get("params") !== undefined) {
@@ -56,7 +56,7 @@ export class SearchResultPage {
   }
 
   displaySearchResultOnMap(){
-    this.navCtrl.push(MapPage);
+    this.navCtrl.push(MapPage , {reportsList: this.shared.reportsSearchResults});
   }
 
   ionViewDidLoad() {
@@ -66,10 +66,9 @@ export class SearchResultPage {
       if(data.length === 0)
         this.handleZeroReportsRetrieved();
 
-      this.reportHandler.emptyReportsList();
-      this.reportHandler.appendReports(data, true);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, true);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
+      this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
 
       this.show_page_loader = false;
     });
@@ -82,16 +81,16 @@ export class SearchResultPage {
 
     this.reportProvider.getReports(p).subscribe(data => {
 
-      this.reportHandler.appendReports(data, false);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, false);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
+      this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
       loader.complete();
     });
   }
 
   doInfinite(infiniteScroll) {
 
-    this.params["skip"] = this.shared.data.length;
+    this.params["skip"] = this.shared.reportsSearchResults.length;
 
     this.reportProvider.getReports(this.params).subscribe(data => {
 
@@ -101,9 +100,9 @@ export class SearchResultPage {
         console.info("Infinite Scroll disabilitato");
       }
 
-      this.reportHandler.appendReports(data, true);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, true);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
+      this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
 
       infiniteScroll.complete();
 

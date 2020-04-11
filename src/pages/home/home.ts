@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ReportProvider } from '../../providers/report/report';
 import { ReportHandlerProvider } from '../../providers/report-handler/report-handler';
-import { SharedProvider } from '../../providers/shared/shared'
+import { SharedReportsProvider } from '../../providers/shared/shared'
 import { AlertController } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { ENV } from '@app/env';
@@ -44,7 +44,7 @@ export class HomePage {
     private reportProvider: ReportProvider,
     private reportHandler: ReportHandlerProvider,
     private navParams: NavParams,
-    private shared: SharedProvider
+    private shared: SharedReportsProvider
   ) {}
 
   ionViewDidLoad() {
@@ -54,9 +54,9 @@ export class HomePage {
       if(data.length === 0)
         this.handleZeroReportsRetrieved();
 
-      this.reportHandler.appendReports(data, true);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed , data, true);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
+      this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
 
       this.show_page_loader = false;
     });
@@ -69,16 +69,16 @@ export class HomePage {
 
     this.reportProvider.getReports(p).subscribe(data => {
 
-      this.reportHandler.appendReports(data, false);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed,data, false);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
+      this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
       loader.complete();
     });
   }
 
   doInfinite(infiniteScroll) {
 
-    this.params["skip"] = this.shared.data.length;
+    this.params["skip"] = this.shared.reportsFeed.length;
 
     this.reportProvider.getReports(this.params).subscribe(data => {
 
@@ -88,9 +88,9 @@ export class HomePage {
         console.info("Infinite Scroll disabled");
       }
 
-      this.reportHandler.appendReports(data, true);
-      this.reportHandler.markAlreadyVisitedReports();
-      this.reportHandler.convertReortsDateToLocalOne();
+      this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed,data, true);
+      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
+      this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
 
       infiniteScroll.complete();
 
@@ -101,7 +101,7 @@ export class HomePage {
     //
     //    reportObj["Images"] = [];
     //    return this.reportProvider.getImagesBySearchQuery(reportObj["TripName"] + " scialpinismo").then(response => {
-    //      for (let image_obj of response.data.result.items) {
+    //      for (let image_obj of response.reportsFeed.result.items) {
     //        reportObj["Images"].push(image_obj["media"]);
     //      }
     //    });

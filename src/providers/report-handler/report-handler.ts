@@ -1,6 +1,6 @@
 import { Injectable, SystemJsNgModuleLoader } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {SharedProvider} from '../../providers/shared/shared'
+import {SharedReportsProvider} from '../../providers/shared/shared'
 
 /*
   Generated class for the ReportHandlerProvider provider.
@@ -17,15 +17,15 @@ export class ReportHandlerProvider {
 
   constructor(
     private storage: Storage,
-    private shared: SharedProvider
+    private shared: SharedReportsProvider
 
   ) {}
 
-  emptyReportsList(){
-    this.shared.data = [];
+  emptyReportsList(reportList){
+    return [];
   }
 
-  markAlreadyVisitedReports() {
+  markAlreadyVisitedReports(reportList) {
 
     var enhanceArray = function(localReportArray, visited_report_array){
       if(visited_report_array){ 
@@ -38,12 +38,12 @@ export class ReportHandlerProvider {
       }
     }
 
-    this.storage.get('visited_report').then(visited_report_array => enhanceArray(this.shared.data, visited_report_array));
+    this.storage.get('visited_report').then(visited_report_array => enhanceArray(reportList, visited_report_array));
 
   }
 
-  convertReortsDateToLocalOne(){
-    this.shared.data = this.shared.data.map((item, index) => {
+  convertReortsDateToLocalOne(reportList){
+    return reportList.map((item, index) => {
 
       if (item["CreatedAt"] > this.highestCreatedAt) {
         this.highestCreatedAt = item["CreatedAt"];
@@ -53,16 +53,18 @@ export class ReportHandlerProvider {
     });
   }
 
-  appendReports(data: Array<{}>, appendOnBottom: boolean) {
-    if (data.length > 0) {
+  appendReports(reportList , reportsToAppend: Array<{}>, appendOnBottom: boolean) {
+    if (reportsToAppend.length > 0) {
       if (appendOnBottom) {
-        this.shared.data = this.shared.data.concat(data);
+        reportList = reportList.concat(reportsToAppend);
       }
       else {
-        this.shared.data = data.concat(this.shared.data);
+        reportList = reportsToAppend.concat(reportList);
       }
-      this.oldReportList = this.shared.data;
+      this.oldReportList = reportList;
     }
+
+    return reportList;
 
   }
 

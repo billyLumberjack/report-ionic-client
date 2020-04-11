@@ -1,6 +1,6 @@
 import { Component, ViewChild,ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {SharedProvider} from '../../providers/shared/shared'
+import {SharedReportsProvider} from '../../providers/shared/shared'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,13 +17,23 @@ export class MapPage {
   refresherExists = true;
   map:any;
 
+  reportsList = [];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private shared: SharedProvider,
+    private shared: SharedReportsProvider,
     private mapProvider:MapProvider,
     private translate: TranslateService
-  ) {}
+  ) {
+    if(this.navParams.get("reportsList")){
+      this.reportsList = this.navParams.get("reportsList");
+    }
+    else{
+      this.reportsList = shared.reportsFeed;
+    }
+
+  }
 
   ionViewDidLoad() {
     this.map = this.mapProvider.getMap("map1");
@@ -33,14 +43,14 @@ export class MapPage {
 
   ionViewDidEnter(){
       this.setupMapAndMarkers();
-            this.map.invalidateSize();
+      this.map.invalidateSize();
 
   }
 
   handleNavigationToReportPages(){
     let navigateToReportByEvent = (event) => {
       this.navCtrl.push(ReportDetailsPage, {
-        report: this.shared.data[event["detail"]]
+        report: this.reportsList[event["detail"]]
       });
     }
 
@@ -72,7 +82,7 @@ export class MapPage {
     }
 
 
-    let markerArray = this.shared.data
+    let markerArray = this.reportsList
       .map((report_obj, index) => {
         if(report_obj.geometry && report_obj.geometry.coordinates ){
           let popup_string = buildPopupStringByReportAndId(report_obj, index);
