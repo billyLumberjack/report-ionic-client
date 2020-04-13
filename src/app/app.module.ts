@@ -17,9 +17,9 @@ import { SearchResultPage } from '../pages/search-result/search-result';
 //providers
 import { ReportProvider } from '../providers/report/report';
 import { SharedReportsProvider } from '../providers/shared/shared';
-import { MapProvider } from '../providers/map.provider';
 // components
 import { ReportComponent } from '../components/report/report';
+import { MapComponent } from '../components/map/map';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
 //directives
 import { Autosize} from '../directives/autosize/autosize';
@@ -56,6 +56,7 @@ export function createTranslateLoader(http: Http) {
     SearchResultPage,
     Topos_slides,
     ReportComponent,
+    MapComponent,
     PageLoaderComponent,
     AddPage,
     AboutPage,
@@ -97,7 +98,6 @@ export function createTranslateLoader(http: Http) {
     ReportProvider,
     Camera,
     SharedReportsProvider,
-    MapProvider,
     ReportHandlerProvider
   ]
 })

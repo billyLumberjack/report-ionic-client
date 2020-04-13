@@ -4,15 +4,15 @@ import {SharedReportsProvider} from '../../providers/shared/shared'
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
 import { TranslateService } from '@ngx-translate/core';
 
-import {MapProvider} from '../../providers/map.provider'
-
-import leaflet from 'leaflet';
+import { MapComponent } from '../../components/map/map';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
 })
 export class MapPage {
+
+  @ViewChild(MapComponent) mapComponent: MapComponent;
 
   refresherExists = true;
   map:any;
@@ -22,9 +22,7 @@ export class MapPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private shared: SharedReportsProvider,
-    private mapProvider:MapProvider,
-    private translate: TranslateService
+    private shared : SharedReportsProvider
   ) {
     if(this.navParams.get("reportsList")){
       this.reportsList = this.navParams.get("reportsList");
@@ -35,71 +33,35 @@ export class MapPage {
 
   }
 
-  ionViewDidLoad() {
-    this.map = this.mapProvider.getMap("map1");
+  ionViewDidEnter() {
 
-    this.handleNavigationToReportPages();
+    this.mapComponent.initMap();
+
+    let reportListLayer = this.mapComponent.getLayerByReportArray(this.reportsList , true);
+    this.mapComponent.addLayerToMap(reportListLayer);
+    this.mapComponent.centerMapOnLayer(reportListLayer);
+
+    this.addListenerForReportPopupClick();
   }
 
-  ionViewDidEnter(){
-      this.setupMapAndMarkers();
-      this.map.invalidateSize();
-
+  ionViewDidLeave(){
+    document.getElementById("cssMapId").removeEventListener('build' , this.navigateToReportByEvent );
   }
 
-  handleNavigationToReportPages(){
-    let navigateToReportByEvent = (event) => {
-      this.navCtrl.push(ReportDetailsPage, {
-        report: this.reportsList[event["detail"]]
-      });
-    }
-
-    document.addEventListener('build', navigateToReportByEvent );
+  private addListenerForReportPopupClick(){
+    document.getElementById("cssMapId").addEventListener('build', this.navigateToReportByEvent );
   }
 
-  setupMapAndMarkers(){
-    var buildPopupStringByReportAndId = (report_obj, index) => {
-      let res = '<table>'+
-      '<tr>'+
-      '<th colspan="2"><a onclick="document.dispatchEvent(new CustomEvent(\'build\',{detail: '+index+'}));" href="javascript:void(0);"><b>'+
-      report_obj.TripName+
-      '</b></a><th>'+
-      '</tr>'+
-      '<tr>'+
-      '<td>'+this.translate.instant("DETAILS.ElevationGain")+'</td>'+
-      '<td class="popup-value">'+report_obj.ElevationGain +'</td>'+
-      '</tr>'+
-      '<tr>'+
-      '<td>'+this.translate.instant("DETAILS.Grade")+'</td>'+
-      '<td class="popup-value">'+report_obj.Grade +'</td>'+
-      '</tr>'+
-      '<tr>'+
-      '<td>'+this.translate.instant("DETAILS.TripRate")+'</td>'+
-      '<td class="popup-value">'+report_obj.TripRate +'</td>'+
-      '</tr></table>'
+  private navigateToReportByEvent = (event) => {
 
-      return res;
-    }
+    console.log("dispatched event !");
 
-
-    let markerArray = this.reportsList
-      .map((report_obj, index) => {
-        if(report_obj.geometry && report_obj.geometry.coordinates ){
-          let popup_string = buildPopupStringByReportAndId(report_obj, index);
-          let leafletMarker = new leaflet.Marker(report_obj.geometry.coordinates).bindPopup(popup_string)
-          return leafletMarker;
-        }
-        else{
-          return undefined;
-        }
-      })
-      .filter(marker => marker != undefined);
-
-    let markerGroup = leaflet.featureGroup(markerArray)
-    markerGroup.addTo(this.map);
-    this.map.fitBounds(markerGroup.getBounds());
-
+    this.navCtrl.push(ReportDetailsPage, {
+      report: this.reportsList[event["detail"]]
+    });
   }
+
+
 
 }
 
