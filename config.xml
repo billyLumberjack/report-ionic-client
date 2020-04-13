@@ -117,14 +117,8 @@
     <allow-navigation href="http://192.168.30.122:8100" />
     <allow-navigation href="http://192.168.30.99:8100" />
     <allow-navigation href="http://localhost:8100" sessionid="23970250" />
-    <platform name="windows">
-        <icon src="resources/windows/icon/Square44x44Logo.png" target="Square44x44Logo" />
-        <icon src="resources/windows/icon/SmallTile.png" target="Square71x71Logo" />
-        <icon src="resources/windows/icon/Square150x150Logo.png" target="Square150x150Logo" />
-        <icon src="resources/windows/icon/Square310x310Logo.png" target="Square310x310Logo" />
-        <icon src="resources/windows/icon/Wide310x150Logo.png" target="Wide310x150Logo" />
-        <icon src="resources/windows/icon/StoreLogo.png" target="StoreLogo" />
-        <splash src="resources/windows/splash/Splash.png" target="SplashScreen" />
+    <platform name="browser">
+        <preference name="ShowSplashScreen" value="false" />
     </platform>
     <engine name="ios" spec="4.5.5" />
     <engine name="browser" spec="5.0.4" />
