@@ -45,7 +45,7 @@ export class MapComponent {
         });
       }
       catch(error) {
-        console.warn(error);
+        console.warn("Map init error catched : " , error.message);
         this.map.invalidateSize();
         return this.map;
       }
