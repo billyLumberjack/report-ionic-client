@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+
+
+to_find_in_config="version=\"[0-9 .]*\""
+to_replace_in_config="version=\"$1\""
+sed -i .backup "s/$to_find_in_config/$to_replace_in_config/" ./config.xml
+
+to_find_in_json="\"version\": \"[0-9 .]*\""
+to_replace_in_json="\"version\": \"$1\""
+sed -i .backup "s/$to_find_in_json/$to_replace_in_json/" ./package.json
+
 ionic cordova build android --prod --release
 #keytool -genkey -v -keystore play-store-private-key.keystore -alias play-store-private-key -keyalg RSA -keysize 2048 -validity 10000
 jarsigner \
