@@ -10,4 +10,8 @@ page-about {
         vertical-align:middle;
         display: table-cell;
     }
+
+    #about-content > span > p{
+        white-space: pre-wrap;
+    }
 }

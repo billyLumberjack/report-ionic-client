@@ -78,5 +78,17 @@
     
         "Site":"Source",
         "User":"User"
+    },
+    "ABOUT":{
+        "TITLE" : "About",
+        "SUB_TITLE" : "This is a test version",
+        "CONTACT_METHOD_1" : {
+            "TITLE" : "Help SkiApp development !\nJoin the Telegram group and share your feedbacks ;)",
+            "LINK_TEXT" : "Telegram Group"
+        },
+        "CONTACT_METHOD_2" : {
+            "TITLE" : "Or send me an Email.",
+            "LINK_TEXT" : "Developer's contact"
+        }
     }
 }

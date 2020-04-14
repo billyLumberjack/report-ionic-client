@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>About</ion-title>
+    <ion-title>{{ 'ABOUT.TITLE' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,14 +16,15 @@
 <ion-content padding>
   <div id="about-content">
     <span>
-      <p>This is a test version</p>
+      <p>{{ 'ABOUT.SUB_TITLE' | translate }}</p>
       <p>
-        Join me on the Telegram channel<br>
-        <a href="https://t.me/skiapp_report_feed">t.me/skiapp_report_feed</a>
-      </p>
-      <p>
-        Or send me an Email feedback <br>
-        <a href="mailto:samuele.malavasi@gmail.com?subject=[SkiApp] Tester issue">link</a>
+        {{ 'ABOUT.CONTACT_METHOD_1.TITLE' | translate }}
+        <br>
+        <a href="https://t.me/joinchat/DYkwkRnXYYXWCJMudRrBbQ">{{ 'ABOUT.CONTACT_METHOD_1.LINK_TEXT' | translate }}</a>
+        <br>
+        {{ 'ABOUT.CONTACT_METHOD_2.TITLE' | translate }}
+        <br>
+        <a href="mailto:samuele.malavasi@gmail.com?subject=[SkiApp] Tester issue">{{ 'ABOUT.CONTACT_METHOD_2.LINK_TEXT' | translate }}</a>
       </p>
     </span>
   </div>
