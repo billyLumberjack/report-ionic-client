@@ -7,7 +7,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{report.TripName}} - {{report.ReadableDate}}
+      <div class="title-report-container">
+        <div class="title-report-name">
+          {{report.TripName}}
+        </div>
+        <div class="title-report-date">
+          {{report.ReadableDate}}
+        </div>
+      </div>
     </ion-title>
   </ion-navbar>
 </ion-header>

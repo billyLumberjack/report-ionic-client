@@ -1,5 +1,7 @@
 page-report-details {
 
+    $title-report-date-width: 10ch;
+
     #cssMapId{
         width: 100%;
         height: 30em;
@@ -7,5 +9,17 @@ page-report-details {
 
     .popup-value{
         text-align: right;
+    }
+
+    .title-report-name{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - #{$title-report-date-width});
+        float:left;
+
+    }
+    .title-report-date{
+        width: $title-report-date-width;
+        float:right;
     }
 }
