@@ -5,13 +5,13 @@ page-about {
         display: table;
     }
 
-    #about-content > span{
+    #about-content > span {
         text-align: center;
         vertical-align:middle;
         display: table-cell;
     }
 
     #about-content > span > p{
-        white-space: pre-wrap;
+        white-space: pre-line;
     }
 }
