@@ -22,7 +22,7 @@
 
 <ion-content>
 
-  <map></map>
+  <map *ngIf="report.geometry && report.geometry.coordinates"></map>
 
   <ion-list *ngIf="report">
     <div *ngFor="let key of fieldsToShow">

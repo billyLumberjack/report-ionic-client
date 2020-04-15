@@ -75,12 +75,13 @@ export class ReportDetailsPage {
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
   ionViewDidEnter() {
-    this.mapComponent.initMap();
-
-    let reportMapLayer = this.mapComponent.getLayerByReport(this.report , false);
-    this.mapComponent.addLayerToMap(reportMapLayer);
-    this.mapComponent.centerMapOnLayer(reportMapLayer);
+      if(this.report.geometry && this.report.geometry.coordinates){
+      this.mapComponent.initMap();
+      let reportMapLayer = this.mapComponent.getLayerByReport(this.report , false);
+      this.mapComponent.addLayerToMap(reportMapLayer);
+      this.mapComponent.centerMapOnLayer(reportMapLayer);
     }
+  }
 
   gotoSlide(i){
     this.navCtrl.push(Topos_slides,{
