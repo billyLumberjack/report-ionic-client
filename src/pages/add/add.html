@@ -11,10 +11,49 @@
 <ion-content>
   <ion-list *ngIf="vocabulary">
 
+    <form novalidate (ngSubmit)="signup()" [formGroup]="signupform">
     <ion-item>
       <ion-label stacked>{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
-      <ion-input type="text" [(ngModel)]="trip_name"></ion-input>
+      <ion-input type="text" [(ngModel)]="trip_name" formControlName="name" ></ion-input>
     </ion-item>
+
+    <validation-error [parent]="self" ></validation-error>
+
+    <ion-item no-lines>
+      {{signupform.get('name').hasError('minlength') && signupform.get('name').touched}}
+    </ion-item>
+
+    <style type="text/css">
+      .error {
+        color: rgb(223, 62, 62);
+        font-size: 11px;
+      }
+    
+      .error1 {
+        color: rgb(75, 75, 75);
+        border-bottom: 1px solid #ff0000;
+      }
+    </style>
+
+    <!--
+      <validation-error 
+      *ngFor="let regExpErrorMsgEntry of tripNameRegexpErrorMsgMap;"
+      [displayErrorMsg] = "regExpErrorMsgEntry.displayErrorMsg"
+      [errorMsg]="regExpErrorMsgEntry.errorMsg" 
+    ></validation-error>
+    
+    {{signupform.get('name').hasError('minlength') && signupform.get('name').touched}}
+    <ion-item no-lines *ngFor="let regExpErrorMsgEntry of tripNameRegexpErrorMsgMap;">
+      <div class="error">
+        {{signupform.get('name').hasError('minlength') && signupform.get('name').touched}}
+         - 
+        {{regExpErrorMsgEntry.errorMsg}}
+      </div>
+  </ion-item>
+-->
+
+    <button type="submit" ion-button block color="primary" [disabled]="signupform.invalid">SIGNUP</button>
+  </form>
 
     <ion-item>
       <ion-label stacked>{{ 'FORM.REGION' | translate }}</ion-label>

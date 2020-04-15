@@ -21,6 +21,7 @@ import { SharedReportsProvider } from '../providers/shared/shared';
 import { ReportComponent } from '../components/report/report';
 import { MapComponent } from '../components/map/map';
 import { PageLoaderComponent } from '../components/page-loader/page-loader';
+import { ValidationErrorComponent } from '../components/validation-error/validation-error'
 //directives
 import { Autosize} from '../directives/autosize/autosize';
 import { DirectivesModule } from '../directives/directives.module';
@@ -56,6 +57,7 @@ export function createTranslateLoader(http: Http) {
     SearchResultPage,
     Topos_slides,
     ReportComponent,
+    ValidationErrorComponent,
     MapComponent,
     PageLoaderComponent,
     AddPage,

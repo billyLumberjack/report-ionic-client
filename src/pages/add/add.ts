@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { ReportProvider } from '../../providers/report/report';
 import {ReportDetailsPage} from '../report-details/report-details';
 import { AlertController } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 /**
@@ -19,6 +20,8 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'add.html',
 })
 export class AddPage {
+
+  signupform: FormGroup;
 
   vocabulary: any;
   show_page_loader = false;
@@ -51,6 +54,13 @@ export class AddPage {
   myImgValue:any;
   imageFileName:any;
 
+  tripNameRegexpErrorMsgMap:any;/* = [
+    { displayErrorMsg : this.signupform.get('name').hasError('required') && this.signupform.get('name').touched , errorMsg : "msg1" },
+    { displayErrorMsg : this.signupform.get('name').hasError('minlength') && this.signupform.get('name').touched , errorMsg : "msg2" },
+    { displayErrorMsg : this.signupform.get('name').hasError('maxlength') && this.signupform.get('name').touched , errorMsg : "msg3" },
+    { displayErrorMsg : this.signupform.get('name').hasError('pattern') && this.signupform.get('name').touched , errorMsg : "msg4" }
+  ];*/
+
   @ViewChild('inputTypeFile') inputTypeFileElement: ElementRef;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
@@ -63,6 +73,27 @@ export class AddPage {
         console.error("Oops!");
       });
   }
+
+  get self(): AddPage {
+    return this;
+}
+
+  ngOnInit() {
+    console.log("MANNA");
+    let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    this.signupform = new FormGroup({
+      //username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
+      //password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+      name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)])
+      //email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
+    });
+
+    this.tripNameRegexpErrorMsgMap = [
+      { displayErrorMsg : this.signupform.get('name').hasError('minlength') && this.signupform.get('name').touched , errorMsg : "msg2" }
+    ];
+
+  }
+
   callClickEventOnInputTypeFile(){
     this.inputTypeFileElement.nativeElement.click();
   }
