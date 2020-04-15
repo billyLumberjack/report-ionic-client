@@ -28,7 +28,7 @@ export class ValidationErrorComponent {
       case 'min' : errorMessage = `` ; break;
       case 'max' : errorMessage = `` ; break;
       case 'required' : errorMessage = `This field is required`  ; break;
-      case 'email' : errorMessage = `Please insert a valid email address` ; break; ; break;
+      case 'email' : errorMessage = `Please insert a valid email address` ; break; ; 
       case 'minlength' : errorMessage = `Please insert at least ${this.errors.minlength.requiredLength} characters` ; break;
       case 'maxlength' : errorMessage = `Please insert at most ${this.errors.maxlength.requiredLength} characters` ; break;
       case 'pattern' : errorMessage = `Please respect pattern ${this.errors.pattern.requiredPattern}` ; break;

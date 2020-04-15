@@ -26,28 +26,28 @@ export class AddPage {
   vocabulary: any;
   show_page_loader = false;
 
-  region: string = "";
-  trip_rate: string = "";
-  snow_rate: string = "";
-  downhill_side: string = "";
-  uphill_side: string = "";
-  difficulty: string = "";
-  trip_description: string = "";
-  linked_trip: string = "";
+  Region: string = "";
+  TripRate: string = "";
+  SnowRate: string = "";
+  DownhillSide: string = "";
+  UphillSide: string = "";
+  Grade: string = "";
+  TripDescription: string = "";
+  LinkedTrip: string = "";
 
-  user: string = "";
-  starting_from: string = "";
-  starting_valley: string = "";
-  trip_name: string = "";
-  date: string = "";
-  main_snow_type: string = "";
-  other_snow_type: string = "";
-  snow_description: string = "";
-  avalanche_risk: string = "";
+  User: string = "";
+  StartingFrom: string = "";
+  StartingValley: string = "";
+  TripName: string = "";
+  Date: string = "";
+  MainSnowType: string = "";
+  OtherSnowType: string = "";
+  SnowDescription: string = "";
+  AvalancheRisk: string = "";
 
-  end_altitude = 0;
-  starting_from_altitude = 0;
-  elevation_gain = 0;
+  EndAltitude = 0;
+  StartingAltitude = 0;
+  ElevationGain = 0;
 
   files:Array<string> = [];
 
@@ -73,26 +73,26 @@ export class AddPage {
 
   ngOnInit() {
     this.newReportForm = new FormGroup({
-      starting_valley: new FormControl('' ,         [Validators.minLength(2), Validators.maxLength(20)]),
-      date: new FormControl('' ,                    [Validators.required]),
-      elevation_gain: new FormControl('' ,          [Validators.required]),
-      starting_from_altitude: new FormControl('' ,  []),
-      end_altitude: new FormControl('' ,            []),
-      difficulty: new FormControl('' ,              [Validators.required]),
-      uphill_side: new FormControl('' ,             [Validators.required]),
-      downhill_side: new FormControl('' ,           [Validators.required]),
-      main_snow_type: new FormControl('' ,          [Validators.required]),
-      other_snow_type: new FormControl('' ,         []),
-      snow_rate: new FormControl('' ,               [Validators.required]),
-      snow_description: new FormControl('' ,        [Validators.minLength(5)]),
-      avalanche_risk: new FormControl('' ,          []),
-      trip_rate: new FormControl('' ,               [Validators.required]),
-      trip_description: new FormControl('' ,        [Validators.minLength(5)]),
-      linked_trip: new FormControl('' ,             []),
-      user: new FormControl('' ,                    [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-      starting_from: new FormControl('' ,           [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-      region: new FormControl('',                   [Validators.required]),
-      trip_name: new FormControl('',                [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+      StartingValley: new FormControl('' ,         [Validators.minLength(2), Validators.maxLength(20)]),
+      Date: new FormControl('' ,                    [Validators.required]),
+      ElevationGain: new FormControl('' ,          [Validators.required]),
+      StartingAltitude: new FormControl('' ,  []),
+      EndAltitude: new FormControl('' ,            []),
+      Grade: new FormControl('' ,              [Validators.required]),
+      UphillSide: new FormControl('' ,             [Validators.required]),
+      DownhillSide: new FormControl('' ,           [Validators.required]),
+      MainSnowType: new FormControl('' ,          [Validators.required]),
+      OtherSnowType: new FormControl('' ,         []),
+      SnowRate: new FormControl('' ,               [Validators.required]),
+      SnowDescription: new FormControl('' ,        [Validators.minLength(5)]),
+      AvalancheRisk: new FormControl('' ,          []),
+      TripRate: new FormControl('' ,               [Validators.required]),
+      TripDescription: new FormControl('' ,        [Validators.minLength(5)]),
+      LinkedTrip: new FormControl('' ,             []),
+      User: new FormControl('' ,                    [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      StartingFrom: new FormControl('' ,           [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      Region: new FormControl('',                   [Validators.required]),
+      TripName: new FormControl('',                [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       //email: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9]*'), Validators.email]),
     });
 
@@ -123,47 +123,21 @@ export class AddPage {
   }
 
   submit(){
-    console.log("manna")
-    console.log(this.newReportForm.value)
-  }
-
-  old_submit() {
     this.show_page_loader = true;
 
     var prom_array = [];
-
     for (let entry of this.files) {
       prom_array.push(this.reportProvider.postImage(entry));
     }
 
     Promise.all(prom_array).then(values=>{
       var images_array = values.map(item => item.url);
+      var report = this.newReportForm.value;
 
-      var report = {};
-
-      (this.trip_name) ? report["TripName"] = camelize(this.trip_name) :"";
       report["CreatedAt"] =  new Date().getTime();
-      report["Region"] =  this.region;
-      (this.starting_from) ? report["StartingFrom"] = camelize(this.starting_from) :"";
-      report["ElevationGain"] = this.elevation_gain;
-      report["Grade"] =  this.difficulty;
-      report["UphillSide"] =  this.uphill_side;
-      report["DownhillSide"] =  this.downhill_side;
-      report["MainSnowType"] = this.main_snow_type;
-      report["Date"] =  new Date(this.date).getTime();
-      report["TripRate"] =  this.trip_rate;
-      report["TripDescription"] =  this.trip_description;
-      report["SnowRate"] =  this.snow_rate;
-      report["StartingAltitude"] =  this.starting_from_altitude;
-      report["SnowDescription"] = this.snow_description;
-      (this.starting_valley) ? report["StartingValley"] = camelize(this.starting_valley) :"";
-      report["EndAltitude"] =  this.end_altitude;
-      (this.linked_trip) ? report["LinkedTrip"] = camelize(this.linked_trip) :"";
-      report["OtherSnowType"] = this.other_snow_type;
-      (this.avalanche_risk) ? report["AvalancheRisk"] = parseInt(this.avalanche_risk) :"";
+      report["Date"] =  new Date(report["Date"]).getTime();
+      report["AvalancheRisk"] = parseInt(report["AvalancheRisk"])
       report["Images"] =  images_array;
-      report["User"] = this.user;
-
 
       this.reportProvider.postReport(report).then((data)=>{
 
@@ -185,21 +159,10 @@ export class AddPage {
 
         
       });
+
     });
-    
+
+    console.log(this.newReportForm.value)
   }
 
-  ionViewDidLoad() {
-  }
-
-}
-
-function camelize(sentenceCase) {
-  var out = "";
-  sentenceCase.split(" ").forEach(function (el, idx) {
-      var add = el.toLowerCase();
-      out += add[0].toUpperCase() + add.slice(1);
-      out += " ";
-  });
-  return out;
 }
