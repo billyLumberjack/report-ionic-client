@@ -1,33 +1,5 @@
-<!--
-<ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') ||signupform.get('name').hasError('pattern') ||signupform.get('name').hasError('required') ) && signupform.get('name').touched">
-  <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
-    Please input your name
-  </div>
-  <div class="error" *ngIf="signupform.get('name').hasError('minlength') && signupform.get('name').touched">
-    Minimum 4 characters
-  </div>
-  <div class="error" *ngIf="signupform.get('name').hasError('maxlength') && signupform.get('name').touched">
-    Maximum 30 characters
-  </div>
-  <div class="error" *ngIf="signupform.get('name').hasError('pattern') && signupform.get('name').touched">
-    Just use alphabet character
-  </div>
-</ion-item>
--->
 <ion-item no-lines>
-    <div class="error" >
-      {{parent.signupform.get('name').hasError('minlength') && parent.signupform.get('name').touched}}
+    <div class="error" *ngFor="let errorKey of objectKeys(errors)">
+      {{getErrorBessageByKey(errorKey)}}
     </div>
 </ion-item>
-
-<style type="text/css">
-  .error {
-    color: rgb(223, 62, 62);
-    font-size: 11px;
-  }
-
-  .error1 {
-    color: rgb(75, 75, 75);
-    border-bottom: 1px solid #ff0000;
-  }
-</style>
