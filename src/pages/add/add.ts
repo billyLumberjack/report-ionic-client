@@ -21,7 +21,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AddPage {
 
-  signupform: FormGroup;
+  newReportForm: FormGroup;
 
   vocabulary: any;
   show_page_loader = false;
@@ -54,13 +54,6 @@ export class AddPage {
   myImgValue:any;
   imageFileName:any;
 
-  tripNameRegexpErrorMsgMap:any;/* = [
-    { displayErrorMsg : this.signupform.get('name').hasError('required') && this.signupform.get('name').touched , errorMsg : "msg1" },
-    { displayErrorMsg : this.signupform.get('name').hasError('minlength') && this.signupform.get('name').touched , errorMsg : "msg2" },
-    { displayErrorMsg : this.signupform.get('name').hasError('maxlength') && this.signupform.get('name').touched , errorMsg : "msg3" },
-    { displayErrorMsg : this.signupform.get('name').hasError('pattern') && this.signupform.get('name').touched , errorMsg : "msg4" }
-  ];*/
-
   @ViewChild('inputTypeFile') inputTypeFileElement: ElementRef;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController,public navParams: NavParams, public http: Http,private reportProvider: ReportProvider) {
@@ -79,19 +72,34 @@ export class AddPage {
 }
 
   ngOnInit() {
-    console.log("MANNA");
-    let EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-    this.signupform = new FormGroup({
-      //username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
-      //password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
-      name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)])
-      //email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
+    this.newReportForm = new FormGroup({
+      starting_valley: new FormControl('' ,         [Validators.minLength(2), Validators.maxLength(20)]),
+      date: new FormControl('' ,                    [Validators.required]),
+      elevation_gain: new FormControl('' ,          [Validators.required]),
+      starting_from_altitude: new FormControl('' ,  []),
+      end_altitude: new FormControl('' ,            []),
+      difficulty: new FormControl('' ,              [Validators.required]),
+      uphill_side: new FormControl('' ,             [Validators.required]),
+      downhill_side: new FormControl('' ,           [Validators.required]),
+      main_snow_type: new FormControl('' ,          [Validators.required]),
+      other_snow_type: new FormControl('' ,         []),
+      snow_rate: new FormControl('' ,               [Validators.required]),
+      snow_description: new FormControl('' ,        [Validators.minLength(5)]),
+      avalanche_risk: new FormControl('' ,          []),
+      trip_rate: new FormControl('' ,               [Validators.required]),
+      trip_description: new FormControl('' ,        [Validators.minLength(5)]),
+      linked_trip: new FormControl('' ,             []),
+      user: new FormControl('' ,                    [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      starting_from: new FormControl('' ,           [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      region: new FormControl('',                   [Validators.required]),
+      trip_name: new FormControl('',                [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+      //email: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9]*'), Validators.email]),
     });
 
-    this.tripNameRegexpErrorMsgMap = [
-      { displayErrorMsg : this.signupform.get('name').hasError('minlength') && this.signupform.get('name').touched , errorMsg : "msg2" }
-    ];
+  }
 
+  displayValidationErrorsByName(formControlName : string) : boolean {
+    return this.newReportForm.get(formControlName).invalid && (this.newReportForm.get(formControlName).dirty || this.newReportForm.get(formControlName).touched)
   }
 
   callClickEventOnInputTypeFile(){
@@ -114,7 +122,12 @@ export class AddPage {
     this.files.splice(index_to_delete,1);
   }
 
-  submit() {
+  submit(){
+    console.log("manna")
+    console.log(this.newReportForm.value)
+  }
+
+  old_submit() {
     this.show_page_loader = true;
 
     var prom_array = [];
