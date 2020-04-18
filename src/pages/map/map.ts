@@ -23,17 +23,16 @@ export class MapPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private shared : SharedReportsProvider
-  ) {
+  ) {}
+
+  ionViewDidEnter() {
+
     if(this.navParams.get("reportsList")){
       this.reportsList = this.navParams.get("reportsList");
     }
     else{
-      this.reportsList = shared.reportsFeed;
+      this.reportsList = this.shared.reportsFeed;
     }
-
-  }
-
-  ionViewDidEnter() {
 
     this.mapComponent.initMap();
 
