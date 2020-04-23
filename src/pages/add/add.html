@@ -61,7 +61,7 @@
 
       <ion-list-header>
         <ion-label stacked>{{ 'FORM.ELEVATION-GAIN' | translate }}</ion-label>
-        <ion-badge item-end class="badge-class">{{ElevationGain}}</ion-badge>
+        <ion-badge item-end class="badge-class">{{newReportForm.get('ElevationGain').value}}</ion-badge>
       </ion-list-header>
       <ion-item>
         <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" step="100" snaps="false" pin="true"
@@ -74,7 +74,7 @@
 
       <ion-list-header>
         <ion-label stacked>{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
-        <ion-badge item-end class="badge-class">{{StartingAltitude}}</ion-badge>
+        <ion-badge item-end class="badge-class">{{newReportForm.get('StartingAltitude').value}}</ion-badge>
       </ion-list-header>
       <ion-item>
         <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" step="100" snaps="false" pin="true"
@@ -87,7 +87,7 @@
 
       <ion-list-header>
         <ion-label stacked>{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
-        <ion-badge item-end class="badge-class">{{EndAltitude}}</ion-badge>
+        <ion-badge item-end class="badge-class">{{newReportForm.get('EndAltitude').value}}</ion-badge>
       </ion-list-header>
       <ion-item>
         <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" step="100" snaps="false" pin="true"
