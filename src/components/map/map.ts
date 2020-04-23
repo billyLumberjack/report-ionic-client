@@ -31,7 +31,7 @@ export class MapComponent {
       this.map = leaflet.map(this.mapContainer.nativeElement);
       
       leaflet.tileLayer(
-        "https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=225e7f1800604f6fb0906dcd15a5bd46",
+        "https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}",
         {
           maxZoom: 18,
           subdomains:["a","b","c"],
