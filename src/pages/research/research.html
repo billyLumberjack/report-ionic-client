@@ -16,6 +16,21 @@
 
 <ion-content>
   <ion-list *ngIf="vocabulary">
+
+    <ion-list-header no-border>
+      <ion-label stacked>{{ 'FORM.DAY-OF-YEAR' | translate }}</ion-label>
+
+      <ion-badge item-end class="badge-class">{{day_of_year.lower}}</ion-badge>
+      <ion-badge item-end class="badge-class">-</ion-badge>
+      <ion-badge item-end class="badge-class">{{day_of_year.upper}}</ion-badge>
+
+    </ion-list-header>
+    <ion-item>
+      <ion-range min="{{vocabulary.date.min}}" max="{{vocabulary.date.max}}" step="1" snaps="false" dualKnobs="true" pin="true" [(ngModel)]="day_of_year"
+        color="">
+      </ion-range>
+    </ion-item>
+
     <ion-item>
       <ion-label stacked>{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="trip_name"></ion-input>

@@ -42,7 +42,8 @@
         "OTHER-SNOW-TYPE":"Other snow type",
         "AVALANCHE-RISK":"Avalanche Risk",
         "TRIP-DESCRIPTION":"Trip description",
-        "LINKED-TRIP":"Linked trip"
+        "LINKED-TRIP":"Linked trip",
+        "DAY-OF-YEAR":"Day of the year"
     },
     "SEARCH":{
         "TITLE":"Advanced search",

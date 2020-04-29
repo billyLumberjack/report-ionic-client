@@ -39,6 +39,7 @@ export class ResearchPage {
 
   end_altitude: any = { lower: 0, upper: 0 };
   starting_from_altitude: any = { lower: 0, upper: 0 };
+  day_of_year: any = { lower: 0, upper: 0 };
 
   constructor(
     private sharedReportsLists : SharedReportsProvider,
@@ -52,9 +53,11 @@ export class ResearchPage {
 
         this.end_altitude.lower = this.vocabulary.height.min;
         this.starting_from_altitude.lower = this.vocabulary.height.min;
+        this.day_of_year.lower = this.vocabulary.date.min;
 
         this.end_altitude.upper = this.vocabulary.height.max;
         this.starting_from_altitude.upper = this.vocabulary.height.max;
+        this.day_of_year.upper = this.vocabulary.date.max;
 
       },
       err => {
@@ -97,6 +100,11 @@ export class ResearchPage {
     this.starting_from_altitude = {
       lower: 0,
       upper: this.vocabulary.height.max
+    };
+
+    this.day_of_year = {
+      lower: 0,
+      upper: this.vocabulary.date.max
     };
 
     this.reportList = [];
@@ -170,6 +178,11 @@ export class ResearchPage {
       params["fromEndAltitude"] = this.end_altitude.lower;
     if (this.end_altitude.upper != this.vocabulary.height.max)
       params["toEndAltitude"] = this.end_altitude.upper;
+
+    if (this.day_of_year.lower != this.vocabulary.date.min)
+      params["fromDayOfYear"] = this.day_of_year.lower;
+    if (this.day_of_year.upper != this.vocabulary.date.max)
+      params["toDayOfYear"] = this.day_of_year.upper;      
 
     if (Object.keys(params).length > 0)
       return params;
