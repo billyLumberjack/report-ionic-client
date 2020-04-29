@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+sh get_and_increase_tag.sh
 
 to_find_in_config="version=\"[0-9 .]*\""
-to_replace_in_config="version=\"$1\""
+to_replace_in_config="version=\"$NEW_TAG\""
 sed -i .backup "s/$to_find_in_config/$to_replace_in_config/" ./config.xml
 
 to_find_in_json="\"version\": \"[0-9 .]*\""
-to_replace_in_json="\"version\": \"$1\""
+to_replace_in_json="\"version\": \"$NEW_TAG\""
 sed -i .backup "s/$to_find_in_json/$to_replace_in_json/" ./package.json
 
 ionic cordova build android --prod --release
