@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { ReportDetailsPage } from '../../pages/report-details/report-details';
 import { SearchResultPage } from '../search-result/search-result'
 import { SharedReportsProvider } from '../../providers/shared/shared';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the ResearchPage page.
@@ -45,7 +46,8 @@ export class ResearchPage {
     private sharedReportsLists : SharedReportsProvider,
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public http: Http
+    public http: Http,
+    private translate: TranslateService
     ) {
     this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
       response => {
