@@ -40,6 +40,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 import { ReportHandlerProvider } from '../providers/report-handler/report-handler';
 
+// pipes
+import { PipesModule } from '../pipes/pipes.module';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,7 +80,8 @@ export function createTranslateLoader(http: Http) {
         deps: [Http]
       }
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
