@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sh get_and_increase_tag.sh
+. get_and_increase_tag.sh
 
 to_find_in_config="version=\"[0-9 .]*\""
 to_replace_in_config="version=\"$NEW_TAG\""
