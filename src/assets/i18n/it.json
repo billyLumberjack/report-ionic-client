@@ -41,7 +41,8 @@
         "OTHER-SNOW-TYPE":"Altri tipi di neve",
         "AVALANCHE-RISK":"Rischio valanghe",
         "TRIP-DESCRIPTION":"Descrizione della gita",
-        "LINKED-TRIP":"Itinerari collegati"
+        "LINKED-TRIP":"Itinerari collegati",
+        "DAY-OF-YEAR":"Periodo dell' anno"
     },
     "SEARCH":{
         "TITLE":"Ricerca Avanzata",

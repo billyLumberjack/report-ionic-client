@@ -122,6 +122,10 @@ export class AddPage {
     this.files.splice(index_to_delete,1);
   }
 
+  cleanField(event) {
+    event.value = "";
+  }
+
   submit(){
     this.show_page_loader = true;
 

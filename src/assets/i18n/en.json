@@ -43,7 +43,7 @@
         "AVALANCHE-RISK":"Avalanche Risk",
         "TRIP-DESCRIPTION":"Trip description",
         "LINKED-TRIP":"Linked trip",
-        "DAY-OF-YEAR":"Day of the year"
+        "DAY-OF-YEAR":"Year interval"
     },
     "SEARCH":{
         "TITLE":"Advanced search",
