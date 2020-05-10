@@ -40,6 +40,7 @@ export class MapPage {
     this.mapComponent.addLayerToMap(reportListLayer);
     this.mapComponent.centerMapOnLayer(reportListLayer);
 
+
     this.addListenerForReportPopupClick();
   }
 
