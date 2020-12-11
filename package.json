@@ -31,7 +31,7 @@
     "@ngx-translate/http-loader": "0.1.0",
     "android-versions": "1.5.0",
     "cordova": "7.1.0",
-    "cordova-android": "8.1.0",
+    "cordova-android": "^9.0.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
     "cordova-plugin-add-swift-support": "1.7.0",
