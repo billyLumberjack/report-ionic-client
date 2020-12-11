@@ -26,6 +26,7 @@
     <preference name="windows-target-version" value="10.0" />
     <preference name="DisableDeploy" value="false" />
     <platform name="android">
+        <preference name="android-targetSdkVersion" value="29"/>
         <access origin="*" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:usesCleartextTraffic="true" />
