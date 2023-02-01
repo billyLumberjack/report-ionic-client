@@ -31,7 +31,7 @@ export class MapComponent {
       this.map = leaflet.map(this.mapContainer.nativeElement);
       
       leaflet.tileLayer(
-        "https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}",
+        "https://mapserver.mapy.cz/turist-en/{z}-{x}-{y}",
         {
           maxZoom: 18,
           subdomains:["a","b","c"],
