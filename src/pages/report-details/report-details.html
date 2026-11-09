@@ -1,11 +1,5 @@
-<!--
-  Generated template for the ReportDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>
       <div class="title-report-container">
         <div class="title-report-name">
@@ -16,9 +10,8 @@
         </div>
       </div>
     </ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
 
@@ -26,9 +19,11 @@
 
   <ion-list *ngIf="report">
     <div *ngFor="let key of fieldsToShow">
-      <ion-item text-wrap *ngIf="report[key]">
-        <p>{{ 'DETAILS.'+key | translate }}</p>
-        <h2>{{report[key]}}</h2>
+      <ion-item class="ion-text-wrap" *ngIf="report[key]">
+        <ion-label class="ion-text-wrap">
+          <p>{{ 'DETAILS.'+key | translate }}</p>
+          <h2>{{report[key]}}</h2>
+        </ion-label>
       </ion-item>
     </div>
   </ion-list>
@@ -36,9 +31,8 @@
   <div *ngIf="report.Images">
     <ion-grid>
       <ion-row>
-        <ion-col col-6 *ngFor="let image of report.Images; let idx = index">
+        <ion-col size="6" *ngFor="let image of report.Images; let idx = index">
           <img class="image-container" (click)="gotoSlide(idx)" [src]="image" />
-          <!--imageViewer/>-->
         </ion-col>
       </ion-row>
     </ion-grid>
