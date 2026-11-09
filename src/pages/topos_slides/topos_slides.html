@@ -1,10 +1,14 @@
 <ion-header>
-    <ion-navbar color="black"></ion-navbar>
+  <ion-toolbar class="dark-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/report-details"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 <ion-content class="tutorial-page">
-    <ion-slides pager zoom="true">
-        <ion-slide *ngFor="let slide of slides">
-            <div class="swiper-zoom-container"><img [src]="slide" class="slide-image" /></div>
-        </ion-slide>
-    </ion-slides>
+  <swiper-container #swiperRef pagination="true" zoom="true" class="full-height-swiper">
+    <swiper-slide *ngFor="let slide of slides">
+      <div class="swiper-zoom-container"><img [src]="slide" class="slide-image" /></div>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>
