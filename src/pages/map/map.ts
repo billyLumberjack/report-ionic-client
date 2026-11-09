@@ -34,9 +34,15 @@ export class MapPage {
 
     this.mapComponent.initMap();
 
-    let reportListLayer = this.mapComponent.getLayerByReportArray(this.reportsList, true);
-    this.mapComponent.addLayerToMap(reportListLayer);
-    this.mapComponent.centerMapOnLayer(reportListLayer);
+    if (this.reportsList && this.reportsList.length > 0) {
+      let reportListLayer = this.mapComponent.getLayerByReportArray(this.reportsList, true);
+      this.mapComponent.addLayerToMap(reportListLayer);
+      this.mapComponent.centerMapOnLayer(reportListLayer);
+    }
+
+    // Ionic view transition completes after ~300ms; invalidateSize corrects
+    // Leaflet's tile calculations if the container grew after initMap().
+    setTimeout(() => this.mapComponent.invalidateSize(), 300);
 
     this.addListenerForReportPopupClick();
   }

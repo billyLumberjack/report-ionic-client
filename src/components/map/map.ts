@@ -3,6 +3,14 @@ import * as leaflet from 'leaflet';
 import 'leaflet.fullscreen';
 import { TranslateService } from '@ngx-translate/core';
 
+// Webpack strips the default icon URL resolution; point to the copied assets.
+delete (leaflet.Icon.Default.prototype as any)._getIconUrl;
+leaflet.Icon.Default.mergeOptions({
+  iconUrl:       'assets/leaflet/marker-icon.png',
+  iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+  shadowUrl:     'assets/leaflet/marker-shadow.png',
+});
+
 @Component({
   selector: 'map',
   templateUrl: 'map.html',
@@ -22,16 +30,25 @@ export class MapComponent {
     this.map.remove();
   }
 
+  invalidateSize() {
+    if (this.map) {
+      this.map.invalidateSize();
+    }
+  }
+
   initMap() {
     try {
-      this.map = leaflet.map(this.mapContainer.nativeElement);
+      this.map = leaflet.map(this.mapContainer.nativeElement, {
+        center: [46.5, 11.5], // Italian/Austrian Alps default
+        zoom: 8
+      });
 
       leaflet.tileLayer(
-        "https://mapserver.mapy.cz/turist-en/{z}-{x}-{y}",
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
           maxZoom: 18,
           subdomains: ["a", "b", "c"],
-          errorTileUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map);
 
       this.map.addControl(new (leaflet.Control as any).Fullscreen());
@@ -76,7 +93,10 @@ export class MapComponent {
   }
 
   centerMapOnLayer(leafletLayer): void {
-    this.map.fitBounds(leafletLayer.getBounds());
+    const bounds = leafletLayer.getBounds();
+    if (bounds.isValid()) {
+      this.map.fitBounds(bounds);
+    }
   }
 
   private generateLeafletPopupByReport(report, addLink: Boolean, index?: number) {
