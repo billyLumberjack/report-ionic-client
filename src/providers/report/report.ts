@@ -1,48 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { ENV } from '@app/env';
-
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ReportProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
   }
 
-  postImage(body) {
-    var url = ENV.api_endpoint + "/images";
-    return this.http.post(url,body).map(res => res.json()).toPromise().catch(err=>{
-      console.error("ERROR UPLOADING IMAGE",err);
+  postImage(body): Promise<any> {
+    const url = environment.api_endpoint + '/images';
+    return firstValueFrom(this.http.post<any>(url, body)).catch(err => {
+      console.error('ERROR UPLOADING IMAGE', err);
     });
   }
 
-  postReport(report_obj) {
-    var url = ENV.api_endpoint + "/report";
-    return this.http.post(url,report_obj).map(res => res.json()).toPromise();
+  postReport(report_obj): Promise<any> {
+    const url = environment.api_endpoint + '/report';
+    return firstValueFrom(this.http.post<any>(url, report_obj));
   }
 
-
-  getReports(parameters) {
-    var url = ENV.api_endpoint + "/report";
-    return this.http.get(url, {params:parameters}).map(res => res.json());
+  getReports(parameters): Observable<any[]> {
+    const url = environment.api_endpoint + '/report';
+    return this.http.get<any[]>(url, { params: parameters });
   }
 
-  getImagesBySearchQuery(queryString) {
-    var url = "http://api.qwant.com/api/search/images";
+  getImagesBySearchQuery(queryString): Promise<any> {
+    const url = 'https://api.qwant.com/api/search/images';
 
-    var parameters = {
+    const parameters = {
       count: 3,
       q: queryString,
-      t: "images",
+      t: 'images',
       safesearch: 1,
-      locale: "it_IT"
-    }
+      locale: 'it_IT'
+    };
 
-    return this.http.get(url,{params:parameters}).map(res => res.json()).toPromise();
+    return firstValueFrom(this.http.get<any>(url, { params: parameters }));
   }
 
 }

@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
-import { NavParams   } from 'ionic-angular';
-
-import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
-
+import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-    selector: 'page-topos-slides',
-    templateUrl: 'topos_slides.html'
+  selector: 'page-topos-slides',
+  templateUrl: 'topos_slides.html',
+  styleUrls: ['topos_slides.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class Topos_slides {
 
-    @ViewChild(Slides) slidesElements: Slides;
+  @ViewChild('swiperRef') swiperRef: ElementRef;
 
-    slides : Array<any>;
-    index: number;
+  slides: Array<any>;
+  index: number;
 
-    constructor(private navParams: NavParams) {
-        this.slides = navParams.get('images');
-        this.index = navParams.get('index');
-    }
+  constructor(private shared: SharedReportsProvider) {
+    this.slides = this.shared.toposImages;
+    this.index = this.shared.toposIndex;
+  }
 
-    ionViewDidEnter(){
-        this.slidesElements.slideTo(this.index);
-    }
+  ionViewDidEnter() {
+    // Swiper custom element initialises asynchronously; slide once it is ready.
+    setTimeout(() => {
+      const swiper = this.swiperRef && this.swiperRef.nativeElement && this.swiperRef.nativeElement.swiper;
+      if (swiper) {
+        swiper.slideTo(this.index, 0);
+      }
+    }, 0);
+  }
 
 }

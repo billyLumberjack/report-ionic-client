@@ -1,23 +1,23 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>{{ 'SEARCH_RESULT.TITLE' | translate }}</ion-title>
-    <ion-buttons end>
-      <button (click)="displaySearchResultOnMap()"> 
-        <ion-icon name="map"></ion-icon>
-      </button> 
+    <ion-buttons slot="end">
+      <ion-button (click)="displaySearchResultOnMap()">
+        <ion-icon slot="icon-only" name="map"></ion-icon>
+      </ion-button>
     </ion-buttons>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content no-padding>
+<ion-content class="ion-no-padding">
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <report *ngFor="let report of shared.reportsSearchResults" [report]="report"></report>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hideToolbar">
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [disabled]="infiniteDisabled">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll> 
+  </ion-infinite-scroll>
 </ion-content>

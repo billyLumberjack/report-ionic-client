@@ -1,22 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Http } from '@angular/http';
-import { ReportDetailsPage } from '../../pages/report-details/report-details';
-import { SearchResultPage } from '../search-result/search-result'
+import { Component, ViewEncapsulation } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 import { TranslateService } from '@ngx-translate/core';
 
-/**
- * Generated class for the ResearchPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-//@IonicPage()
 @Component({
   selector: 'page-research',
   templateUrl: 'research.html',
+  styleUrls: ['research.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResearchPage {
 
@@ -43,13 +35,12 @@ export class ResearchPage {
   day_of_year: any = { lower: 0, upper: 0 };
 
   constructor(
-    private sharedReportsLists : SharedReportsProvider,
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public http: Http,
-    private translate: TranslateService
-    ) {
-    this.http.get('assets/vocabulary.json').map(res => res.json()).subscribe(
+    private sharedReportsLists: SharedReportsProvider,
+    public navCtrl: NavController,
+    public http: HttpClient,
+    public translate: TranslateService
+  ) {
+    this.http.get<any>('assets/vocabulary.json').subscribe(
       response => {
         this.vocabulary = response;
 
@@ -67,13 +58,9 @@ export class ResearchPage {
       });
   }
 
-  ionViewDidLoad() {
-  }
-
   itemSelected(obj) {
-    this.navCtrl.push(ReportDetailsPage, {
-      report: obj
-    });
+    this.sharedReportsLists.selectedReport = obj;
+    this.navCtrl.navigateForward('/report-details');
   }
 
   cleanField(event) {
@@ -117,18 +104,14 @@ export class ResearchPage {
     this.sharedReportsLists.reportsSearchResults = [];
 
     var queryParameters = this.prepareQueryParams();
-    
+
     if (queryParameters != null) {
-      this.navCtrl.push(
-        SearchResultPage,
-        {params:queryParameters}
-      );
+      this.sharedReportsLists.searchParams = queryParameters;
+      this.navCtrl.navigateForward('/search-result');
     }
     else {
       alert("Please fill search form");
     }
-
-
 
   }
 
@@ -184,7 +167,7 @@ export class ResearchPage {
     if (this.day_of_year.lower != this.vocabulary.date.min)
       params["fromDayOfYear"] = this.day_of_year.lower;
     if (this.day_of_year.upper != this.vocabulary.date.max)
-      params["toDayOfYear"] = this.day_of_year.upper;      
+      params["toDayOfYear"] = this.day_of_year.upper;
 
     if (Object.keys(params).length > 0)
       return params;

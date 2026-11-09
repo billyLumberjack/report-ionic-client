@@ -1,3 +1,8 @@
 page-my-tabs {
-
+  // ion-tabs handles the layout (scrollable content + bottom-pinned bar).
+  // Colours match the legacy app: grey icons, primary-blue when selected.
+  ion-tab-bar {
+    --color: #8c8c8c;
+    --color-selected: var(--ion-color-primary);
+  }
 }

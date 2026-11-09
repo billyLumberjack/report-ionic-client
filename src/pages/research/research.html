@@ -1,164 +1,150 @@
-<!--
-  Generated template for the ReFORMPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>{{ 'SEARCH.TITLE' | translate }}</ion-title>
-  </ion-navbar>
-
+  </ion-toolbar>
 </ion-header>
-
-
 
 <ion-content>
   <ion-list *ngIf="vocabulary">
 
-    <ion-list-header no-border>
-      <ion-label stacked>{{ 'FORM.DAY-OF-YEAR' | translate }}</ion-label>
+    <ion-list-header>
+      <ion-label position="stacked">{{ 'FORM.DAY-OF-YEAR' | translate }}</ion-label>
 
-      <ion-badge item-end class="badge-class">{{day_of_year.lower | toFromDayOfYear : translate.currentLang}}</ion-badge>
-      <ion-badge item-end class="badge-class">-</ion-badge>
-      <ion-badge item-end class="badge-class">{{day_of_year.upper | toFromDayOfYear : translate.currentLang}}</ion-badge>
+      <ion-badge slot="end" class="badge-class">{{day_of_year.lower | toFromDayOfYear : translate.currentLang}}</ion-badge>
+      <ion-badge slot="end" class="badge-class">-</ion-badge>
+      <ion-badge slot="end" class="badge-class">{{day_of_year.upper | toFromDayOfYear : translate.currentLang}}</ion-badge>
 
     </ion-list-header>
     <ion-item>
-      <ion-range min="{{vocabulary.date.min}}" max="{{vocabulary.date.max}}" step="1" snaps="false" dualKnobs="true" pin="false" [(ngModel)]="day_of_year" color="">
+      <ion-range [min]="vocabulary.date.min" [max]="vocabulary.date.max" step="1" [snaps]="false" [dualKnobs]="true" [pin]="false" [(ngModel)]="day_of_year">
       </ion-range>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
+      <ion-label position="stacked">{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="trip_name"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.REGION' | translate }}</ion-label>
-      <ion-select [(ngModel)]="region" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-        <ion-option value="{{str}}" *ngFor="let str of vocabulary.regions">{{str}}</ion-option>
+      <ion-label position="stacked">{{ 'FORM.REGION' | translate }}</ion-label>
+      <ion-select [(ngModel)]="region" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+        <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.regions">{{str}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.STARTING-FROM' | translate }}</ion-label>
+      <ion-label position="stacked">{{ 'FORM.STARTING-FROM' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="starting_from"></ion-input>
     </ion-item>
 
     <ion-row>
-      <ion-col col-12>
-        <ion-label stacked>{{ 'FORM.DATE' | translate }}</ion-label>
+      <ion-col size="12">
+        <ion-label position="stacked">{{ 'FORM.DATE' | translate }}</ion-label>
       </ion-col>
-      <ion-col col-6>
+      <ion-col size="6">
         <ion-item>
-          <ion-label stacked>{{ 'FORM.FROM' | translate }}</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY" [(ngModel)]="fromDate" (ionCancel)="cleanField($event)"></ion-datetime>
+          <ion-label position="stacked">{{ 'FORM.FROM' | translate }}</ion-label>
+          <ion-datetime presentation="date" [(ngModel)]="fromDate" (ionCancel)="cleanField($event)"></ion-datetime>
         </ion-item>
       </ion-col>
-      <ion-col col-6>
+      <ion-col size="6">
         <ion-item>
-          <ion-label stacked>{{ 'FORM.TO' | translate }}</ion-label>
-          <ion-datetime displayFormat="D MMM YYYY" [(ngModel)]="toDate" (ionCancel)="cleanField($event)"></ion-datetime>
+          <ion-label position="stacked">{{ 'FORM.TO' | translate }}</ion-label>
+          <ion-datetime presentation="date" [(ngModel)]="toDate" (ionCancel)="cleanField($event)"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
 
-    <ion-list-header no-border>
-      <ion-label stacked>{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
+    <ion-list-header>
+      <ion-label position="stacked">{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
 
-      <ion-badge item-end class="badge-class">{{starting_from_altitude.lower}}</ion-badge>
-      <ion-badge item-end class="badge-class">-</ion-badge>
-      <ion-badge item-end class="badge-class">{{starting_from_altitude.upper}}</ion-badge>
+      <ion-badge slot="end" class="badge-class">{{starting_from_altitude.lower}}</ion-badge>
+      <ion-badge slot="end" class="badge-class">-</ion-badge>
+      <ion-badge slot="end" class="badge-class">{{starting_from_altitude.upper}}</ion-badge>
 
     </ion-list-header>
     <ion-item>
-      <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" step="100" snaps="false" dualKnobs="true" pin="true" [(ngModel)]="starting_from_altitude"
-        color="">
+      <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [dualKnobs]="true" [pin]="true" [(ngModel)]="starting_from_altitude">
       </ion-range>
     </ion-item>
 
     <ion-list-header>
-      <ion-label stacked>{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
-      <ion-badge item-end class="badge-class">{{end_altitude.lower}}</ion-badge>
-      <ion-badge item-end class="badge-class">-</ion-badge>
-      <ion-badge item-end class="badge-class">{{end_altitude.upper}}</ion-badge>
+      <ion-label position="stacked">{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
+      <ion-badge slot="end" class="badge-class">{{end_altitude.lower}}</ion-badge>
+      <ion-badge slot="end" class="badge-class">-</ion-badge>
+      <ion-badge slot="end" class="badge-class">{{end_altitude.upper}}</ion-badge>
     </ion-list-header>
     <ion-item>
-      <ion-range min="{{vocabulary.height.min}}" max="{{vocabulary.height.max}}" step="100" snaps="false" dualKnobs="true" pin="true" [(ngModel)]="end_altitude"
-        color="">
+      <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [dualKnobs]="true" [pin]="true" [(ngModel)]="end_altitude">
       </ion-range>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.GRADE' | translate }}</ion-label>
-      <ion-select [(ngModel)]="difficulty" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-        <ion-option value="{{str}}" *ngFor="let str of vocabulary.grades">{{str}}</ion-option>
+      <ion-label position="stacked">{{ 'FORM.GRADE' | translate }}</ion-label>
+      <ion-select [(ngModel)]="difficulty" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+        <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.grades">{{str}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-row>
-      <ion-col col-12>
-        <ion-label stacked>{{ 'FORM.SIDE' | translate }}</ion-label>
+      <ion-col size="12">
+        <ion-label position="stacked">{{ 'FORM.SIDE' | translate }}</ion-label>
       </ion-col>
-      <ion-col col-6>
+      <ion-col size="6">
         <ion-item>
-          <ion-label stacked>{{ 'FORM.UPHILL' | translate }}</ion-label>
-          <ion-select [(ngModel)]="uphill_side" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-            <ion-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-option>
+          <ion-label position="stacked">{{ 'FORM.UPHILL' | translate }}</ion-label>
+          <ion-select [(ngModel)]="uphill_side" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+            <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
-      <ion-col col-6>
+      <ion-col size="6">
         <ion-item>
-          <ion-label stacked>{{ 'FORM.DOWNHILL' | translate }}</ion-label>
-          <ion-select [(ngModel)]="downhill_side" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-            <ion-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-option>
+          <ion-label position="stacked">{{ 'FORM.DOWNHILL' | translate }}</ion-label>
+          <ion-select [(ngModel)]="downhill_side" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+            <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.SNOW-RATE' | translate }}</ion-label>
-      <ion-select [(ngModel)]="snow_rate" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-        <ion-option value="{{str}}" *ngFor="let str of vocabulary.snow_rates">{{str}}</ion-option>
+      <ion-label position="stacked">{{ 'FORM.SNOW-RATE' | translate }}</ion-label>
+      <ion-select [(ngModel)]="snow_rate" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+        <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.snow_rates">{{str}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.TRIP-RATE' | translate }}</ion-label>
-      <ion-select [(ngModel)]="trip_rate" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-        <ion-option value="{{str}}" *ngFor="let str of vocabulary.trip_rates">{{str}}</ion-option>
+      <ion-label position="stacked">{{ 'FORM.TRIP-RATE' | translate }}</ion-label>
+      <ion-select [(ngModel)]="trip_rate" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+        <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.trip_rates">{{str}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.TARGET' | translate }}</ion-label>
-      <ion-select [(ngModel)]="target" multiple="true" cancelText="{{ 'FORM.CANCEL' | translate }}" okText="{{ 'FORM.OK' | translate }}">
-        <ion-option value="{{str}}" *ngFor="let str of vocabulary.targets">{{str}}</ion-option>
+      <ion-label position="stacked">{{ 'FORM.TARGET' | translate }}</ion-label>
+      <ion-select [(ngModel)]="target" [multiple]="true" cancel-text="{{ 'FORM.CANCEL' | translate }}" ok-text="{{ 'FORM.OK' | translate }}">
+        <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.targets">{{str}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>{{ 'FORM.USER' | translate }}</ion-label>
+      <ion-label position="stacked">{{ 'FORM.USER' | translate }}</ion-label>
       <ion-input type="text" [(ngModel)]="user"></ion-input>
     </ion-item>
-
-
 
   </ion-list>
 </ion-content>
 
-<ion-footer no-shadow no-border>
-  <ion-toolbar position="bottom">
+<ion-footer>
+  <ion-toolbar>
     <ion-row>
-      <ion-col col-6>
-        <button ion-button full (click)="cleanAllFields()">{{ 'FORM.CLEAN' | translate }}</button>
+      <ion-col size="6">
+        <ion-button expand="full" (click)="cleanAllFields()">{{ 'FORM.CLEAN' | translate }}</ion-button>
       </ion-col>
-      <ion-col col-6>
-        <button ion-button full (click)="submit()">{{ 'SEARCH.SUBMIT' | translate }}</button>
+      <ion-col size="6">
+        <ion-button expand="full" (click)="submit()">{{ 'SEARCH.SUBMIT' | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>

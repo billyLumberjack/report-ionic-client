@@ -1,7 +1,7 @@
 # report-ionic-client
 
-The user-facing **mobile app** (internal name `iweather`). Ionic 3 / Angular 4.4
-/ Cordova, targeting iOS, Android, and browser. Consumes `report-api`.
+The user-facing **mobile app** (internal name `iweather`). Ionic 7 / Angular 17
+/ Capacitor, targeting iOS, Android, and browser. Consumes `report-api`.
 
 ## What it does
 
@@ -17,31 +17,39 @@ Lets users browse, search, map, and submit ski-trip reports. Pages (`src/pages/`
 
 ## Providers (`src/providers/`)
 
-- `report/report.ts` — HTTP client for the API: `getReports`, `postReport`,
-  `postImage`, plus `getImagesBySearchQuery` (hits the external **Qwant** image
-  search API). Base URL comes from `ENV.api_endpoint` (`@app/env`).
+- `report/report.ts` — HTTP client for the API (Angular `HttpClient`):
+  `getReports`, `postReport`, `postImage`, plus `getImagesBySearchQuery` (hits the
+  external **Qwant** image search API). Base URL comes from
+  `environment.api_endpoint` (`src/environments/environment*.ts`).
 - `report-handler/report-handler.ts` — report-shaping / view logic.
 - `shared/shared.ts` — shared state/helpers.
 
-Also: `components/`, `directives/`, `pipes/`, `theme/`, i18n via
-`@ngx-translate`, offline storage via `@ionic/storage` + `cordova-sqlite-storage`.
+Also: `components/`, `pipes/`, `theme/`, i18n via `@ngx-translate`, offline
+storage via `@ionic/storage-angular`. Cross-page data is carried on the
+`SharedReportsProvider` singleton (Angular Router replaced the old
+`NavController`/`NavParams` object passing).
 
 ## Build / run
 
-Config/env split lives in `config/` (`webpack.config.js`) and `environments/`
-(DEV vs PROD `ENV.api_endpoint`). See `README.md` for the full emulator/device
-command list. Essentials:
+Build is the standard Angular CLI. Env split lives in `src/environments/`
+(`environment.ts` = PROD/default, `environment.dev.ts` = DEV, swapped in by
+`angular.json` `fileReplacements` for the `development` configuration). Use the
+pinned Node from `.nvmrc` (Node 20). Essentials:
 
 ```sh
+nvm use                                     # Node 20
 npm install
-ionic cordova emulate ios --target="iPhone-SE" --no-native-run        # DEV config
-ionic cordova emulate ios --target="iPhone-SE" --prod --no-native-run  # PROD config
-ionic cordova run android --device                                     # physical device
-ionic cordova build browser                                            # browser build
+npm start                                   # ng serve (dev)
+npm run build -- --configuration production # web build -> ./www
+npx cap sync                                # copy web build into ios/ + android/
+npx cap open ios                            # open in Xcode (needs CocoaPods: pod install)
+npx cap open android                        # open in Android Studio (needs JDK + SDK)
 ```
 
-Release helpers: `create_signed_apk_with_version.sh`, `get_and_increase_tag.sh`
-(version tagging), `build_and_S3_deploy.sh` (browser build → S3).
+Release helpers: `get_and_increase_tag.sh` (version tagging). The old Cordova
+release scripts (`create_signed_apk_with_version.sh`, `build_and_S3_deploy.sh`)
+are superseded — native release now goes through the Capacitor `android/` and
+`ios/` projects, and the web app is built/served by the `web` container.
 
 ## Branch naming (from README)
 
@@ -49,11 +57,17 @@ Release helpers: `create_signed_apk_with_version.sh`, `get_and_increase_tag.sh`
 
 ## Caveats
 
-- **Old stack:** Ionic 3, Angular 4.4.3, cordova-ios 4.5.5, TypeScript 2.6,
-  rxjs 5 (`.map(...).toPromise()` style). Toolchain (`@ionic/app-scripts`) is
-  long-deprecated; a clean `npm install` on a modern Node may be painful — use a
-  matching old Node version.
-- `config.xml` holds the Cordova app id / plugin config (`cordova-plugin-ionic`
-  live-update `APP_ID` `1907d883`, channel `Production`).
-- `getImagesBySearchQuery` calls Qwant over plain `http://` — external, may be
-  dead; not part of the core API.
+- **Stack:** Ionic 7, Angular 17 (NgModules, no standalone), Capacitor 5,
+  TypeScript 5.2, rxjs 7, built with the Angular CLI on Node 20. Migrated from the
+  original Ionic 3 / Angular 4 / Cordova stack — see git history and the legacy
+  `config.xml` (still present for the old Cordova app id / live-update config).
+- **Navigation:** Angular Router with `useHash: true` (hash URLs), so static
+  hosting needs no SPA rewrite rule and deep-link refresh works. Object payloads
+  between pages ride on `SharedReportsProvider`, not route params.
+- **Native shells** live in `ios/` and `android/` (Capacitor). Building them needs
+  the native SDKs (CocoaPods + Xcode for iOS; JDK + Android SDK for Android);
+  `npx cap sync` after each web build.
+- **Maps:** Leaflet + the `leaflet.fullscreen` npm plugin, both bundled (CSS via
+  `angular.json`) — no CDN, so the map works offline inside the native shells.
+- `getImagesBySearchQuery` calls Qwant (now over `https://`) — external, may be
+  dead; not part of the core API. It's not wired into any page.

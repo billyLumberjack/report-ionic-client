@@ -1,13 +1,7 @@
-import { Injectable, SystemJsNgModuleLoader } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import {SharedReportsProvider} from '../../providers/shared/shared'
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
+import { SharedReportsProvider } from '../../providers/shared/shared';
 
-/*
-  Generated class for the ReportHandlerProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ReportHandlerProvider {
 
@@ -26,20 +20,16 @@ export class ReportHandlerProvider {
   }
 
   markAlreadyVisitedReports(reportList) {
-
-    var enhanceArray = function(localReportArray, visited_report_array){
-      if(visited_report_array){ 
-        return localReportArray.map((item) => {
+    return this.storage.get('visited_report').then((visited_report_array) => {
+      if (visited_report_array) {
+        reportList.forEach((item) => {
           if (visited_report_array.indexOf(item["_id"]) > -1) {
             item["Visited"] = true;
-          return item;
           }
         });
       }
-    }
-
-    this.storage.get('visited_report').then(visited_report_array => enhanceArray(reportList, visited_report_array));
-
+      return reportList;
+    });
   }
 
   convertReortsDateToLocalOne(reportList){

@@ -1,29 +1,20 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Topos_slides} from '../topos_slides/topos_slides';
-import { TranslateService } from '@ngx-translate/core';
-
-
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { SharedReportsProvider } from '../../providers/shared/shared';
 import { MapComponent } from '../../components/map/map';
-
-
-/**
- * Generated class for the ReportDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-report-details',
   templateUrl: 'report-details.html',
+  styleUrls: ['report-details.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ReportDetailsPage {
 
   report = null;
   isMapFullscreen = false;
 
-  map:any;
+  map: any;
 
   fieldsToShow = [
     "Region",
@@ -51,23 +42,14 @@ export class ReportDetailsPage {
 
     "Site",
     "User"
-
-    //"Id",
-    //"Date",
-    //"OnsiteId",
-    //"SearchTripName",
-    //"TripName",
-    //"Type",
-    //"Images",
   ];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private translate: TranslateService
-    ) {
-    this.report = this.navParams.get("report");
-    if(this.report.ReadableDate == undefined){
+    public navCtrl: NavController,
+    private shared: SharedReportsProvider
+  ) {
+    this.report = this.shared.selectedReport;
+    if (this.report && this.report.ReadableDate == undefined) {
       this.report.ReadableDate = new Date(this.report.Date).toLocaleDateString();
     }
   }
@@ -75,20 +57,18 @@ export class ReportDetailsPage {
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
   ionViewDidEnter() {
-      if(this.report.geometry && this.report.geometry.coordinates){
+    if (this.report && this.report.geometry && this.report.geometry.coordinates) {
       this.mapComponent.initMap();
-      let reportMapLayer = this.mapComponent.getLayerByReport(this.report , false);
+      let reportMapLayer = this.mapComponent.getLayerByReport(this.report, false);
       this.mapComponent.addLayerToMap(reportMapLayer);
       this.mapComponent.centerMapOnLayer(reportMapLayer);
     }
   }
 
-  gotoSlide(i){
-    this.navCtrl.push(Topos_slides,{
-      index:i,
-      images:this.report.Images
-    });
+  gotoSlide(i) {
+    this.shared.toposImages = this.report.Images;
+    this.shared.toposIndex = i;
+    this.navCtrl.navigateForward('/topos-slides');
   }
-
 
 }

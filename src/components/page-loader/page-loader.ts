@@ -1,14 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-/**
- * Generated class for the PageLoaderComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'page-loader',
-  templateUrl: 'page-loader.html'
+  templateUrl: 'page-loader.html',
+  styleUrls: ['page-loader.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PageLoaderComponent {
 

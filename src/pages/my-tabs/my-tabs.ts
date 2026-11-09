@@ -1,32 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import { HomePage } from '../home/home';
-import { MapPage } from '../map/map';
-import { ResearchPage } from '../research/research';
-import { AddPage } from '../add/add';
-import { AboutPage } from '../about/about';
-
-/**
- * Generated class for the MyTabsPage tabs.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-//@IonicPage()
 @Component({
   selector: 'page-my-tabs',
-  templateUrl: 'my-tabs.html'
+  templateUrl: 'my-tabs.html',
+  styleUrls: ['my-tabs.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyTabsPage {
-
-  homeRoot = HomePage
-  mapRoot = MapPage
-  researchRoot = ResearchPage
-  addRoot = AddPage
-  aboutRoot = AboutPage;
-
-  constructor(public navCtrl: NavController) {}
-
+  constructor() {}
 }

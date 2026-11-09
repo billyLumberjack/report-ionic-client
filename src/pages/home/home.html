@@ -1,21 +1,20 @@
 <page-loader *ngIf="show_page_loader"></page-loader>
 <ion-header>
-
-  <ion-navbar>
-    <ion-title >{{ 'HOME.TITLE' | translate }}</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-title>{{ 'HOME.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content no-padding>
+<ion-content class="ion-no-padding">
 
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-    <report *ngFor="let report of shared.reportsFeed" [report]="report"></report>
+  <report *ngFor="let report of shared.reportsFeed" [report]="report"></report>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hideToolbar">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [disabled]="infiniteDisabled">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

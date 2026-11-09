@@ -1,44 +1,35 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AlertController, NavController } from '@ionic/angular';
 import { ReportProvider } from '../../providers/report/report';
 import { ReportHandlerProvider } from '../../providers/report-handler/report-handler';
-
-import { SharedReportsProvider } from '../../providers/shared/shared'
-
-import { AlertController } from 'ionic-angular';
-import {MapPage} from '../map/map';
-
-
-/**
- * Generated class for the SearchResultPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
   selector: 'page-search-result',
   templateUrl: 'search-result.html',
+  styleUrls: ['search-result.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class SearchResultPage {
-  hideToolbar = true;
+export class SearchResultPage implements OnInit {
   show_page_loader = true;
-  params = {
+  infiniteDisabled = false;
+  params: any = {
     limit: 20
   };
-  
-  handleZeroReportsRetrieved = function(){
-    let alert = this.alertCtrl.create({
-      title: 'Error',
-      subTitle: 'No results found',
+
+  async handleZeroReportsRetrieved() {
+    const alert = await this.alertCtrl.create({
+      header: 'Error',
+      subHeader: 'No results found',
       buttons: [{
         text: 'OK',
         role: 'cancel',
         handler: () => {
-          this.show_page_loader = false;            }
+          this.show_page_loader = false;
+        }
       }]
     });
-    alert.present();
+    await alert.present();
   }
 
   constructor(
@@ -46,27 +37,25 @@ export class SearchResultPage {
     public navCtrl: NavController,
     private reportProvider: ReportProvider,
     private reportHandler: ReportHandlerProvider,
-    private navParams: NavParams,
-    private shared: SharedReportsProvider
+    public shared: SharedReportsProvider
   ) {
-
-    if (navParams.get("params") !== undefined) {
-      this.params = { ...this.params, ...navParams.get("params") };
+    if (this.shared.searchParams) {
+      this.params = { ...this.params, ...this.shared.searchParams };
     }
   }
 
-  displaySearchResultOnMap(){
-    this.navCtrl.push(MapPage , {reportsList: this.shared.reportsSearchResults});
+  displaySearchResultOnMap() {
+    this.shared.mapReportsList = this.shared.reportsSearchResults;
+    this.navCtrl.navigateForward('/tabs/map');
   }
 
-  ionViewDidLoad() {
-
+  ngOnInit() {
     this.reportProvider.getReports(this.params).subscribe(data => {
 
-      if(data.length === 0)
+      if (data.length === 0)
         this.handleZeroReportsRetrieved();
 
-      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, true);
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults, data, true);
       this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
       this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
 
@@ -74,38 +63,33 @@ export class SearchResultPage {
     });
   }
 
-  doRefresh(loader) {
+  doRefresh(event) {
     const p = {
       fromCreatedAt: this.reportHandler.highestCreatedAt + 1
     };
 
     this.reportProvider.getReports(p).subscribe(data => {
-
-      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, false);
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults, data, false);
       this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
       this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
-      loader.complete();
+      event.target.complete();
     });
   }
 
-  doInfinite(infiniteScroll) {
-
-    this.params["skip"] = this.shared.reportsSearchResults.length;
+  doInfinite(event) {
+    this.params['skip'] = this.shared.reportsSearchResults.length;
 
     this.reportProvider.getReports(this.params).subscribe(data => {
-
-      if(data.length === 0){
-        infiniteScroll.enable(false);
-
-        console.info("Infinite Scroll disabilitato");
+      if (data.length === 0) {
+        this.infiniteDisabled = true;
+        console.info('Infinite Scroll disabilitato');
       }
 
-      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults,data, true);
+      this.shared.reportsSearchResults = this.reportHandler.appendReports(this.shared.reportsSearchResults, data, true);
       this.reportHandler.markAlreadyVisitedReports(this.shared.reportsSearchResults);
       this.shared.reportsSearchResults = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsSearchResults);
 
-      infiniteScroll.complete();
-
+      event.target.complete();
     });
   }
 

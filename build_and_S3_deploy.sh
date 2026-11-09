@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
-aws s3 rm s3://web-skiapp/
-ionic cordova build browser --prod
-aws s3 cp /Users/samuele/Desktop/MY_PROJECT/ionic_skiapp/platforms/browser/www s3://web-skiapp/ --acl public-read --recursive
+# DEPRECATED: the app is no longer deployed to S3. It is built and served by the
+# `web` container in ../deploy/docker-compose.yml (see ../deploy/README.md).
+#
+# To build locally instead of via Docker (needs the pinned Node from .nvmrc):
+#   nvm install && nvm use          # Node 20
+#   npm install
+#   npm run build -- --configuration production
+# The static app is then in ./www.
+echo "Deprecated. See ../deploy/README.md — the 'web' service builds and serves the app."
+exit 1

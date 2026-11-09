@@ -1,16 +1,34 @@
 report {
+    ion-card {
+        margin: 10px;
+    }
+
     .image-slide{
-        height:20rem;
+        height:200px;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
     .default-image-bg{
-        height:20rem;
-        background: url("../assets/no-image-available.jpg");
+        height:200px;
+        background: url("../../assets/no-image-available.jpg");
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
+    }
+
+    // Match the legacy (Ionic 3) card typography: near-black heading and
+    // black info row, instead of Ionic 7's default grey card text.
+    ion-card-content {
+        color: #000;
+    }
+
+    h2 {
+        color: #222;
+    }
+
+    ion-col {
+        font-size: 14px;
     }
 }

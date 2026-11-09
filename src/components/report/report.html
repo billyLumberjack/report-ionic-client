@@ -1,28 +1,28 @@
 <ion-card (click)="itemSelected(report)">
-  <ion-slides *ngIf="report.Images">
-    <ion-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
+  <swiper-container *ngIf="report.Images">
+    <swiper-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
       <img [src]="url" style="display:none;" />
-    </ion-slide>
-  </ion-slides>
+    </swiper-slide>
+  </swiper-container>
 
   <div class="default-image-bg" *ngIf="!report.Images"></div>
 
   <ion-card-content>
 
     <ion-row>
-      <ion-col col-11 no-padding text-left>
+      <ion-col size="11" class="ion-no-padding ion-text-left">
         <h2>{{ report.TripName }}</h2>
       </ion-col>
-      <ion-col col-1 no-padding text-right *ngIf="report.Visited">
+      <ion-col size="1" class="ion-no-padding ion-text-right" *ngIf="report.Visited">
         <ion-icon name="eye" class="eye-icon"></ion-icon>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col no-padding text-left>{{report.Region}}</ion-col>
-      <ion-col no-padding text-center>{{report.ElevationGain}} m.</ion-col>
-      <ion-col no-padding text-center>{{report.DownhillSide}}</ion-col>
-      <ion-col no-padding text-right>{{report.ReadableDate}}</ion-col>
+      <ion-col class="ion-no-padding ion-text-left">{{report.Region}}</ion-col>
+      <ion-col class="ion-no-padding ion-text-center">{{report.ElevationGain}} m.</ion-col>
+      <ion-col class="ion-no-padding ion-text-center">{{report.DownhillSide}}</ion-col>
+      <ion-col class="ion-no-padding ion-text-right">{{report.ReadableDate}}</ion-col>
     </ion-row>
 
   </ion-card-content>

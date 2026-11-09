@@ -1,7 +1,19 @@
-<ion-tabs no-shadow no-border>
-    <ion-tab [root]="homeRoot" tabIcon="list"></ion-tab>
-    <ion-tab [root]="mapRoot" tabIcon="map"></ion-tab>
-    <ion-tab [root]="researchRoot" tabIcon="search"></ion-tab>
-    <ion-tab [root]="addRoot" tabIcon="add-circle"></ion-tab>
-    <ion-tab [root]="aboutRoot" tabIcon="help-circle"></ion-tab>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="list"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="map">
+      <ion-icon name="map"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="research">
+      <ion-icon name="search"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="add">
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="about">
+      <ion-icon name="help-circle"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
 </ion-tabs>

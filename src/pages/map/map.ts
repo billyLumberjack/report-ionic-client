@@ -1,67 +1,63 @@
-import { Component, ViewChild,ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {SharedReportsProvider} from '../../providers/shared/shared'
-import { ReportDetailsPage } from '../../pages/report-details/report-details';
-import { TranslateService } from '@ngx-translate/core';
-
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { SharedReportsProvider } from '../../providers/shared/shared';
 import { MapComponent } from '../../components/map/map';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',
+  styleUrls: ['map.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapPage {
 
   @ViewChild(MapComponent) mapComponent: MapComponent;
 
   refresherExists = true;
-  map:any;
+  map: any;
 
   reportsList = [];
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    private shared : SharedReportsProvider
+    private shared: SharedReportsProvider
   ) {}
 
   ionViewDidEnter() {
 
-    if(this.navParams.get("reportsList")){
-      this.reportsList = this.navParams.get("reportsList");
-    }
-    else{
+    if (this.shared.mapReportsList && this.shared.mapReportsList.length) {
+      this.reportsList = this.shared.mapReportsList;
+      this.shared.mapReportsList = null; // consume once
+    } else {
       this.reportsList = this.shared.reportsFeed;
     }
 
     this.mapComponent.initMap();
 
-    let reportListLayer = this.mapComponent.getLayerByReportArray(this.reportsList , true);
+    let reportListLayer = this.mapComponent.getLayerByReportArray(this.reportsList, true);
     this.mapComponent.addLayerToMap(reportListLayer);
     this.mapComponent.centerMapOnLayer(reportListLayer);
 
     this.addListenerForReportPopupClick();
   }
 
-  ionViewDidLeave(){
-    document.getElementById("cssMapId").removeEventListener('build' , this.navigateToReportByEvent );
+  ionViewDidLeave() {
+    const el = document.getElementById('cssMapId');
+    if (el) {
+      el.removeEventListener('build', this.navigateToReportByEvent);
+    }
   }
 
-  private addListenerForReportPopupClick(){
-    document.getElementById("cssMapId").addEventListener('build', this.navigateToReportByEvent );
+  private addListenerForReportPopupClick() {
+    const el = document.getElementById('cssMapId');
+    if (el) {
+      el.addEventListener('build', this.navigateToReportByEvent);
+    }
   }
 
   private navigateToReportByEvent = (event) => {
-
-    console.log("dispatched event !");
-
-    this.navCtrl.push(ReportDetailsPage, {
-      report: this.reportsList[event["detail"]]
-    });
+    this.shared.selectedReport = this.reportsList[event['detail']];
+    this.navCtrl.navigateForward('/report-details');
   }
 
-
-
 }
-
-
