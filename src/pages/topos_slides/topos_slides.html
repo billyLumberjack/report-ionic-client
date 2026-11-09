@@ -5,7 +5,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="tutorial-page">
+<ion-content class="tutorial-page" scroll-y="false">
   <swiper-container #swiperRef pagination="true" zoom="true" class="full-height-swiper">
     <swiper-slide *ngFor="let slide of slides">
       <div class="swiper-zoom-container"><img [src]="slide" class="slide-image" /></div>

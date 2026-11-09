@@ -14,6 +14,11 @@ page-topos-slides {
 
     swiper-container.full-height-swiper {
         height: 100%;
+        /* Swiper CSS vars pierce the shadow DOM; class selectors cannot */
+        --swiper-pagination-color: #fff;
+        --swiper-pagination-bullet-inactive-color: #fff;
+        --swiper-pagination-bullet-inactive-opacity: 0.4;
+        --swiper-pagination-bullet-opacity: 1;
     }
 
     swiper-slide {
@@ -26,15 +31,6 @@ page-topos-slides {
         width: 100%;
         height: 100%;
         object-fit: contain;
-    }
-
-    .swiper-pagination-bullet {
-        background: #fff;
-        opacity: 0.4;
-    }
-
-    .swiper-pagination-bullet-active {
-        opacity: 1;
     }
 
 }
