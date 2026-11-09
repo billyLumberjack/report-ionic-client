@@ -1,11 +1,26 @@
 page-research {
     .badge-class {
         background-color: transparent;
-        color:black;
+        color: black;
+        font-weight: bold;
     }
 
-    ion-list-header, .tabbar{
-        border:0 !important;
+    ion-list-header {
+        display: flex;
+        align-items: center;
+
+        ion-label {
+            flex: 1;
+        }
+
+        .range-values {
+            display: flex;
+            align-items: center;
+            padding-right: 16px;
+        }
     }
 
+    ion-list-header, .tabbar {
+        border: 0 !important;
+    }
 }

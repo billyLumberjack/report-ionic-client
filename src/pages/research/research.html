@@ -8,12 +8,12 @@
   <ion-list *ngIf="vocabulary">
 
     <ion-list-header>
-      <ion-label position="stacked">{{ 'FORM.DAY-OF-YEAR' | translate }}</ion-label>
-
-      <ion-badge slot="end" class="badge-class">{{day_of_year.lower | toFromDayOfYear : translate.currentLang}}</ion-badge>
-      <ion-badge slot="end" class="badge-class">-</ion-badge>
-      <ion-badge slot="end" class="badge-class">{{day_of_year.upper | toFromDayOfYear : translate.currentLang}}</ion-badge>
-
+      <ion-label>{{ 'FORM.DAY-OF-YEAR' | translate }}</ion-label>
+      <div class="range-values">
+        <ion-badge class="badge-class">{{day_of_year.lower | toFromDayOfYear : translate.currentLang}}</ion-badge>
+        <ion-badge class="badge-class">-</ion-badge>
+        <ion-badge class="badge-class">{{day_of_year.upper | toFromDayOfYear : translate.currentLang}}</ion-badge>
+      </div>
     </ion-list-header>
     <ion-item>
       <ion-range [min]="vocabulary.date.min" [max]="vocabulary.date.max" step="1" [snaps]="false" [dualKnobs]="true" [pin]="false" [(ngModel)]="day_of_year">
@@ -56,12 +56,12 @@
     </ion-row>
 
     <ion-list-header>
-      <ion-label position="stacked">{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
-
-      <ion-badge slot="end" class="badge-class">{{starting_from_altitude.lower}}</ion-badge>
-      <ion-badge slot="end" class="badge-class">-</ion-badge>
-      <ion-badge slot="end" class="badge-class">{{starting_from_altitude.upper}}</ion-badge>
-
+      <ion-label>{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
+      <div class="range-values">
+        <ion-badge class="badge-class">{{starting_from_altitude.lower}}</ion-badge>
+        <ion-badge class="badge-class">-</ion-badge>
+        <ion-badge class="badge-class">{{starting_from_altitude.upper}}</ion-badge>
+      </div>
     </ion-list-header>
     <ion-item>
       <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [dualKnobs]="true" [pin]="true" [(ngModel)]="starting_from_altitude">
@@ -69,10 +69,12 @@
     </ion-item>
 
     <ion-list-header>
-      <ion-label position="stacked">{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
-      <ion-badge slot="end" class="badge-class">{{end_altitude.lower}}</ion-badge>
-      <ion-badge slot="end" class="badge-class">-</ion-badge>
-      <ion-badge slot="end" class="badge-class">{{end_altitude.upper}}</ion-badge>
+      <ion-label>{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
+      <div class="range-values">
+        <ion-badge class="badge-class">{{end_altitude.lower}}</ion-badge>
+        <ion-badge class="badge-class">-</ion-badge>
+        <ion-badge class="badge-class">{{end_altitude.upper}}</ion-badge>
+      </div>
     </ion-list-header>
     <ion-item>
       <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [dualKnobs]="true" [pin]="true" [(ngModel)]="end_altitude">
