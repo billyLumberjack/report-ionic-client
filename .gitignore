@@ -38,7 +38,13 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 resources/my-release-key.jks
-package-lock.json
+# Playwright
+playwright-report/
+playwright-results/
+e2e/.auth/
+
+# Jest CI reports
+reports/junit/
 
 # Angular CLI cache
 .angular/

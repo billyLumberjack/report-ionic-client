@@ -9,6 +9,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "jest",
+    "test:ci": "jest --coverage --ci",
+    "e2e": "playwright test",
+    "e2e:ci": "playwright test",
     "lint": "ng lint"
   },
   "dependencies": {
@@ -45,12 +48,14 @@
     "@angular/compiler-cli": "^22.2.6",
     "@capacitor/cli": "^8.6.0",
     "@ionic/angular-toolkit": "^12.3.0",
+    "@playwright/test": "^1.65.0",
     "@types/jest": "^30.0.0",
     "@types/leaflet": "^1.9.8",
     "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
+    "jest-junit": "^16.0.0",
     "jest-preset-angular": "^17.0.3",
-    "typescript": "~6.0.3",
-    "jest-environment-jsdom": "^30.5.2"
+    "typescript": "~6.0.3"
   },
   "description": "SkiApp Report - ski-trip report mobile app"
 }
