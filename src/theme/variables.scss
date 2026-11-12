@@ -2,21 +2,21 @@
 // https://ionicframework.com/docs/theming/
 
 :root {
-  /** primary **/
-  --ion-color-primary: #488aff;
-  --ion-color-primary-rgb: 72, 138, 255;
+  /** primary — Alpenglow Amber **/
+  --ion-color-primary: #E8671A;
+  --ion-color-primary-rgb: 232, 103, 26;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3f79e0;
-  --ion-color-primary-tint: #5a96ff;
+  --ion-color-primary-shade: #CC5A16;
+  --ion-color-primary-tint: #EA7631;
 
-  /** secondary **/
-  --ion-color-secondary: #32db64;
-  --ion-color-secondary-rgb: 50, 219, 100;
+  /** secondary — Alpine Blue **/
+  --ion-color-secondary: #1A365D;
+  --ion-color-secondary-rgb: 26, 54, 93;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #2cc158;
-  --ion-color-secondary-tint: #47df74;
+  --ion-color-secondary-shade: #17304F;
+  --ion-color-secondary-tint: #2E4A6D;
 
   /** danger **/
   --ion-color-danger: #f53d3d;
@@ -49,6 +49,10 @@
   --ion-color-black-contrast-rgb: 255, 255, 255;
   --ion-color-black-shade: #000000;
   --ion-color-black-tint: #1a1a1a;
+
+  /** background **/
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
 }
 
 .ion-color-black {

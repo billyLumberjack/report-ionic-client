@@ -24,3 +24,29 @@
  * layout. Overriding ion-app to flex or forcing ion-router-outlet to block
  * breaks the absolute-fill layout Ionic relies on and un-pins the bottom tab
  * bar (the footer), so it scrolls away or collapses instead of staying fixed. */
+
+/* White toolbars with orange shadow separating them from content */
+ion-toolbar {
+  --background: #ffffff;
+  --color: #222428;
+  --border-width: 0;
+}
+
+ion-header {
+  overflow: visible !important;
+  z-index: 11;
+}
+
+ion-header ion-toolbar:last-of-type {
+  box-shadow: 0 6px 16px rgba(232, 103, 26, 0.5);
+}
+
+ion-footer {
+  box-shadow: 0 -6px 16px rgba(232, 103, 26, 0.5);
+}
+
+ion-tab-bar {
+  --background: #ffffff;
+  --border: 0;
+  box-shadow: 0 -6px 16px rgba(232, 103, 26, 0.5);
+}
