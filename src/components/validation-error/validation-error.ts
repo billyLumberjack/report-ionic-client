@@ -1,11 +1,13 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 @Component({
-  selector: 'validation-error',
-  templateUrl: 'validation-error.html',
-  styleUrls: ['validation-error.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'validation-error',
+    templateUrl: 'validation-error.html',
+    styleUrls: ['validation-error.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ValidationErrorComponent {
 

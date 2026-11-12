@@ -1,11 +1,13 @@
-import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-  selector: 'page-topos-slides',
-  templateUrl: 'topos_slides.html',
-  styleUrls: ['topos_slides.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-topos-slides',
+    templateUrl: 'topos_slides.html',
+    styleUrls: ['topos_slides.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class Topos_slides {
 

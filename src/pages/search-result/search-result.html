@@ -15,7 +15,9 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <report *ngFor="let report of shared.reportsSearchResults" [report]="report"></report>
+  @for (report of shared.reportsSearchResults; track report) {
+    <report [report]="report"></report>
+  }
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [disabled]="infiniteDisabled">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

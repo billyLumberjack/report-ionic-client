@@ -1,4 +1,6 @@
-<page-loader *ngIf="show_page_loader"></page-loader>
+@if (show_page_loader) {
+  <page-loader></page-loader>
+}
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ 'ADD.TITLE' | translate }}</ion-title>
@@ -6,248 +8,265 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="vocabulary">
-
-    <form novalidate id="newReportFormId" (ngSubmit)="submit()" [formGroup]="newReportForm">
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
-        <ion-input type="text" formControlName="TripName"></ion-input>
-      </ion-item>
-
-      <validation-error
-        *ngIf="displayValidationErrorsByName('TripName')"
-        [errors]="newReportForm.get('TripName').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.REGION' | translate }}</ion-label>
-        <ion-select
-          formControlName="Region" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}"
-          >
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.regions">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('Region')"
-        [errors]="newReportForm.get('Region').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.STARTING-FROM' | translate }}</ion-label>
-        <ion-input type="text" formControlName="StartingFrom"></ion-input>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('StartingFrom')"
-        [errors]="newReportForm.get('StartingFrom').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.STARTING-VALLEY' | translate }}</ion-label>
-        <ion-input type="text" formControlName="StartingValley"></ion-input>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('StartingValley')"
-        [errors]="newReportForm.get('StartingValley').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.DATE' | translate }}</ion-label>
-        <ion-datetime presentation="date" formControlName="Date" (ionCancel)="cleanField($event)"></ion-datetime>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('Date')"
-        [errors]="newReportForm.get('Date').errors"></validation-error>
-
-      <ion-list-header>
-        <ion-label position="stacked">{{ 'FORM.ELEVATION-GAIN' | translate }}</ion-label>
-        <ion-badge slot="end" class="badge-class">{{newReportForm.get('ElevationGain').value}}</ion-badge>
-      </ion-list-header>
-      <ion-item>
-        <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
-          formControlName="ElevationGain">
-        </ion-range>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('ElevationGain')"
-        [errors]="newReportForm.get('ElevationGain').errors"></validation-error>
-
-      <ion-list-header>
-        <ion-label position="stacked">{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
-        <ion-badge slot="end" class="badge-class">{{newReportForm.get('StartingAltitude').value}}</ion-badge>
-      </ion-list-header>
-      <ion-item>
-        <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
-          formControlName="StartingAltitude">
-        </ion-range>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('StartingAltitude')"
-        [errors]="newReportForm.get('StartingAltitude').errors"></validation-error>
-
-      <ion-list-header>
-        <ion-label position="stacked">{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
-        <ion-badge slot="end" class="badge-class">{{newReportForm.get('EndAltitude').value}}</ion-badge>
-      </ion-list-header>
-      <ion-item>
-        <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
-          formControlName="EndAltitude">
-        </ion-range>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('EndAltitude')"
-        [errors]="newReportForm.get('EndAltitude').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.GRADE' | translate }}</ion-label>
-        <ion-select formControlName="Grade" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.grades">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('Grade')"
-        [errors]="newReportForm.get('Grade').errors"></validation-error>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-label position="stacked">{{ 'FORM.SIDE' | translate }}</ion-label>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item>
-            <ion-label position="stacked">{{ 'FORM.UPHILL' | translate }}</ion-label>
-            <ion-select formControlName="UphillSide" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-              ok-text="{{ 'FORM.OK' | translate }}">
-              <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-select-option>
-            </ion-select>
-          </ion-item>
+  @if (vocabulary) {
+    <ion-list>
+      <form novalidate id="newReportFormId" (ngSubmit)="submit()" [formGroup]="newReportForm">
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.TRIP-NAME' | translate }}</ion-label>
+          <ion-input type="text" formControlName="TripName"></ion-input>
+        </ion-item>
+        @if (displayValidationErrorsByName('TripName')) {
           <validation-error
-          *ngIf="displayValidationErrorsByName('UphillSide')"
-          [errors]="newReportForm.get('UphillSide').errors"></validation-error>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item>
-            <ion-label position="stacked">{{ 'FORM.DOWNHILL' | translate }}</ion-label>
-            <ion-select formControlName="DownhillSide" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-              ok-text="{{ 'FORM.OK' | translate }}">
-              <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.sides">{{str}}</ion-select-option>
-            </ion-select>
-          </ion-item>
+          [errors]="newReportForm.get('TripName').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.REGION' | translate }}</ion-label>
+          <ion-select
+            formControlName="Region" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}"
+            >
+            @for (str of vocabulary.regions; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('Region')) {
           <validation-error
-          *ngIf="displayValidationErrorsByName('DownhillSide')"
-          [errors]="newReportForm.get('DownhillSide').errors"></validation-error>
-        </ion-col>
-      </ion-row>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.MAIN-SNOW-TYPE' | translate }}</ion-label>
-        <ion-select formControlName="MainSnowType" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.snow_types">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('MainSnowType')"
-        [errors]="newReportForm.get('MainSnowType').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.OTHER-SNOW-TYPE' | translate }}</ion-label>
-        <ion-select formControlName="OtherSnowType" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.snow_types">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('OtherSnowType')"
-        [errors]="newReportForm.get('OtherSnowType').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.SNOW-RATE' | translate }}</ion-label>
-        <ion-select formControlName="SnowRate" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.snow_rates">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('SnowRate')"
-        [errors]="newReportForm.get('SnowRate').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.SNOW-DESCRIPTION' | translate }}</ion-label>
-        <ion-textarea formControlName="SnowDescription" [autoGrow]="true"></ion-textarea>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('SnowDescription')"
-        [errors]="newReportForm.get('SnowDescription').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.AVALANCHE-RISK' | translate }}</ion-label>
-        <ion-select formControlName="AvalancheRisk" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.avalanche_risk">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('AvalancheRisk')"
-        [errors]="newReportForm.get('AvalancheRisk').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.TRIP-RATE' | translate }}</ion-label>
-        <ion-select formControlName="TripRate" cancel-text="{{ 'FORM.CANCEL' | translate }}"
-          ok-text="{{ 'FORM.OK' | translate }}">
-          <ion-select-option value="{{str}}" *ngFor="let str of vocabulary.trip_rates">{{str}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('TripRate')"
-        [errors]="newReportForm.get('TripRate').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.TRIP-DESCRIPTION' | translate }}</ion-label>
-        <ion-textarea formControlName="TripDescription" [autoGrow]="true"></ion-textarea>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('TripDescription')"
-        [errors]="newReportForm.get('TripDescription').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.LINKED-TRIP' | translate }}</ion-label>
-        <ion-input type="text" formControlName="LinkedTrip"></ion-input>
-      </ion-item>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('LinkedTrip')"
-        [errors]="newReportForm.get('LinkedTrip').errors"></validation-error>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-label position="stacked">{{ 'FORM.IMAGES' | translate }}</ion-label>
-        </ion-col>
-
-        <ion-col size="2">
-          <ion-icon name="add-circle" (click)="callClickEventOnInputTypeFile()" id="add-image-icon"></ion-icon>
-          <input #inputTypeFile style="display: none" accept="image/*" type="file" value=""
-            (change)="processFile($event)">
-        </ion-col>
-
-        <ion-col size="10">
-          <swiper-container slides-per-view="3" space-between="1">
-            <swiper-slide *ngFor="let f of files; let i = index" class="thumb" (click)="deleteSlide(i)"
-              [ngStyle]="{'background-image':'url('+f+')'}"></swiper-slide>
-          </swiper-container>
-        </ion-col>
-
-      </ion-row>
-      <validation-error
-        *ngIf="displayValidationErrorsByName('TripName')"
-        [errors]="newReportForm.get('TripName').errors"></validation-error>
-
-      <ion-item>
-        <ion-label position="stacked">{{ 'FORM.USER' | translate }}</ion-label>
-        <ion-input type="text" formControlName="User"></ion-input>
-      </ion-item>
-      <validation-error
-      *ngIf="displayValidationErrorsByName('User')"
-      [errors]="newReportForm.get('User').errors"></validation-error>
-
-    </form>
-
-  </ion-list>
+          [errors]="newReportForm.get('Region').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.STARTING-FROM' | translate }}</ion-label>
+          <ion-input type="text" formControlName="StartingFrom"></ion-input>
+        </ion-item>
+        @if (displayValidationErrorsByName('StartingFrom')) {
+          <validation-error
+          [errors]="newReportForm.get('StartingFrom').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.STARTING-VALLEY' | translate }}</ion-label>
+          <ion-input type="text" formControlName="StartingValley"></ion-input>
+        </ion-item>
+        @if (displayValidationErrorsByName('StartingValley')) {
+          <validation-error
+          [errors]="newReportForm.get('StartingValley').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.DATE' | translate }}</ion-label>
+          <ion-datetime presentation="date" formControlName="Date" (ionCancel)="cleanField($event)"></ion-datetime>
+        </ion-item>
+        @if (displayValidationErrorsByName('Date')) {
+          <validation-error
+          [errors]="newReportForm.get('Date').errors"></validation-error>
+        }
+        <ion-list-header>
+          <ion-label position="stacked">{{ 'FORM.ELEVATION-GAIN' | translate }}</ion-label>
+          <ion-badge slot="end" class="badge-class">{{newReportForm.get('ElevationGain').value}}</ion-badge>
+        </ion-list-header>
+        <ion-item>
+          <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
+            formControlName="ElevationGain">
+          </ion-range>
+        </ion-item>
+        @if (displayValidationErrorsByName('ElevationGain')) {
+          <validation-error
+          [errors]="newReportForm.get('ElevationGain').errors"></validation-error>
+        }
+        <ion-list-header>
+          <ion-label position="stacked">{{ 'FORM.STARTING-FROM-ALTITUDE' | translate }}</ion-label>
+          <ion-badge slot="end" class="badge-class">{{newReportForm.get('StartingAltitude').value}}</ion-badge>
+        </ion-list-header>
+        <ion-item>
+          <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
+            formControlName="StartingAltitude">
+          </ion-range>
+        </ion-item>
+        @if (displayValidationErrorsByName('StartingAltitude')) {
+          <validation-error
+          [errors]="newReportForm.get('StartingAltitude').errors"></validation-error>
+        }
+        <ion-list-header>
+          <ion-label position="stacked">{{ 'FORM.END-ALTITUDE' | translate }}</ion-label>
+          <ion-badge slot="end" class="badge-class">{{newReportForm.get('EndAltitude').value}}</ion-badge>
+        </ion-list-header>
+        <ion-item>
+          <ion-range [min]="vocabulary.height.min" [max]="vocabulary.height.max" step="100" [snaps]="false" [pin]="true"
+            formControlName="EndAltitude">
+          </ion-range>
+        </ion-item>
+        @if (displayValidationErrorsByName('EndAltitude')) {
+          <validation-error
+          [errors]="newReportForm.get('EndAltitude').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.GRADE' | translate }}</ion-label>
+          <ion-select formControlName="Grade" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.grades; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('Grade')) {
+          <validation-error
+          [errors]="newReportForm.get('Grade').errors"></validation-error>
+        }
+        <ion-row>
+          <ion-col size="12">
+            <ion-label position="stacked">{{ 'FORM.SIDE' | translate }}</ion-label>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">{{ 'FORM.UPHILL' | translate }}</ion-label>
+              <ion-select formControlName="UphillSide" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+                ok-text="{{ 'FORM.OK' | translate }}">
+                @for (str of vocabulary.sides; track str) {
+                  <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+            @if (displayValidationErrorsByName('UphillSide')) {
+              <validation-error
+              [errors]="newReportForm.get('UphillSide').errors"></validation-error>
+            }
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">{{ 'FORM.DOWNHILL' | translate }}</ion-label>
+              <ion-select formControlName="DownhillSide" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+                ok-text="{{ 'FORM.OK' | translate }}">
+                @for (str of vocabulary.sides; track str) {
+                  <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+            @if (displayValidationErrorsByName('DownhillSide')) {
+              <validation-error
+              [errors]="newReportForm.get('DownhillSide').errors"></validation-error>
+            }
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.MAIN-SNOW-TYPE' | translate }}</ion-label>
+          <ion-select formControlName="MainSnowType" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.snow_types; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('MainSnowType')) {
+          <validation-error
+          [errors]="newReportForm.get('MainSnowType').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.OTHER-SNOW-TYPE' | translate }}</ion-label>
+          <ion-select formControlName="OtherSnowType" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.snow_types; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('OtherSnowType')) {
+          <validation-error
+          [errors]="newReportForm.get('OtherSnowType').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.SNOW-RATE' | translate }}</ion-label>
+          <ion-select formControlName="SnowRate" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.snow_rates; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('SnowRate')) {
+          <validation-error
+          [errors]="newReportForm.get('SnowRate').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.SNOW-DESCRIPTION' | translate }}</ion-label>
+          <ion-textarea formControlName="SnowDescription" [autoGrow]="true"></ion-textarea>
+        </ion-item>
+        @if (displayValidationErrorsByName('SnowDescription')) {
+          <validation-error
+          [errors]="newReportForm.get('SnowDescription').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.AVALANCHE-RISK' | translate }}</ion-label>
+          <ion-select formControlName="AvalancheRisk" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.avalanche_risk; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('AvalancheRisk')) {
+          <validation-error
+          [errors]="newReportForm.get('AvalancheRisk').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.TRIP-RATE' | translate }}</ion-label>
+          <ion-select formControlName="TripRate" cancel-text="{{ 'FORM.CANCEL' | translate }}"
+            ok-text="{{ 'FORM.OK' | translate }}">
+            @for (str of vocabulary.trip_rates; track str) {
+              <ion-select-option value="{{str}}">{{str}}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+        @if (displayValidationErrorsByName('TripRate')) {
+          <validation-error
+          [errors]="newReportForm.get('TripRate').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.TRIP-DESCRIPTION' | translate }}</ion-label>
+          <ion-textarea formControlName="TripDescription" [autoGrow]="true"></ion-textarea>
+        </ion-item>
+        @if (displayValidationErrorsByName('TripDescription')) {
+          <validation-error
+          [errors]="newReportForm.get('TripDescription').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.LINKED-TRIP' | translate }}</ion-label>
+          <ion-input type="text" formControlName="LinkedTrip"></ion-input>
+        </ion-item>
+        @if (displayValidationErrorsByName('LinkedTrip')) {
+          <validation-error
+          [errors]="newReportForm.get('LinkedTrip').errors"></validation-error>
+        }
+        <ion-row>
+          <ion-col size="12">
+            <ion-label position="stacked">{{ 'FORM.IMAGES' | translate }}</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon name="add-circle" (click)="callClickEventOnInputTypeFile()" id="add-image-icon"></ion-icon>
+            <input #inputTypeFile style="display: none" accept="image/*" type="file" value=""
+              (change)="processFile($event)">
+          </ion-col>
+          <ion-col size="10">
+            <swiper-container slides-per-view="3" space-between="1">
+              @for (f of files; track f; let i = $index) {
+                <swiper-slide class="thumb" (click)="deleteSlide(i)"
+                [ngStyle]="{'background-image':'url('+f+')'}"></swiper-slide>
+              }
+            </swiper-container>
+          </ion-col>
+        </ion-row>
+        @if (displayValidationErrorsByName('TripName')) {
+          <validation-error
+          [errors]="newReportForm.get('TripName').errors"></validation-error>
+        }
+        <ion-item>
+          <ion-label position="stacked">{{ 'FORM.USER' | translate }}</ion-label>
+          <ion-input type="text" formControlName="User"></ion-input>
+        </ion-item>
+        @if (displayValidationErrorsByName('User')) {
+          <validation-error
+          [errors]="newReportForm.get('User').errors"></validation-error>
+        }
+      </form>
+    </ion-list>
+  }
 </ion-content>
 
 <ion-footer>

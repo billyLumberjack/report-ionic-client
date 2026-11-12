@@ -1,11 +1,17 @@
 <ion-card (click)="itemSelected(report)">
-  <swiper-container *ngIf="report.Images">
-    <swiper-slide class="image-slide" *ngFor="let url of report.Images" [ngStyle]="{'background-image':'url('+url+')'}">
-      <img [src]="url" style="display:none;" />
-    </swiper-slide>
-  </swiper-container>
+  @if (report.Images) {
+    <swiper-container>
+      @for (url of report.Images; track url) {
+        <swiper-slide class="image-slide" [ngStyle]="{'background-image':'url('+url+')'}">
+          <img [src]="url" style="display:none;" />
+        </swiper-slide>
+      }
+    </swiper-container>
+  }
 
-  <div class="default-image-bg" *ngIf="!report.Images"></div>
+  @if (!report.Images) {
+    <div class="default-image-bg"></div>
+  }
 
   <ion-card-content>
 
@@ -13,9 +19,11 @@
       <ion-col size="11" class="ion-no-padding ion-text-left">
         <h2>{{ report.TripName }}</h2>
       </ion-col>
-      <ion-col size="1" class="ion-no-padding ion-text-right" *ngIf="report.Visited">
-        <ion-icon name="eye" class="eye-icon"></ion-icon>
-      </ion-col>
+      @if (report.Visited) {
+        <ion-col size="1" class="ion-no-padding ion-text-right">
+          <ion-icon name="eye" class="eye-icon"></ion-icon>
+        </ion-col>
+      }
     </ion-row>
 
     <ion-row>

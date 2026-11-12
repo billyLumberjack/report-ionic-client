@@ -7,8 +7,10 @@
 </ion-header>
 <ion-content class="tutorial-page" scroll-y="false">
   <swiper-container #swiperRef pagination="true" zoom="true" keyboard="true" class="full-height-swiper">
-    <swiper-slide *ngFor="let slide of slides">
-      <div class="swiper-zoom-container"><img [src]="slide" class="slide-image" /></div>
-    </swiper-slide>
+    @for (slide of slides; track slide) {
+      <swiper-slide>
+        <div class="swiper-zoom-container"><img [src]="slide" class="slide-image" /></div>
+      </swiper-slide>
+    }
   </swiper-container>
 </ion-content>

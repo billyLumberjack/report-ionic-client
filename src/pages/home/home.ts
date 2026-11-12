@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ReportProvider } from '../../providers/report/report';
 import { ReportHandlerProvider } from '../../providers/report-handler/report-handler';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
-  styleUrls: ['home.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-home',
+    templateUrl: 'home.html',
+    styleUrls: ['home.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomePage implements OnInit {
 

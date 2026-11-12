@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { ReportProvider } from '../../providers/report/report';
 import { ReportHandlerProvider } from '../../providers/report-handler/report-handler';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-  selector: 'page-search-result',
-  templateUrl: 'search-result.html',
-  styleUrls: ['search-result.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-search-result',
+    templateUrl: 'search-result.html',
+    styleUrls: ['search-result.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SearchResultPage implements OnInit {
   show_page_loader = true;

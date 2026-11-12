@@ -1,14 +1,16 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'page-research',
-  templateUrl: 'research.html',
-  styleUrls: ['research.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-research',
+    templateUrl: 'research.html',
+    styleUrls: ['research.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ResearchPage {
 

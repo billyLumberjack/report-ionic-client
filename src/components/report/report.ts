@@ -1,13 +1,15 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-  selector: 'report',
-  templateUrl: 'report.html',
-  styleUrls: ['report.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'report',
+    templateUrl: 'report.html',
+    styleUrls: ['report.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportComponent {
 

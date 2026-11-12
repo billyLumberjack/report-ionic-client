@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,10 +6,12 @@ import { ReportProvider } from '../../providers/report/report';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 
 @Component({
-  selector: 'page-add',
-  templateUrl: 'add.html',
-  styleUrls: ['add.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-add',
+    templateUrl: 'add.html',
+    styleUrls: ['add.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddPage implements OnInit {
 

@@ -1,13 +1,15 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { SharedReportsProvider } from '../../providers/shared/shared';
 import { MapComponent } from '../../components/map/map';
 
 @Component({
-  selector: 'page-map',
-  templateUrl: 'map.html',
-  styleUrls: ['map.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'page-map',
+    templateUrl: 'map.html',
+    styleUrls: ['map.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MapPage {
 

@@ -1,5 +1,7 @@
 <ion-item lines="none">
-    <div class="error" *ngFor="let errorKey of objectKeys(errors)">
+  @for (errorKey of objectKeys(errors); track errorKey) {
+    <div class="error">
       {{getErrorBessageByKey(errorKey)}}
     </div>
+  }
 </ion-item>

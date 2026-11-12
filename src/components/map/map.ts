@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import * as leaflet from 'leaflet';
 import 'leaflet.fullscreen';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,10 +12,12 @@ leaflet.Icon.Default.mergeOptions({
 });
 
 @Component({
-  selector: 'map',
-  templateUrl: 'map.html',
-  styleUrls: ['map.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'map',
+    templateUrl: 'map.html',
+    styleUrls: ['map.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MapComponent {
 

@@ -2,14 +2,14 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule, Storage } from '@ionic/storage-angular';
 
 // Multilanguage
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateDirective, TranslatePipe, provideTranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader, provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MyApp } from './app.component';
@@ -38,10 +38,6 @@ import { ToFromDayOfYearPipe } from '../pipes/to-from-day-of-year/to-from-day-of
 import { ReportProvider } from '../providers/report/report';
 import { SharedReportsProvider } from '../providers/shared/shared';
 import { ReportHandlerProvider } from '../providers/report-handler/report-handler';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 export function initStorageFactory(storage: Storage) {
   return () => storage.create();
@@ -72,13 +68,8 @@ export function initStorageFactory(storage: Storage) {
     FormsModule,
     ReactiveFormsModule,
     IonicStorageModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    })
+    TranslatePipe,
+    TranslateDirective
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -88,7 +79,11 @@ export function initStorageFactory(storage: Storage) {
       deps: [Storage],
       multi: true
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
+    provideTranslateService({
+      loader: { provide: TranslateHttpLoader },
+    }),
+    provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
     ReportProvider,
     SharedReportsProvider,
     ReportHandlerProvider
