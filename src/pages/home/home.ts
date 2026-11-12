@@ -53,16 +53,26 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.reportProvider.getReports(this.params).subscribe(data => {
+    this.reportProvider.getReports(this.params).subscribe({
+      next: (data) => {
+        if (data.length === 0)
+          this.handleZeroReportsRetrieved();
 
-      if (data.length === 0)
-        this.handleZeroReportsRetrieved();
+        this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed, data, true);
+        this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
+        this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
 
-      this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed, data, true);
-      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
-      this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
-
-      this.show_page_loader = false;
+        this.show_page_loader = false;
+      },
+      error: (err) => {
+        console.error('Failed to load reports', err);
+        this.show_page_loader = false;
+        this.alertCtrl.create({
+          header: 'Error',
+          subHeader: 'Could not load reports',
+          buttons: [{ text: 'OK', role: 'cancel' }]
+        }).then(a => a.present());
+      }
     });
   }
 
@@ -71,11 +81,14 @@ export class HomePage implements OnInit {
       fromCreatedAt: this.reportHandler.highestCreatedAt + 1
     };
 
-    this.reportProvider.getReports(p).subscribe(data => {
-      this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed, data, false);
-      this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
-      this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
-      event.target.complete();
+    this.reportProvider.getReports(p).subscribe({
+      next: (data) => {
+        this.shared.reportsFeed = this.reportHandler.appendReports(this.shared.reportsFeed, data, false);
+        this.reportHandler.markAlreadyVisitedReports(this.shared.reportsFeed);
+        this.shared.reportsFeed = this.reportHandler.convertReortsDateToLocalOne(this.shared.reportsFeed);
+        event.target.complete();
+      },
+      error: () => event.target.complete()
     });
   }
 

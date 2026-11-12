@@ -3,12 +3,15 @@ import * as leaflet from 'leaflet';
 import 'leaflet.fullscreen';
 import { TranslateService } from '@ngx-translate/core';
 
-// Webpack strips the default icon URL resolution; point to the copied assets.
-delete (leaflet.Icon.Default.prototype as any)._getIconUrl;
-leaflet.Icon.Default.mergeOptions({
-  iconUrl:       'assets/leaflet/marker-icon.png',
-  iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
-  shadowUrl:     'assets/leaflet/marker-shadow.png',
+const orangeMarkerIcon = leaflet.divIcon({
+  className: '',
+  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z" fill="#E8671A" stroke="rgba(0,0,0,0.25)" stroke-width="0.5"/>
+    <circle cx="12" cy="12" r="4" fill="white"/>
+  </svg>`,
+  iconSize:    [24, 36],
+  iconAnchor:  [12, 36],
+  popupAnchor: [0, -38],
 });
 
 @Component({
@@ -75,7 +78,7 @@ export class MapComponent {
       popupString = this.generateLeafletPopupByReport(report, false);
     }
 
-    let marker = new leaflet.Marker(report.geometry.coordinates).bindPopup(popupString);
+    let marker = new leaflet.Marker(report.geometry.coordinates, { icon: orangeMarkerIcon }).bindPopup(popupString);
     return leaflet.featureGroup([marker]);
   }
 
@@ -148,7 +151,7 @@ export class MapComponent {
           popupString = this.generateLeafletPopupByReport(currentReport, false);
         }
 
-        let leafletMarker = new leaflet.Marker(currentReport.geometry.coordinates).bindPopup(popupString);
+        let leafletMarker = new leaflet.Marker(currentReport.geometry.coordinates, { icon: orangeMarkerIcon }).bindPopup(popupString);
         return leafletMarker;
       }
       else {

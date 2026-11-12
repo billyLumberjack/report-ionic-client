@@ -4,7 +4,7 @@ test.describe('App smoke', () => {
   test('renders ion-app shell', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('ion-app')).toBeVisible({ timeout: 15_000 });
-    await expect(page.locator('ion-router-outlet')).toBeAttached();
+    await expect(page.locator('ion-router-outlet').first()).toBeAttached();
     await expect(page).toHaveTitle('SkiApp Report');
   });
 
